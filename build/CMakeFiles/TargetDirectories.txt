@@ -178,3 +178,10 @@
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/ar_track_alvar/ar_track_alvar/CMakeFiles/actionlib_generate_messages_eus.dir
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/ar_track_alvar/ar_track_alvar/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/ar_track_alvar/ar_track_alvar/CMakeFiles/actionlib_generate_messages_py.dir
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/install/strip.dir
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/install/local.dir
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/install.dir
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/list_install_components.dir
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/rebuild_cache.dir
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/edit_cache.dir
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/test.dir

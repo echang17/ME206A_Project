@@ -8,7 +8,6 @@
 
 # modified environment variables
 export CMAKE_PREFIX_PATH="/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel:$CMAKE_PREFIX_PATH"
-export LD_LIBRARY_PATH="/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib:$LD_LIBRARY_PATH"
 export PWD='/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build'
 export ROSLISP_PACKAGE_DIRECTORIES="/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
 export ROS_PACKAGE_PATH="/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src:$ROS_PACKAGE_PATH"
