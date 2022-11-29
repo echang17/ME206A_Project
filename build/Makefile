@@ -1961,6 +1961,162 @@ actionlib_generate_messages_py/fast:
 	$(MAKE) -f ar_track_alvar/ar_track_alvar/CMakeFiles/actionlib_generate_messages_py.dir/build.make ar_track_alvar/ar_track_alvar/CMakeFiles/actionlib_generate_messages_py.dir/build
 .PHONY : actionlib_generate_messages_py/fast
 
+#=============================================================================
+# Target rules for targets named vision_generate_messages
+
+# Build rule for target.
+vision_generate_messages: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 vision_generate_messages
+.PHONY : vision_generate_messages
+
+# fast build rule for target.
+vision_generate_messages/fast:
+	$(MAKE) -f vision/CMakeFiles/vision_generate_messages.dir/build.make vision/CMakeFiles/vision_generate_messages.dir/build
+.PHONY : vision_generate_messages/fast
+
+#=============================================================================
+# Target rules for targets named vision_generate_messages_cpp
+
+# Build rule for target.
+vision_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 vision_generate_messages_cpp
+.PHONY : vision_generate_messages_cpp
+
+# fast build rule for target.
+vision_generate_messages_cpp/fast:
+	$(MAKE) -f vision/CMakeFiles/vision_generate_messages_cpp.dir/build.make vision/CMakeFiles/vision_generate_messages_cpp.dir/build
+.PHONY : vision_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named vision_generate_messages_nodejs
+
+# Build rule for target.
+vision_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 vision_generate_messages_nodejs
+.PHONY : vision_generate_messages_nodejs
+
+# fast build rule for target.
+vision_generate_messages_nodejs/fast:
+	$(MAKE) -f vision/CMakeFiles/vision_generate_messages_nodejs.dir/build.make vision/CMakeFiles/vision_generate_messages_nodejs.dir/build
+.PHONY : vision_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named _vision_generate_messages_check_deps_VisualData
+
+# Build rule for target.
+_vision_generate_messages_check_deps_VisualData: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _vision_generate_messages_check_deps_VisualData
+.PHONY : _vision_generate_messages_check_deps_VisualData
+
+# fast build rule for target.
+_vision_generate_messages_check_deps_VisualData/fast:
+	$(MAKE) -f vision/CMakeFiles/_vision_generate_messages_check_deps_VisualData.dir/build.make vision/CMakeFiles/_vision_generate_messages_check_deps_VisualData.dir/build
+.PHONY : _vision_generate_messages_check_deps_VisualData/fast
+
+#=============================================================================
+# Target rules for targets named vision_generate_messages_eus
+
+# Build rule for target.
+vision_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 vision_generate_messages_eus
+.PHONY : vision_generate_messages_eus
+
+# fast build rule for target.
+vision_generate_messages_eus/fast:
+	$(MAKE) -f vision/CMakeFiles/vision_generate_messages_eus.dir/build.make vision/CMakeFiles/vision_generate_messages_eus.dir/build
+.PHONY : vision_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named vision_genpy
+
+# Build rule for target.
+vision_genpy: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 vision_genpy
+.PHONY : vision_genpy
+
+# fast build rule for target.
+vision_genpy/fast:
+	$(MAKE) -f vision/CMakeFiles/vision_genpy.dir/build.make vision/CMakeFiles/vision_genpy.dir/build
+.PHONY : vision_genpy/fast
+
+#=============================================================================
+# Target rules for targets named vision_gencpp
+
+# Build rule for target.
+vision_gencpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 vision_gencpp
+.PHONY : vision_gencpp
+
+# fast build rule for target.
+vision_gencpp/fast:
+	$(MAKE) -f vision/CMakeFiles/vision_gencpp.dir/build.make vision/CMakeFiles/vision_gencpp.dir/build
+.PHONY : vision_gencpp/fast
+
+#=============================================================================
+# Target rules for targets named vision_gennodejs
+
+# Build rule for target.
+vision_gennodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 vision_gennodejs
+.PHONY : vision_gennodejs
+
+# fast build rule for target.
+vision_gennodejs/fast:
+	$(MAKE) -f vision/CMakeFiles/vision_gennodejs.dir/build.make vision/CMakeFiles/vision_gennodejs.dir/build
+.PHONY : vision_gennodejs/fast
+
+#=============================================================================
+# Target rules for targets named vision_geneus
+
+# Build rule for target.
+vision_geneus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 vision_geneus
+.PHONY : vision_geneus
+
+# fast build rule for target.
+vision_geneus/fast:
+	$(MAKE) -f vision/CMakeFiles/vision_geneus.dir/build.make vision/CMakeFiles/vision_geneus.dir/build
+.PHONY : vision_geneus/fast
+
+#=============================================================================
+# Target rules for targets named vision_generate_messages_lisp
+
+# Build rule for target.
+vision_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 vision_generate_messages_lisp
+.PHONY : vision_generate_messages_lisp
+
+# fast build rule for target.
+vision_generate_messages_lisp/fast:
+	$(MAKE) -f vision/CMakeFiles/vision_generate_messages_lisp.dir/build.make vision/CMakeFiles/vision_generate_messages_lisp.dir/build
+.PHONY : vision_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named vision_genlisp
+
+# Build rule for target.
+vision_genlisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 vision_genlisp
+.PHONY : vision_genlisp
+
+# fast build rule for target.
+vision_genlisp/fast:
+	$(MAKE) -f vision/CMakeFiles/vision_genlisp.dir/build.make vision/CMakeFiles/vision_genlisp.dir/build
+.PHONY : vision_genlisp/fast
+
+#=============================================================================
+# Target rules for targets named vision_generate_messages_py
+
+# Build rule for target.
+vision_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 vision_generate_messages_py
+.PHONY : vision_generate_messages_py
+
+# fast build rule for target.
+vision_generate_messages_py/fast:
+	$(MAKE) -f vision/CMakeFiles/vision_generate_messages_py.dir/build.make vision/CMakeFiles/vision_generate_messages_py.dir/build
+.PHONY : vision_generate_messages_py/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -2112,6 +2268,18 @@ help:
 	@echo "... actionlib_generate_messages_eus"
 	@echo "... actionlib_msgs_generate_messages_cpp"
 	@echo "... actionlib_generate_messages_py"
+	@echo "... vision_generate_messages"
+	@echo "... vision_generate_messages_cpp"
+	@echo "... vision_generate_messages_nodejs"
+	@echo "... _vision_generate_messages_check_deps_VisualData"
+	@echo "... vision_generate_messages_eus"
+	@echo "... vision_genpy"
+	@echo "... vision_gencpp"
+	@echo "... vision_gennodejs"
+	@echo "... vision_geneus"
+	@echo "... vision_generate_messages_lisp"
+	@echo "... vision_genlisp"
+	@echo "... vision_generate_messages_py"
 .PHONY : help
 
 
