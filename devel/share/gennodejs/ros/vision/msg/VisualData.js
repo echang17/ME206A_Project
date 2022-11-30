@@ -156,6 +156,7 @@ class VisualData {
     geometry_msgs/PoseStamped m3
     geometry_msgs/PoseStamped m4
     geometry_msgs/PoseStamped human_ar
+    
     ================================================================================
     MSG: geometry_msgs/PoseStamped
     # A Pose with reference coordinate frame and timestamp

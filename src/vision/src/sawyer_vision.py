@@ -7,7 +7,7 @@
 #Import the rospy package. For an import to work, it must be specified
 #in both the package manifest AND the Python file in which it is used.
 import rospy
-# import tf2_ros
+import tf2_ros
 import sys
 import numpy as np
 
@@ -15,7 +15,7 @@ import numpy as np
 # from intera_interface import Limb
 
 from geometry_msgs.msg import PoseStamped # pose data of joints/markers
-# from geometry_msgs.msg import TransformStamped # transform data between joints/markers
+from geometry_msgs.msg import TransformStamped # transform data between joints/markers
 from vision.msg import VisualData
 from ar_track_alvar_msgs.msg import AlvarMarker # built-in message type for 1 AR tag
 from ar_track_alvar_msgs.msg import AlvarMarkers # built-in message type for multiple AR tags
@@ -39,6 +39,12 @@ from ar_track_alvar_msgs.msg import AlvarMarkers # built-in message type for mul
 # position gripper to lift to a topic called 'tag_info'
 pub = rospy.Publisher('tag_info', VisualData, queue_size=10) # left queue_size=10 from lab2
 
+# tf Listener to get transforms between markers and robot
+# **Haven't finished this yet
+# tfBuffer = tf2_ros.Buffer() # store buffer of previous transforms
+# tfListener = tf2_ros.TransformListener(tfBuffer) #subscribe to tf topic and maintain tf graph inside Buffer
+
+
 # define a callback method which is called whenever this node receives a 
 # message on its subscribed topic. received message is passes as argument to callback()
 def callback(message):
@@ -50,23 +56,53 @@ def callback(message):
       # math here to determine individual marker locations (&object dimensions, lift location)
       #  frame_id is just the AR tag number as a double
 
-      #**TODO: FIX HEADERS
-      m2 = message.markers[0].pose
-      # m2.header = message.markers[0].header
-      m3 = message.markers[1].pose
-      # m3.header = message.markers[1].header
-      m4 = message.markers[2].pose
-      # m4.header = message.markers[2].header
-      m1 = message.markers[3].pose
-      # m1.header = message.markers[3].header
-      human_ar = message.markers[4].pose
-      # human_ar.header = message.markers[4].header
-      # print(m2)
-      # print(m3)
-      # print(m4)
-      # print(m1)
-      # print(human_ar)
+      # read and save AR tag information from /ar_pose_marker topic
+        # WHAT ORDER DOES ar_track_alvar read tags?!
+      
+      m1 = PoseStamped()
+      m1.header = message.markers[3].header
+      m1.pose = message.markers[3].pose.pose
 
+      m2 = PoseStamped()
+      m2.header = message.markers[0].header
+      m2.pose = message.markers[0].pose.pose
+      
+      m3 = PoseStamped()
+      m3.header = message.markers[1].header
+      m3.pose = message.markers[1].pose.pose
+      
+      m4 = PoseStamped()
+      m4.header = message.markers[2].header
+      m4.pose = message.markers[2].pose.pose
+      
+      human_ar = PoseStamped()
+      human_ar.header = message.markers[4].header
+      human_ar.pose = message.markers[4].pose.pose
+
+      # get transform from head camera to each object marker
+      # determine which markers are where
+      # ** In progress
+
+      # source_frame = head_camera
+      # distances = np.zeros(4)
+      # for i in range(4):
+      #   if i == 0:
+      #     target_frame = ar_marker_15
+      #   elif i == 1:
+      #     target_frame = ar_marker_4
+      #   elif i == 2:
+      #     target_frame = ar_marker_17
+      #   else:
+      #     target_frame = ar_marker_13
+
+      #   t = tfBuffer.lookup_transform(target_frame,source_frame,rospy.Time())
+      #   tx = t.transform.translation.x
+      #   ty = t.transform.translation.y
+      #   tz = t.transform.translation.z
+      #   distances[i] = np.sqrt(tx**2 + ty**2 + tz**2) # distance from head_camera
+      
+      # print(distances)
+  
       m1x = m1.pose.position.x # x axis to human operator's right
       m1y = m1.pose.position.y # y axis to human operator's forward
       m1z = m1.pose.position.z # z axis points up
@@ -84,6 +120,7 @@ def callback(message):
       obj_length = np.sqrt((m1x - m2x)**2 + (m1y - m2y)**2 + (m1z - m2z)**2)
       obj_width = np.sqrt((m1x - m4x)**2 + (m1y - m4y)**2 + (m1z - m4z)**2)
 
+      # TEMPORARY- THIS SHOULD BE CALCUALTED IN COG NODE
       # coordinates of where to lift: center of width between markers on side by markers 1 & 4
       lift_location = PoseStamped()
       lift_location.header.stamp = rospy.Time.now()

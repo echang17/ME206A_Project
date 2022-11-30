@@ -202,6 +202,7 @@ struct Definition< ::vision::VisualData_<ContainerAllocator> >
 "geometry_msgs/PoseStamped m3\n"
 "geometry_msgs/PoseStamped m4\n"
 "geometry_msgs/PoseStamped human_ar\n"
+"\n"
 "================================================================================\n"
 "MSG: geometry_msgs/PoseStamped\n"
 "# A Pose with reference coordinate frame and timestamp\n"
