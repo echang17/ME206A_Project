@@ -17,11 +17,6 @@
     :initarg :obj_width
     :type cl:float
     :initform 0.0)
-   (lift_location
-    :reader lift_location
-    :initarg :lift_location
-    :type geometry_msgs-msg:PoseStamped
-    :initform (cl:make-instance 'geometry_msgs-msg:PoseStamped))
    (m1
     :reader m1
     :initarg :m1
@@ -67,11 +62,6 @@
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader vision-msg:obj_width-val is deprecated.  Use vision-msg:obj_width instead.")
   (obj_width m))
 
-(cl:ensure-generic-function 'lift_location-val :lambda-list '(m))
-(cl:defmethod lift_location-val ((m <VisualData>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader vision-msg:lift_location-val is deprecated.  Use vision-msg:lift_location instead.")
-  (lift_location m))
-
 (cl:ensure-generic-function 'm1-val :lambda-list '(m))
 (cl:defmethod m1-val ((m <VisualData>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader vision-msg:m1-val is deprecated.  Use vision-msg:m1 instead.")
@@ -116,7 +106,6 @@
     (cl:write-byte (cl:ldb (cl:byte 8 40) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream))
-  (roslisp-msg-protocol:serialize (cl:slot-value msg 'lift_location) ostream)
   (roslisp-msg-protocol:serialize (cl:slot-value msg 'm1) ostream)
   (roslisp-msg-protocol:serialize (cl:slot-value msg 'm2) ostream)
   (roslisp-msg-protocol:serialize (cl:slot-value msg 'm3) ostream)
@@ -145,7 +134,6 @@
       (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
     (cl:setf (cl:slot-value msg 'obj_width) (roslisp-utils:decode-double-float-bits bits)))
-  (roslisp-msg-protocol:deserialize (cl:slot-value msg 'lift_location) istream)
   (roslisp-msg-protocol:deserialize (cl:slot-value msg 'm1) istream)
   (roslisp-msg-protocol:deserialize (cl:slot-value msg 'm2) istream)
   (roslisp-msg-protocol:deserialize (cl:slot-value msg 'm3) istream)
@@ -161,21 +149,20 @@
   "vision/VisualData")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<VisualData>)))
   "Returns md5sum for a message object of type '<VisualData>"
-  "fc3c80b5cc5d31b4f28a30cd37bc7cc2")
+  "71123c30f11632bdec81d52a08519094")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'VisualData)))
   "Returns md5sum for a message object of type 'VisualData"
-  "fc3c80b5cc5d31b4f28a30cd37bc7cc2")
+  "71123c30f11632bdec81d52a08519094")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<VisualData>)))
   "Returns full string definition for message of type '<VisualData>"
-  (cl:format cl:nil "float64 obj_length~%float64 obj_width~%geometry_msgs/PoseStamped lift_location~%geometry_msgs/PoseStamped m1~%geometry_msgs/PoseStamped m2~%geometry_msgs/PoseStamped m3~%geometry_msgs/PoseStamped m4~%geometry_msgs/PoseStamped human_ar~%~%================================================================================~%MSG: geometry_msgs/PoseStamped~%# A Pose with reference coordinate frame and timestamp~%Header header~%Pose pose~%~%================================================================================~%MSG: std_msgs/Header~%# Standard metadata for higher-level stamped data types.~%# This is generally used to communicate timestamped data ~%# in a particular coordinate frame.~%# ~%# sequence ID: consecutively increasing ID ~%uint32 seq~%#Two-integer timestamp that is expressed as:~%# * stamp.sec: seconds (stamp_secs) since epoch (in Python the variable is called 'secs')~%# * stamp.nsec: nanoseconds since stamp_secs (in Python the variable is called 'nsecs')~%# time-handling sugar is provided by the client library~%time stamp~%#Frame this data is associated with~%string frame_id~%~%================================================================================~%MSG: geometry_msgs/Pose~%# A representation of pose in free space, composed of position and orientation. ~%Point position~%Quaternion orientation~%~%================================================================================~%MSG: geometry_msgs/Point~%# This contains the position of a point in free space~%float64 x~%float64 y~%float64 z~%~%================================================================================~%MSG: geometry_msgs/Quaternion~%# This represents an orientation in free space in quaternion form.~%~%float64 x~%float64 y~%float64 z~%float64 w~%~%~%"))
+  (cl:format cl:nil "float64 obj_length~%float64 obj_width~%geometry_msgs/PoseStamped m1~%geometry_msgs/PoseStamped m2~%geometry_msgs/PoseStamped m3~%geometry_msgs/PoseStamped m4~%geometry_msgs/PoseStamped human_ar~%~%================================================================================~%MSG: geometry_msgs/PoseStamped~%# A Pose with reference coordinate frame and timestamp~%Header header~%Pose pose~%~%================================================================================~%MSG: std_msgs/Header~%# Standard metadata for higher-level stamped data types.~%# This is generally used to communicate timestamped data ~%# in a particular coordinate frame.~%# ~%# sequence ID: consecutively increasing ID ~%uint32 seq~%#Two-integer timestamp that is expressed as:~%# * stamp.sec: seconds (stamp_secs) since epoch (in Python the variable is called 'secs')~%# * stamp.nsec: nanoseconds since stamp_secs (in Python the variable is called 'nsecs')~%# time-handling sugar is provided by the client library~%time stamp~%#Frame this data is associated with~%string frame_id~%~%================================================================================~%MSG: geometry_msgs/Pose~%# A representation of pose in free space, composed of position and orientation. ~%Point position~%Quaternion orientation~%~%================================================================================~%MSG: geometry_msgs/Point~%# This contains the position of a point in free space~%float64 x~%float64 y~%float64 z~%~%================================================================================~%MSG: geometry_msgs/Quaternion~%# This represents an orientation in free space in quaternion form.~%~%float64 x~%float64 y~%float64 z~%float64 w~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'VisualData)))
   "Returns full string definition for message of type 'VisualData"
-  (cl:format cl:nil "float64 obj_length~%float64 obj_width~%geometry_msgs/PoseStamped lift_location~%geometry_msgs/PoseStamped m1~%geometry_msgs/PoseStamped m2~%geometry_msgs/PoseStamped m3~%geometry_msgs/PoseStamped m4~%geometry_msgs/PoseStamped human_ar~%~%================================================================================~%MSG: geometry_msgs/PoseStamped~%# A Pose with reference coordinate frame and timestamp~%Header header~%Pose pose~%~%================================================================================~%MSG: std_msgs/Header~%# Standard metadata for higher-level stamped data types.~%# This is generally used to communicate timestamped data ~%# in a particular coordinate frame.~%# ~%# sequence ID: consecutively increasing ID ~%uint32 seq~%#Two-integer timestamp that is expressed as:~%# * stamp.sec: seconds (stamp_secs) since epoch (in Python the variable is called 'secs')~%# * stamp.nsec: nanoseconds since stamp_secs (in Python the variable is called 'nsecs')~%# time-handling sugar is provided by the client library~%time stamp~%#Frame this data is associated with~%string frame_id~%~%================================================================================~%MSG: geometry_msgs/Pose~%# A representation of pose in free space, composed of position and orientation. ~%Point position~%Quaternion orientation~%~%================================================================================~%MSG: geometry_msgs/Point~%# This contains the position of a point in free space~%float64 x~%float64 y~%float64 z~%~%================================================================================~%MSG: geometry_msgs/Quaternion~%# This represents an orientation in free space in quaternion form.~%~%float64 x~%float64 y~%float64 z~%float64 w~%~%~%"))
+  (cl:format cl:nil "float64 obj_length~%float64 obj_width~%geometry_msgs/PoseStamped m1~%geometry_msgs/PoseStamped m2~%geometry_msgs/PoseStamped m3~%geometry_msgs/PoseStamped m4~%geometry_msgs/PoseStamped human_ar~%~%================================================================================~%MSG: geometry_msgs/PoseStamped~%# A Pose with reference coordinate frame and timestamp~%Header header~%Pose pose~%~%================================================================================~%MSG: std_msgs/Header~%# Standard metadata for higher-level stamped data types.~%# This is generally used to communicate timestamped data ~%# in a particular coordinate frame.~%# ~%# sequence ID: consecutively increasing ID ~%uint32 seq~%#Two-integer timestamp that is expressed as:~%# * stamp.sec: seconds (stamp_secs) since epoch (in Python the variable is called 'secs')~%# * stamp.nsec: nanoseconds since stamp_secs (in Python the variable is called 'nsecs')~%# time-handling sugar is provided by the client library~%time stamp~%#Frame this data is associated with~%string frame_id~%~%================================================================================~%MSG: geometry_msgs/Pose~%# A representation of pose in free space, composed of position and orientation. ~%Point position~%Quaternion orientation~%~%================================================================================~%MSG: geometry_msgs/Point~%# This contains the position of a point in free space~%float64 x~%float64 y~%float64 z~%~%================================================================================~%MSG: geometry_msgs/Quaternion~%# This represents an orientation in free space in quaternion form.~%~%float64 x~%float64 y~%float64 z~%float64 w~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <VisualData>))
   (cl:+ 0
      8
      8
-     (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'lift_location))
      (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'm1))
      (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'm2))
      (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'm3))
@@ -187,7 +174,6 @@
   (cl:list 'VisualData
     (cl:cons ':obj_length (obj_length msg))
     (cl:cons ':obj_width (obj_width msg))
-    (cl:cons ':lift_location (lift_location msg))
     (cl:cons ':m1 (m1 msg))
     (cl:cons ':m2 (m2 msg))
     (cl:cons ':m3 (m3 msg))

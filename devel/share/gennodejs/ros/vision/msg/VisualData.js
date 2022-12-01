@@ -21,7 +21,6 @@ class VisualData {
       // initObj === null is a special case for deserialization where we don't initialize fields
       this.obj_length = null;
       this.obj_width = null;
-      this.lift_location = null;
       this.m1 = null;
       this.m2 = null;
       this.m3 = null;
@@ -40,12 +39,6 @@ class VisualData {
       }
       else {
         this.obj_width = 0.0;
-      }
-      if (initObj.hasOwnProperty('lift_location')) {
-        this.lift_location = initObj.lift_location
-      }
-      else {
-        this.lift_location = new geometry_msgs.msg.PoseStamped();
       }
       if (initObj.hasOwnProperty('m1')) {
         this.m1 = initObj.m1
@@ -86,8 +79,6 @@ class VisualData {
     bufferOffset = _serializer.float64(obj.obj_length, buffer, bufferOffset);
     // Serialize message field [obj_width]
     bufferOffset = _serializer.float64(obj.obj_width, buffer, bufferOffset);
-    // Serialize message field [lift_location]
-    bufferOffset = geometry_msgs.msg.PoseStamped.serialize(obj.lift_location, buffer, bufferOffset);
     // Serialize message field [m1]
     bufferOffset = geometry_msgs.msg.PoseStamped.serialize(obj.m1, buffer, bufferOffset);
     // Serialize message field [m2]
@@ -109,8 +100,6 @@ class VisualData {
     data.obj_length = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [obj_width]
     data.obj_width = _deserializer.float64(buffer, bufferOffset);
-    // Deserialize message field [lift_location]
-    data.lift_location = geometry_msgs.msg.PoseStamped.deserialize(buffer, bufferOffset);
     // Deserialize message field [m1]
     data.m1 = geometry_msgs.msg.PoseStamped.deserialize(buffer, bufferOffset);
     // Deserialize message field [m2]
@@ -126,7 +115,6 @@ class VisualData {
 
   static getMessageSize(object) {
     let length = 0;
-    length += geometry_msgs.msg.PoseStamped.getMessageSize(object.lift_location);
     length += geometry_msgs.msg.PoseStamped.getMessageSize(object.m1);
     length += geometry_msgs.msg.PoseStamped.getMessageSize(object.m2);
     length += geometry_msgs.msg.PoseStamped.getMessageSize(object.m3);
@@ -142,7 +130,7 @@ class VisualData {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return 'fc3c80b5cc5d31b4f28a30cd37bc7cc2';
+    return '71123c30f11632bdec81d52a08519094';
   }
 
   static messageDefinition() {
@@ -150,7 +138,6 @@ class VisualData {
     return `
     float64 obj_length
     float64 obj_width
-    geometry_msgs/PoseStamped lift_location
     geometry_msgs/PoseStamped m1
     geometry_msgs/PoseStamped m2
     geometry_msgs/PoseStamped m3
@@ -222,13 +209,6 @@ class VisualData {
     }
     else {
       resolved.obj_width = 0.0
-    }
-
-    if (msg.lift_location !== undefined) {
-      resolved.lift_location = geometry_msgs.msg.PoseStamped.Resolve(msg.lift_location)
-    }
-    else {
-      resolved.lift_location = new geometry_msgs.msg.PoseStamped()
     }
 
     if (msg.m1 !== undefined) {

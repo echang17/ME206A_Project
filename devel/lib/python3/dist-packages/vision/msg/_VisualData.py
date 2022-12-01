@@ -10,12 +10,11 @@ import geometry_msgs.msg
 import std_msgs.msg
 
 class VisualData(genpy.Message):
-  _md5sum = "fc3c80b5cc5d31b4f28a30cd37bc7cc2"
+  _md5sum = "71123c30f11632bdec81d52a08519094"
   _type = "vision/VisualData"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """float64 obj_length
 float64 obj_width
-geometry_msgs/PoseStamped lift_location
 geometry_msgs/PoseStamped m1
 geometry_msgs/PoseStamped m2
 geometry_msgs/PoseStamped m3
@@ -66,8 +65,8 @@ float64 y
 float64 z
 float64 w
 """
-  __slots__ = ['obj_length','obj_width','lift_location','m1','m2','m3','m4','human_ar']
-  _slot_types = ['float64','float64','geometry_msgs/PoseStamped','geometry_msgs/PoseStamped','geometry_msgs/PoseStamped','geometry_msgs/PoseStamped','geometry_msgs/PoseStamped','geometry_msgs/PoseStamped']
+  __slots__ = ['obj_length','obj_width','m1','m2','m3','m4','human_ar']
+  _slot_types = ['float64','float64','geometry_msgs/PoseStamped','geometry_msgs/PoseStamped','geometry_msgs/PoseStamped','geometry_msgs/PoseStamped','geometry_msgs/PoseStamped']
 
   def __init__(self, *args, **kwds):
     """
@@ -77,7 +76,7 @@ float64 w
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       obj_length,obj_width,lift_location,m1,m2,m3,m4,human_ar
+       obj_length,obj_width,m1,m2,m3,m4,human_ar
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -90,8 +89,6 @@ float64 w
         self.obj_length = 0.
       if self.obj_width is None:
         self.obj_width = 0.
-      if self.lift_location is None:
-        self.lift_location = geometry_msgs.msg.PoseStamped()
       if self.m1 is None:
         self.m1 = geometry_msgs.msg.PoseStamped()
       if self.m2 is None:
@@ -105,7 +102,6 @@ float64 w
     else:
       self.obj_length = 0.
       self.obj_width = 0.
-      self.lift_location = geometry_msgs.msg.PoseStamped()
       self.m1 = geometry_msgs.msg.PoseStamped()
       self.m2 = geometry_msgs.msg.PoseStamped()
       self.m3 = geometry_msgs.msg.PoseStamped()
@@ -125,15 +121,7 @@ float64 w
     """
     try:
       _x = self
-      buff.write(_get_struct_2d3I().pack(_x.obj_length, _x.obj_width, _x.lift_location.header.seq, _x.lift_location.header.stamp.secs, _x.lift_location.header.stamp.nsecs))
-      _x = self.lift_location.header.frame_id
-      length = len(_x)
-      if python3 or type(_x) == unicode:
-        _x = _x.encode('utf-8')
-        length = len(_x)
-      buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
-      _x = self
-      buff.write(_get_struct_7d3I().pack(_x.lift_location.pose.position.x, _x.lift_location.pose.position.y, _x.lift_location.pose.position.z, _x.lift_location.pose.orientation.x, _x.lift_location.pose.orientation.y, _x.lift_location.pose.orientation.z, _x.lift_location.pose.orientation.w, _x.m1.header.seq, _x.m1.header.stamp.secs, _x.m1.header.stamp.nsecs))
+      buff.write(_get_struct_2d3I().pack(_x.obj_length, _x.obj_width, _x.m1.header.seq, _x.m1.header.stamp.secs, _x.m1.header.stamp.nsecs))
       _x = self.m1.header.frame_id
       length = len(_x)
       if python3 or type(_x) == unicode:
@@ -185,8 +173,6 @@ float64 w
     if python3:
       codecs.lookup_error("rosmsg").msg_type = self._type
     try:
-      if self.lift_location is None:
-        self.lift_location = geometry_msgs.msg.PoseStamped()
       if self.m1 is None:
         self.m1 = geometry_msgs.msg.PoseStamped()
       if self.m2 is None:
@@ -201,20 +187,7 @@ float64 w
       _x = self
       start = end
       end += 28
-      (_x.obj_length, _x.obj_width, _x.lift_location.header.seq, _x.lift_location.header.stamp.secs, _x.lift_location.header.stamp.nsecs,) = _get_struct_2d3I().unpack(str[start:end])
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      start = end
-      end += length
-      if python3:
-        self.lift_location.header.frame_id = str[start:end].decode('utf-8', 'rosmsg')
-      else:
-        self.lift_location.header.frame_id = str[start:end]
-      _x = self
-      start = end
-      end += 68
-      (_x.lift_location.pose.position.x, _x.lift_location.pose.position.y, _x.lift_location.pose.position.z, _x.lift_location.pose.orientation.x, _x.lift_location.pose.orientation.y, _x.lift_location.pose.orientation.z, _x.lift_location.pose.orientation.w, _x.m1.header.seq, _x.m1.header.stamp.secs, _x.m1.header.stamp.nsecs,) = _get_struct_7d3I().unpack(str[start:end])
+      (_x.obj_length, _x.obj_width, _x.m1.header.seq, _x.m1.header.stamp.secs, _x.m1.header.stamp.nsecs,) = _get_struct_2d3I().unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
@@ -293,15 +266,7 @@ float64 w
     """
     try:
       _x = self
-      buff.write(_get_struct_2d3I().pack(_x.obj_length, _x.obj_width, _x.lift_location.header.seq, _x.lift_location.header.stamp.secs, _x.lift_location.header.stamp.nsecs))
-      _x = self.lift_location.header.frame_id
-      length = len(_x)
-      if python3 or type(_x) == unicode:
-        _x = _x.encode('utf-8')
-        length = len(_x)
-      buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
-      _x = self
-      buff.write(_get_struct_7d3I().pack(_x.lift_location.pose.position.x, _x.lift_location.pose.position.y, _x.lift_location.pose.position.z, _x.lift_location.pose.orientation.x, _x.lift_location.pose.orientation.y, _x.lift_location.pose.orientation.z, _x.lift_location.pose.orientation.w, _x.m1.header.seq, _x.m1.header.stamp.secs, _x.m1.header.stamp.nsecs))
+      buff.write(_get_struct_2d3I().pack(_x.obj_length, _x.obj_width, _x.m1.header.seq, _x.m1.header.stamp.secs, _x.m1.header.stamp.nsecs))
       _x = self.m1.header.frame_id
       length = len(_x)
       if python3 or type(_x) == unicode:
@@ -354,8 +319,6 @@ float64 w
     if python3:
       codecs.lookup_error("rosmsg").msg_type = self._type
     try:
-      if self.lift_location is None:
-        self.lift_location = geometry_msgs.msg.PoseStamped()
       if self.m1 is None:
         self.m1 = geometry_msgs.msg.PoseStamped()
       if self.m2 is None:
@@ -370,20 +333,7 @@ float64 w
       _x = self
       start = end
       end += 28
-      (_x.obj_length, _x.obj_width, _x.lift_location.header.seq, _x.lift_location.header.stamp.secs, _x.lift_location.header.stamp.nsecs,) = _get_struct_2d3I().unpack(str[start:end])
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      start = end
-      end += length
-      if python3:
-        self.lift_location.header.frame_id = str[start:end].decode('utf-8', 'rosmsg')
-      else:
-        self.lift_location.header.frame_id = str[start:end]
-      _x = self
-      start = end
-      end += 68
-      (_x.lift_location.pose.position.x, _x.lift_location.pose.position.y, _x.lift_location.pose.position.z, _x.lift_location.pose.orientation.x, _x.lift_location.pose.orientation.y, _x.lift_location.pose.orientation.z, _x.lift_location.pose.orientation.w, _x.m1.header.seq, _x.m1.header.stamp.secs, _x.m1.header.stamp.nsecs,) = _get_struct_7d3I().unpack(str[start:end])
+      (_x.obj_length, _x.obj_width, _x.m1.header.seq, _x.m1.header.stamp.secs, _x.m1.header.stamp.nsecs,) = _get_struct_2d3I().unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])

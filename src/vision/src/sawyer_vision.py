@@ -29,8 +29,8 @@ from ar_track_alvar_msgs.msg import AlvarMarkers # built-in message type for mul
   #   to a topic called 'tag_info'
 
   # Other notes: 
-  # Markers 1 & 2 or 3 & 4 define the length of the object
-  # Markers 1 & 4 or 2 & 3 define the width of the object
+  # Markers 1 & 4 or 2 & 3 define the length of the object
+  # Markers 1 & 2 or 3 & 4 define the width of the object
   # Assume human stands to the side of the robot (instead of opposite the table)
   # and robot lifts with gripper in a configuration parallel to own body
 
@@ -39,101 +39,83 @@ from ar_track_alvar_msgs.msg import AlvarMarkers # built-in message type for mul
 # position gripper to lift to a topic called 'tag_info'
 pub = rospy.Publisher('tag_info', VisualData, queue_size=10) # left queue_size=10 from lab2
 
-# tf Listener to get transforms between markers and robot
-# **Haven't finished this yet
-# tfBuffer = tf2_ros.Buffer() # store buffer of previous transforms
-# tfListener = tf2_ros.TransformListener(tfBuffer) #subscribe to tf topic and maintain tf graph inside Buffer
-
-
 # define a callback method which is called whenever this node receives a 
 # message on its subscribed topic. received message is passes as argument to callback()
 def callback(message):
   while not rospy.is_shutdown():
     try:
-      # print(message)
-      # print(message.markers[4].id) # [1] = marker 17(3), [0] = 4(2) [2] = 13(4) [3] = 15(1), 
-      #[4] = 16(human)
-      # math here to determine individual marker locations (&object dimensions, lift location)
-      #  frame_id is just the AR tag number as a double
-
       # read and save AR tag information from /ar_pose_marker topic
-        # WHAT ORDER DOES ar_track_alvar read tags?!
+      # print('number of markers detected:')
+      # print(len(message.markers))
+      avail_ids = []
+
+      for i in range(len(message.markers)): # loop through all markers detected
+        if message.markers[i].id == 1: # ar_marker_1
+          m1 = PoseStamped()
+          m1.header = message.markers[i].header
+          m1.pose = message.markers[i].pose.pose
+
+          avail_ids.append(1)
+          m1x = m1.pose.position.x # x axis to human operator's right
+          m1y = m1.pose.position.y # y axis to human operator's forward
+          m1z = m1.pose.position.z # z axis points up
+        elif message.markers[i].id == 2: # ar_marker_2
+          m2 = PoseStamped()
+          m2.header = message.markers[i].header
+          m2.pose = message.markers[i].pose.pose
+
+          avail_ids.append(2)
+          m2x = m2.pose.position.x # x axis to human operator's right
+          m2y = m2.pose.position.y # y axis to human operator's forward
+          m2z = m2.pose.position.z # z axis points up
+        elif message.markers[i].id == 3: # ar_marker_3
+          m3 = PoseStamped()
+          m3.header = message.markers[i].header
+          m3.pose = message.markers[i].pose.pose
+
+          avail_ids.append(3)
+          m3x = m3.pose.position.x # x axis to human operator's right
+          m3y = m3.pose.position.y # y axis to human operator's forward
+          m3z = m3.pose.position.z # z axis points up
+        elif message.markers[i].id == 4: # ar_marker_4
+          m4 = PoseStamped()
+          m4.header = message.markers[i].header
+          m4.pose = message.markers[i].pose.pose
+
+          avail_ids.append(4)
+          m4x = m4.pose.position.x # x axis to human operator's right
+          m4y = m4.pose.position.y # y axis to human operator's forward
+          m4z = m4.pose.position.z # z axis points up
+        else: # marker id 4 = ar_marker_5
+          human_ar = PoseStamped()
+          human_ar.header = message.markers[i].header
+          human_ar.pose = message.markers[i].pose.pose
       
-      m1 = PoseStamped()
-      m1.header = message.markers[3].header
-      m1.pose = message.markers[3].pose.pose
-
-      m2 = PoseStamped()
-      m2.header = message.markers[0].header
-      m2.pose = message.markers[0].pose.pose
-      
-      m3 = PoseStamped()
-      m3.header = message.markers[1].header
-      m3.pose = message.markers[1].pose.pose
-      
-      m4 = PoseStamped()
-      m4.header = message.markers[2].header
-      m4.pose = message.markers[2].pose.pose
-      
-      human_ar = PoseStamped()
-      human_ar.header = message.markers[4].header
-      human_ar.pose = message.markers[4].pose.pose
-
-      # get transform from head camera to each object marker
-      # determine which markers are where
-      # ** In progress
-
-      # source_frame = head_camera
-      # distances = np.zeros(4)
-      # for i in range(4):
-      #   if i == 0:
-      #     target_frame = ar_marker_15
-      #   elif i == 1:
-      #     target_frame = ar_marker_4
-      #   elif i == 2:
-      #     target_frame = ar_marker_17
-      #   else:
-      #     target_frame = ar_marker_13
-
-      #   t = tfBuffer.lookup_transform(target_frame,source_frame,rospy.Time())
-      #   tx = t.transform.translation.x
-      #   ty = t.transform.translation.y
-      #   tz = t.transform.translation.z
-      #   distances[i] = np.sqrt(tx**2 + ty**2 + tz**2) # distance from head_camera
-      
-      # print(distances)
-  
-      m1x = m1.pose.position.x # x axis to human operator's right
-      m1y = m1.pose.position.y # y axis to human operator's forward
-      m1z = m1.pose.position.z # z axis points up
-     
-
-      m2x = m2.pose.position.x # x axis to human operator's right
-      m2y = m2.pose.position.y # y axis to human operator's forward
-      m2z = m2.pose.position.z # z axis points up
-
-      m4x = m4.pose.position.x # x axis to human operator's right
-      m4y = m4.pose.position.y # y axis to human operator's forward
-      m4z = m4.pose.position.z # z axis points up
+      # print('available object marker ids:')
+      # print(avail_ids)
       #object shape: distances between pairs of markers
-      # add extra code if a marker is obscured?
-      obj_length = np.sqrt((m1x - m2x)**2 + (m1y - m2y)**2 + (m1z - m2z)**2)
-      obj_width = np.sqrt((m1x - m4x)**2 + (m1y - m4y)**2 + (m1z - m4z)**2)
 
-      # TEMPORARY- THIS SHOULD BE CALCUALTED IN COG NODE
-      # coordinates of where to lift: center of width between markers on side by markers 1 & 4
-      lift_location = PoseStamped()
-      lift_location.header.stamp = rospy.Time.now()
-      lift_location.header.frame_id = "right_gripper"
-      lift_location.pose.position.x = m4x
-      lift_location.pose.position.y = m4y - obj_width/2
-      lift_location.pose.position.z = m4z
-      lift_location.pose.orientation.x = -1 # no rotation (hold flat?- check these values)
-      lift_location.pose.orientation.y = 0
-      lift_location.pose.orientation.z = 0
-      lift_location.pose.orientation.w = 0 
+      # length: need both 1&4 opr 2&3
+      # width: need both 1&2 or 3&4
+
+      if 1 in avail_ids and 4 in avail_ids:
+        obj_length = obj_length = np.sqrt((m1x - m4x)**2 + (m1y - m4y)**2 + (m1z - m4z)**2)
+      elif 2 in avail_ids and 3 in avail_ids:
+        obj_length = np.sqrt((m2x - m3x)**2 + (m2y - m3y)**2 + (m2z - m3z)**2)
+      else:
+        print('not enough markers detected to determine length')
+        obj_length = 0
       
-      pub.publish(VisualData (obj_length,obj_width,lift_location,m1,m2,m3,m4,human_ar))
+      if 1 in avail_ids and 2 in avail_ids:
+        obj_width = np.sqrt((m1x - m2x)**2 + (m1y - m2y)**2 + (m1z - m2z)**2)
+      elif 3 in avail_ids and 4 in avail_ids:
+         obj_width = np.sqrt((m3x - m4x)**2 + (m3y - m4y)**2 + (m3z - m4z)**2)
+      else:
+        print('not enough markers detected to determine width')
+        obj_width = 0
+      
+      pub.publish(VisualData (obj_length,obj_width,m1,m2,m3,m4,human_ar))
+      print('publishing to /tag_info')
     except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
       pass
 

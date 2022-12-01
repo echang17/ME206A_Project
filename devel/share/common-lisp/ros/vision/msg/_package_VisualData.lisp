@@ -3,8 +3,6 @@
           OBJ_LENGTH
           OBJ_WIDTH-VAL
           OBJ_WIDTH
-          LIFT_LOCATION-VAL
-          LIFT_LOCATION
           M1-VAL
           M1
           M2-VAL

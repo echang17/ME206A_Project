@@ -16,14 +16,13 @@
 
 (defclass vision::VisualData
   :super ros::object
-  :slots (_obj_length _obj_width _lift_location _m1 _m2 _m3 _m4 _human_ar ))
+  :slots (_obj_length _obj_width _m1 _m2 _m3 _m4 _human_ar ))
 
 (defmethod vision::VisualData
   (:init
    (&key
     ((:obj_length __obj_length) 0.0)
     ((:obj_width __obj_width) 0.0)
-    ((:lift_location __lift_location) (instance geometry_msgs::PoseStamped :init))
     ((:m1 __m1) (instance geometry_msgs::PoseStamped :init))
     ((:m2 __m2) (instance geometry_msgs::PoseStamped :init))
     ((:m3 __m3) (instance geometry_msgs::PoseStamped :init))
@@ -33,7 +32,6 @@
    (send-super :init)
    (setq _obj_length (float __obj_length))
    (setq _obj_width (float __obj_width))
-   (setq _lift_location __lift_location)
    (setq _m1 __m1)
    (setq _m2 __m2)
    (setq _m3 __m3)
@@ -46,13 +44,6 @@
   (:obj_width
    (&optional __obj_width)
    (if __obj_width (setq _obj_width __obj_width)) _obj_width)
-  (:lift_location
-   (&rest __lift_location)
-   (if (keywordp (car __lift_location))
-       (send* _lift_location __lift_location)
-     (progn
-       (if __lift_location (setq _lift_location (car __lift_location)))
-       _lift_location)))
   (:m1
    (&rest __m1)
    (if (keywordp (car __m1))
@@ -95,8 +86,6 @@
     8
     ;; float64 _obj_width
     8
-    ;; geometry_msgs/PoseStamped _lift_location
-    (send _lift_location :serialization-length)
     ;; geometry_msgs/PoseStamped _m1
     (send _m1 :serialization-length)
     ;; geometry_msgs/PoseStamped _m2
@@ -116,8 +105,6 @@
        (sys::poke _obj_length (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
      ;; float64 _obj_width
        (sys::poke _obj_width (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
-     ;; geometry_msgs/PoseStamped _lift_location
-       (send _lift_location :serialize s)
      ;; geometry_msgs/PoseStamped _m1
        (send _m1 :serialize s)
      ;; geometry_msgs/PoseStamped _m2
@@ -136,8 +123,6 @@
      (setq _obj_length (sys::peek buf ptr- :double)) (incf ptr- 8)
    ;; float64 _obj_width
      (setq _obj_width (sys::peek buf ptr- :double)) (incf ptr- 8)
-   ;; geometry_msgs/PoseStamped _lift_location
-     (send _lift_location :deserialize buf ptr-) (incf ptr- (send _lift_location :serialization-length))
    ;; geometry_msgs/PoseStamped _m1
      (send _m1 :deserialize buf ptr-) (incf ptr- (send _m1 :serialization-length))
    ;; geometry_msgs/PoseStamped _m2
@@ -152,12 +137,11 @@
    self)
   )
 
-(setf (get vision::VisualData :md5sum-) "fc3c80b5cc5d31b4f28a30cd37bc7cc2")
+(setf (get vision::VisualData :md5sum-) "71123c30f11632bdec81d52a08519094")
 (setf (get vision::VisualData :datatype-) "vision/VisualData")
 (setf (get vision::VisualData :definition-)
       "float64 obj_length
 float64 obj_width
-geometry_msgs/PoseStamped lift_location
 geometry_msgs/PoseStamped m1
 geometry_msgs/PoseStamped m2
 geometry_msgs/PoseStamped m3
@@ -212,6 +196,6 @@ float64 w
 
 
 
-(provide :vision/VisualData "fc3c80b5cc5d31b4f28a30cd37bc7cc2")
+(provide :vision/VisualData "71123c30f11632bdec81d52a08519094")
 
 
