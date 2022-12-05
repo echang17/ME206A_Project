@@ -23,6 +23,7 @@ def callback(message):
     while not rospy.is_shutdown():
         try:
             print("reading vision node")
+            gripper_offset = 0.2
             hand_pos = (message.human_ar.pose.position.x, message.human_ar.pose.position.y, message.human_ar.pose.position.z)
             m1_pos = (message.m1.pose.position.x, message.m1.pose.position.y, message.m1.pose.position.z)
             m2_pos = (message.m2.pose.position.x, message.m2.pose.position.y, message.m2.pose.position.z)
@@ -37,14 +38,24 @@ def callback(message):
 
             sawyer_cog = Pose()
             sawyer_cog.pos.position.x = sawyer_x_cog
-            sawyer_cog.pos.position.y = sawyer_y
+            sawyer_cog.pos.position.y = sawyer_y - gripper_offset
             sawyer_cog.pos.position.z = sawyer_z
+            
+            sawyer_cog.pos.orientation.x = message.m1.pose.orientation.x
+            sawyer_cog.pos.orientation.y = -1.0 * message.human_ar.pose.orientation.y
+            sawyer_cog.pos.orientation.z = message.m1.pose.orientation.z
+            sawyer_cog.pos.orientation.w = message.m1.pose.orientation.w
             
             sawyer_init = Pose()
             sawyer_init.pos.position.x = sawyer_x_init
-            sawyer_init.pos.position.y = sawyer_y
+            sawyer_init.pos.position.y = sawyer_y - gripper_offset
             sawyer_init.pos.position.z = sawyer_z
-
+            
+            sawyer_init.pos.orientation.x = message.m1.pose.orientation.x
+            sawyer_init.pos.orientation.y = -1.0 * message.human_ar.pose.orientation.y
+            sawyer_init.pos.orientation.z = message.m1.pose.orientation.z
+            sawyer_init.pos.orientation.w = message.m1.pose.orientation.w
+            
 
             pub.publish(SawyerCog(sawyer_cog, sawyer_init))
         except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
