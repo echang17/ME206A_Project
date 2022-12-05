@@ -1,0 +1,107 @@
+#TODO
+- Maybe establish an acknowledgement command sent whenever an action above a 
+    certain distance is being done.
+- After the acknowledgement, only then the ar_to_waypoint node publishes again 
+
+# Tuck Position
+position: [0.00246875, 0.000681640625, -1.0003623046875, 
+-8.49609375e-05, 1.000365234375, 0.0017509765625, 
+1.5994873046875, 1.5695146484375, 0.0]
+
+# Drawing an -(x - 0.159)^2 + 0.386
+# Left bottom 0
+    - Translation: [0.691, -0.211, 0.0]
+    - Rotation: in Quaternion [0.0, 1.0, 0.0, -0.0]
+                in RPY (radian) [-3.120, 0.0, 3.054]
+                in RPY (degree) [-178.785, -0.117, 174.973]
+# Left bottom 1
+    - Translation: [0.691, -0.255, 0.214]
+    - Rotation: in Quaternion [0.0, 1.0, 0.0, 0.0]
+                in RPY (radian) [3.105, -0.088, 3.048]
+                in RPY (degree) [177.900, -5.021, 174.653]
+
+# Tuck 2
+    - Translation: [0.691, 0.159, 0.386]
+    - Rotation: in Quaternion [0.0, 1.0, 0.0, 0.0]
+                in RPY (radian) [3.139, -0.026, -2.968]
+                in RPY (degree) [179.843, -1.463, -170.053]
+
+# right bottom 1
+    - Translation: [0.691, 0.5733, 0.214]
+    - Rotation: in Quaternion [0.0, 1.0, 0.0, 0.0]
+                in RPY (radian) [3.105, -0.088, 3.048]
+                in RPY (degree) [177.900, -5.021, 174.653]
+
+# right bottom 2
+    - Translation: [0.691, 0.6803, 0.0]
+    - Rotation: in Quaternion [0.0, 1.0, 0.0, 0.0]
+                in RPY (radian) [3.105, -0.088, 3.048]
+                in RPY (degree) [177.900, -5.021, 174.653]
+
+
+
+
+#Tuck
+roslaunch intera_examples sawyer_tuck.launch
+
+# Filter rostopics
+rostopic list | grep robot/head
+
+rosrun intera_interface enable_robot.py -e
+
+# Run Sawyer’s joint trajectory controller with the command
+rosrun intera_interface joint_trajectory_action_server.py
+
+# 
+roslaunch sawyer_moveit_config sawyer_moveit.launch electric_gripper:=true
+rosrun planner path_test.py
+
+# Get relative tip from base
+rosrun tf tf_echo world right_gripper_tip
+
+# View all the frames available
+rosrun tf view_frames
+
+# Connected waypoints
+self._group.compute_cartesian_path(connected_countours, .01 ,0)
+
+waypoints are poses()
+compute_cartesian_path(self, waypoints, eef_step, jump_threshold, avoid_collisions = True)
+[]
+
+# AR VR things
+1) run: roslaunch lab4_cam run_cam.launch
+2)
+3)
+4)
+
+# Check Ros Params
+rosparam list
+
+# topic: 
+/tag_info
+
+# Vision node and package items
+./intera.sh
+rosrun intera_interface enable_robot.py -e
+# rosrun intera_examples camera_display.py
+roslaunch vision ar_track.launch
+rosrun intera_interface joint_trajectory_action_server.py
+roslaunch sawyer_moveit_config sawyer_moveit.launch electric_gripper:=true
+rosrun planner path_test.py
+rosrun vision ar_to_waypoint_node.py
+
+
+Testing:
+rosrun intera_interface enable_robot.py -e
+rosrun intera_interface joint_trajectory_action_server.py
+roslaunch sawyer_moveit_config sawyer_moveit.launch electric_gripper:=true
+rosrun vision ar_to_waypoint_node.py
+rosrun planner path_test.py
+rosrun planner controller_execution.py
+
+In RVIZ:
+set fixed frame: head_camera
+add Image display, set topic: /io/internal_camera/head_camera/image_raw (image only)
+add Camera display, set topic: /io/internal_camera/head_camera/image_raw (image with AR tag frame overlay)
+add TF display to see AR tag frames (x: red, y: green, z: blue)
