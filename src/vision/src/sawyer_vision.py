@@ -49,45 +49,71 @@ def callback(message):
     # print(len(message.markers))
     allobj_ids = [1,2,3,4]
     avail_ids = []
+    dict = {}
+    ref_marker = -1
 
     for i in range(len(message.markers)): # loop through all markers detected
       if message.markers[i].id == 1: # ar_marker_1
         m1 = PoseStamped()
-        m1.header = message.markers[i].header
-        m1.pose = message.markers[i].pose.pose
+        m1.header = message.markers[i].header # copy over header for ar_marker_1
+        m1.pose = message.markers[i].pose.pose # copy over pose for ar_marker_1
 
-        avail_ids.append(1)
+        avail_ids.append(1) # add 1 to available marker ids
+        dict[1] = m1 # add m1 to dictionary of markers
+        ref_marker = 1 # list m1 as reference marker
+
         m1x = m1.pose.position.x # x axis to human operator's right
         m1y = m1.pose.position.y # y axis to human operator's forward
         m1z = m1.pose.position.z # z axis points up
+
+        cpx = m1x + obj_width/2
+        cpy = m1y - obj_length/2
       elif message.markers[i].id == 2: # ar_marker_2
         m2 = PoseStamped()
         m2.header = message.markers[i].header
         m2.pose = message.markers[i].pose.pose
 
         avail_ids.append(2)
+        dict[2] = m2
+        ref_marker = 2
+
         m2x = m2.pose.position.x # x axis to human operator's right
         m2y = m2.pose.position.y # y axis to human operator's forward
         m2z = m2.pose.position.z # z axis points up
+
+        cpx = m2x - obj_width/2
+        cpy = m2y - obj_length/2
       elif message.markers[i].id == 3: # ar_marker_3
         m3 = PoseStamped()
         m3.header = message.markers[i].header
         m3.pose = message.markers[i].pose.pose
 
         avail_ids.append(3)
+        dict[3] = m3
+        ref_marker = 3
+
         m3x = m3.pose.position.x # x axis to human operator's right
         m3y = m3.pose.position.y # y axis to human operator's forward
         m3z = m3.pose.position.z # z axis points up
+
+        cpx = m3x - obj_width/2
+        cpy = m3y + obj_length/2
       elif message.markers[i].id == 4: # ar_marker_4
         m4 = PoseStamped()
         m4.header = message.markers[i].header
         m4.pose = message.markers[i].pose.pose
 
         avail_ids.append(4)
+        dict[4] = m4
+        ref_marker = 4
+
         m4x = m4.pose.position.x # x axis to human operator's right
         m4y = m4.pose.position.y # y axis to human operator's forward
         m4z = m4.pose.position.z # z axis points up
-      elif message.markers[i].id == 5: # marker id 4 = ar_marker_5
+
+        cpx = m4x + obj_width/2
+        cpy = m4y + obj_length/2
+      elif message.markers[i].id == 5: # marker id 5 = ar_marker_5
         human_ar = PoseStamped()
         human_ar.header = message.markers[i].header
         human_ar.pose = message.markers[i].pose.pose
@@ -101,32 +127,26 @@ def callback(message):
 
     # find missing markers and interpolate them
     missing_ids = list(set(allobj_ids) - set(avail_ids))
-    print(avail_ids) # object ids only
+    print(avail_ids) # object ids only- exclude human ar tag
     print(missing_ids)
 
-
-    
-
-
-
-
-
-    # if 1 in avail_ids and 4 in avail_ids:
-    #   obj_length = obj_length = np.sqrt((m1x - m4x)**2 + (m1y - m4y)**2 + (m1z - m4z)**2)
-    # elif 2 in avail_ids and 3 in avail_ids:
-    #   obj_length = np.sqrt((m2x - m3x)**2 + (m2y - m3y)**2 + (m2z - m3z)**2)
-    # else:
-    #   print('not enough markers detected to determine length')
-    #   obj_length = 0
-    
-    # if 1 in avail_ids and 2 in avail_ids:
-    #   obj_width = np.sqrt((m1x - m2x)**2 + (m1y - m2y)**2 + (m1z - m2z)**2)
-    # elif 3 in avail_ids and 4 in avail_ids:
-    #   obj_width = np.sqrt((m3x - m4x)**2 + (m3y - m4y)**2 + (m3z - m4z)**2)
-    # else:
-    #   print('not enough markers detected to determine width')
-    #   obj_width = 0
-    
+    if 1 in missing_ids:
+      m1 = dict[ref_marker] # copy PoseStamped from reference marker
+      m1.pose.orientation.x = cpx - obj_width/2 # overwrite x coordinate
+      m1.pose.orientation.y = cpy + obj_length/2 # overwrite y coordinate
+    if 2 in missing_ids:
+      m2 = dict[ref_marker]
+      m2.pose.orientation.x = cpx + obj_width/2
+      m2.pose.orientation.y = cpy + obj_length/2
+    if 3 in missing_ids:
+      m3 = dict[ref_marker]
+      m3.pose.orientation.x = cpx + obj_width/2
+      m3.pose.orientation.y = cpy - obj_length/2
+    if 4 in missing_ids:
+      m4 = dict[ref_marker]
+      m4.pose.orientation.x = cpx - obj_width/2
+      m4.pose.orientation.y = cpy - obj_length/2
+   
     pub.publish(VisualData (obj_length,obj_width,m1,m2,m3,m4,human_ar))
     print('publishing to /tag_info')
   except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
