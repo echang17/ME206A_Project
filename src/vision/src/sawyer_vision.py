@@ -47,25 +47,25 @@ def callback(message):
     # read and save AR tag information from /ar_pose_marker topic
     # print('number of markers detected:')
     # print(len(message.markers))
-    all_ids = [0,1,3,4,5]
+    allobj_ids = [1,2,3,4]
     avail_ids = []
 
     for i in range(len(message.markers)): # loop through all markers detected
-      if message.markers[i].id == 0: # ar_marker_0
+      if message.markers[i].id == 1: # ar_marker_1
         m1 = PoseStamped()
         m1.header = message.markers[i].header
         m1.pose = message.markers[i].pose.pose
 
-        avail_ids.append(0)
+        avail_ids.append(1)
         m1x = m1.pose.position.x # x axis to human operator's right
         m1y = m1.pose.position.y # y axis to human operator's forward
         m1z = m1.pose.position.z # z axis points up
-      elif message.markers[i].id == 1: # ar_marker_1
+      elif message.markers[i].id == 2: # ar_marker_2
         m2 = PoseStamped()
         m2.header = message.markers[i].header
         m2.pose = message.markers[i].pose.pose
 
-        avail_ids.append(1)
+        avail_ids.append(2)
         m2x = m2.pose.position.x # x axis to human operator's right
         m2y = m2.pose.position.y # y axis to human operator's forward
         m2z = m2.pose.position.z # z axis points up
@@ -91,7 +91,7 @@ def callback(message):
         human_ar = PoseStamped()
         human_ar.header = message.markers[i].header
         human_ar.pose = message.markers[i].pose.pose
-        avail_ids.append(5)
+        # avail_ids.append(5)
     
     #object shape: distances between pairs of markers
     # length: need both 1&4 opr 2&3 KNOWN CONSTANT: 0.23282 for 8x11 rectangle object
@@ -100,9 +100,14 @@ def callback(message):
     obj_width = 0.15835
 
     # find missing markers and interpolate them
-    missing_ids = list(set(all_ids) - set(avail_ids))
-    print(avail_ids)
+    missing_ids = list(set(allobj_ids) - set(avail_ids))
+    print(avail_ids) # object ids only
     print(missing_ids)
+
+
+    
+
+
 
 
 
