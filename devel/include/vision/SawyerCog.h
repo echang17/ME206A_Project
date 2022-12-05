@@ -16,6 +16,7 @@
 #include <ros/message_operations.h>
 
 #include <geometry_msgs/Pose.h>
+#include <geometry_msgs/Pose.h>
 
 namespace vision
 {
@@ -25,17 +26,22 @@ struct SawyerCog_
   typedef SawyerCog_<ContainerAllocator> Type;
 
   SawyerCog_()
-    : sawyer_end()  {
+    : sawyer_cog()
+    , sawyer_init()  {
     }
   SawyerCog_(const ContainerAllocator& _alloc)
-    : sawyer_end(_alloc)  {
+    : sawyer_cog(_alloc)
+    , sawyer_init(_alloc)  {
   (void)_alloc;
     }
 
 
 
-   typedef  ::geometry_msgs::Pose_<ContainerAllocator>  _sawyer_end_type;
-  _sawyer_end_type sawyer_end;
+   typedef  ::geometry_msgs::Pose_<ContainerAllocator>  _sawyer_cog_type;
+  _sawyer_cog_type sawyer_cog;
+
+   typedef  ::geometry_msgs::Pose_<ContainerAllocator>  _sawyer_init_type;
+  _sawyer_init_type sawyer_init;
 
 
 
@@ -66,7 +72,8 @@ return s;
 template<typename ContainerAllocator1, typename ContainerAllocator2>
 bool operator==(const ::vision::SawyerCog_<ContainerAllocator1> & lhs, const ::vision::SawyerCog_<ContainerAllocator2> & rhs)
 {
-  return lhs.sawyer_end == rhs.sawyer_end;
+  return lhs.sawyer_cog == rhs.sawyer_cog &&
+    lhs.sawyer_init == rhs.sawyer_init;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -123,12 +130,12 @@ struct MD5Sum< ::vision::SawyerCog_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "c11a2e283bb2bfb477384cd2ce2a8c12";
+    return "a24c9cfeb22ccc885dd31286abb4d19d";
   }
 
   static const char* value(const ::vision::SawyerCog_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xc11a2e283bb2bfb4ULL;
-  static const uint64_t static_value2 = 0x77384cd2ce2a8c12ULL;
+  static const uint64_t static_value1 = 0xa24c9cfeb22ccc88ULL;
+  static const uint64_t static_value2 = 0x5dd31286abb4d19dULL;
 };
 
 template<class ContainerAllocator>
@@ -147,7 +154,8 @@ struct Definition< ::vision::SawyerCog_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "geometry_msgs/Pose sawyer_end\n"
+    return "geometry_msgs/Pose sawyer_cog\n"
+"geometry_msgs/Pose sawyer_init\n"
 "================================================================================\n"
 "MSG: geometry_msgs/Pose\n"
 "# A representation of pose in free space, composed of position and orientation. \n"
@@ -187,7 +195,8 @@ namespace serialization
   {
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
-      stream.next(m.sawyer_end);
+      stream.next(m.sawyer_cog);
+      stream.next(m.sawyer_init);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -206,9 +215,12 @@ struct Printer< ::vision::SawyerCog_<ContainerAllocator> >
 {
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::vision::SawyerCog_<ContainerAllocator>& v)
   {
-    s << indent << "sawyer_end: ";
+    s << indent << "sawyer_cog: ";
     s << std::endl;
-    Printer< ::geometry_msgs::Pose_<ContainerAllocator> >::stream(s, indent + "  ", v.sawyer_end);
+    Printer< ::geometry_msgs::Pose_<ContainerAllocator> >::stream(s, indent + "  ", v.sawyer_cog);
+    s << indent << "sawyer_init: ";
+    s << std::endl;
+    Printer< ::geometry_msgs::Pose_<ContainerAllocator> >::stream(s, indent + "  ", v.sawyer_init);
   }
 };
 

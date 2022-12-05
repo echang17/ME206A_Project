@@ -19,22 +19,31 @@ class SawyerCog {
   constructor(initObj={}) {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
-      this.sawyer_end = null;
+      this.sawyer_cog = null;
+      this.sawyer_init = null;
     }
     else {
-      if (initObj.hasOwnProperty('sawyer_end')) {
-        this.sawyer_end = initObj.sawyer_end
+      if (initObj.hasOwnProperty('sawyer_cog')) {
+        this.sawyer_cog = initObj.sawyer_cog
       }
       else {
-        this.sawyer_end = new geometry_msgs.msg.Pose();
+        this.sawyer_cog = new geometry_msgs.msg.Pose();
+      }
+      if (initObj.hasOwnProperty('sawyer_init')) {
+        this.sawyer_init = initObj.sawyer_init
+      }
+      else {
+        this.sawyer_init = new geometry_msgs.msg.Pose();
       }
     }
   }
 
   static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type SawyerCog
-    // Serialize message field [sawyer_end]
-    bufferOffset = geometry_msgs.msg.Pose.serialize(obj.sawyer_end, buffer, bufferOffset);
+    // Serialize message field [sawyer_cog]
+    bufferOffset = geometry_msgs.msg.Pose.serialize(obj.sawyer_cog, buffer, bufferOffset);
+    // Serialize message field [sawyer_init]
+    bufferOffset = geometry_msgs.msg.Pose.serialize(obj.sawyer_init, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -42,13 +51,15 @@ class SawyerCog {
     //deserializes a message object of type SawyerCog
     let len;
     let data = new SawyerCog(null);
-    // Deserialize message field [sawyer_end]
-    data.sawyer_end = geometry_msgs.msg.Pose.deserialize(buffer, bufferOffset);
+    // Deserialize message field [sawyer_cog]
+    data.sawyer_cog = geometry_msgs.msg.Pose.deserialize(buffer, bufferOffset);
+    // Deserialize message field [sawyer_init]
+    data.sawyer_init = geometry_msgs.msg.Pose.deserialize(buffer, bufferOffset);
     return data;
   }
 
   static getMessageSize(object) {
-    return 56;
+    return 112;
   }
 
   static datatype() {
@@ -58,13 +69,14 @@ class SawyerCog {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return 'c11a2e283bb2bfb477384cd2ce2a8c12';
+    return 'a24c9cfeb22ccc885dd31286abb4d19d';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
-    geometry_msgs/Pose sawyer_end
+    geometry_msgs/Pose sawyer_cog
+    geometry_msgs/Pose sawyer_init
     ================================================================================
     MSG: geometry_msgs/Pose
     # A representation of pose in free space, composed of position and orientation. 
@@ -96,11 +108,18 @@ class SawyerCog {
       msg = {};
     }
     const resolved = new SawyerCog(null);
-    if (msg.sawyer_end !== undefined) {
-      resolved.sawyer_end = geometry_msgs.msg.Pose.Resolve(msg.sawyer_end)
+    if (msg.sawyer_cog !== undefined) {
+      resolved.sawyer_cog = geometry_msgs.msg.Pose.Resolve(msg.sawyer_cog)
     }
     else {
-      resolved.sawyer_end = new geometry_msgs.msg.Pose()
+      resolved.sawyer_cog = new geometry_msgs.msg.Pose()
+    }
+
+    if (msg.sawyer_init !== undefined) {
+      resolved.sawyer_init = geometry_msgs.msg.Pose.Resolve(msg.sawyer_init)
+    }
+    else {
+      resolved.sawyer_init = new geometry_msgs.msg.Pose()
     }
 
     return resolved;

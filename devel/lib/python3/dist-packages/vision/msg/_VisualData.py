@@ -10,10 +10,12 @@ import geometry_msgs.msg
 import std_msgs.msg
 
 class VisualData(genpy.Message):
-  _md5sum = "d66a0c6279d93fd1e1e5ac20418fdde7"
+  _md5sum = "71123c30f11632bdec81d52a08519094"
   _type = "vision/VisualData"
   _has_header = False  # flag to mark the presence of a Header object
-  _full_text = """geometry_msgs/PoseStamped m1
+  _full_text = """float64 obj_length
+float64 obj_width
+geometry_msgs/PoseStamped m1
 geometry_msgs/PoseStamped m2
 geometry_msgs/PoseStamped m3
 geometry_msgs/PoseStamped m4
@@ -63,8 +65,8 @@ float64 y
 float64 z
 float64 w
 """
-  __slots__ = ['m1','m2','m3','m4','human_ar']
-  _slot_types = ['geometry_msgs/PoseStamped','geometry_msgs/PoseStamped','geometry_msgs/PoseStamped','geometry_msgs/PoseStamped','geometry_msgs/PoseStamped']
+  __slots__ = ['obj_length','obj_width','m1','m2','m3','m4','human_ar']
+  _slot_types = ['float64','float64','geometry_msgs/PoseStamped','geometry_msgs/PoseStamped','geometry_msgs/PoseStamped','geometry_msgs/PoseStamped','geometry_msgs/PoseStamped']
 
   def __init__(self, *args, **kwds):
     """
@@ -74,7 +76,7 @@ float64 w
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       m1,m2,m3,m4,human_ar
+       obj_length,obj_width,m1,m2,m3,m4,human_ar
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -83,6 +85,10 @@ float64 w
     if args or kwds:
       super(VisualData, self).__init__(*args, **kwds)
       # message fields cannot be None, assign default values for those that are
+      if self.obj_length is None:
+        self.obj_length = 0.
+      if self.obj_width is None:
+        self.obj_width = 0.
       if self.m1 is None:
         self.m1 = geometry_msgs.msg.PoseStamped()
       if self.m2 is None:
@@ -94,6 +100,8 @@ float64 w
       if self.human_ar is None:
         self.human_ar = geometry_msgs.msg.PoseStamped()
     else:
+      self.obj_length = 0.
+      self.obj_width = 0.
       self.m1 = geometry_msgs.msg.PoseStamped()
       self.m2 = geometry_msgs.msg.PoseStamped()
       self.m3 = geometry_msgs.msg.PoseStamped()
@@ -113,7 +121,7 @@ float64 w
     """
     try:
       _x = self
-      buff.write(_get_struct_3I().pack(_x.m1.header.seq, _x.m1.header.stamp.secs, _x.m1.header.stamp.nsecs))
+      buff.write(_get_struct_2d3I().pack(_x.obj_length, _x.obj_width, _x.m1.header.seq, _x.m1.header.stamp.secs, _x.m1.header.stamp.nsecs))
       _x = self.m1.header.frame_id
       length = len(_x)
       if python3 or type(_x) == unicode:
@@ -178,8 +186,8 @@ float64 w
       end = 0
       _x = self
       start = end
-      end += 12
-      (_x.m1.header.seq, _x.m1.header.stamp.secs, _x.m1.header.stamp.nsecs,) = _get_struct_3I().unpack(str[start:end])
+      end += 28
+      (_x.obj_length, _x.obj_width, _x.m1.header.seq, _x.m1.header.stamp.secs, _x.m1.header.stamp.nsecs,) = _get_struct_2d3I().unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
@@ -258,7 +266,7 @@ float64 w
     """
     try:
       _x = self
-      buff.write(_get_struct_3I().pack(_x.m1.header.seq, _x.m1.header.stamp.secs, _x.m1.header.stamp.nsecs))
+      buff.write(_get_struct_2d3I().pack(_x.obj_length, _x.obj_width, _x.m1.header.seq, _x.m1.header.stamp.secs, _x.m1.header.stamp.nsecs))
       _x = self.m1.header.frame_id
       length = len(_x)
       if python3 or type(_x) == unicode:
@@ -324,8 +332,8 @@ float64 w
       end = 0
       _x = self
       start = end
-      end += 12
-      (_x.m1.header.seq, _x.m1.header.stamp.secs, _x.m1.header.stamp.nsecs,) = _get_struct_3I().unpack(str[start:end])
+      end += 28
+      (_x.obj_length, _x.obj_width, _x.m1.header.seq, _x.m1.header.stamp.secs, _x.m1.header.stamp.nsecs,) = _get_struct_2d3I().unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
@@ -399,12 +407,12 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_3I = None
-def _get_struct_3I():
-    global _struct_3I
-    if _struct_3I is None:
-        _struct_3I = struct.Struct("<3I")
-    return _struct_3I
+_struct_2d3I = None
+def _get_struct_2d3I():
+    global _struct_2d3I
+    if _struct_2d3I is None:
+        _struct_2d3I = struct.Struct("<2d3I")
+    return _struct_2d3I
 _struct_7d = None
 def _get_struct_7d():
     global _struct_7d

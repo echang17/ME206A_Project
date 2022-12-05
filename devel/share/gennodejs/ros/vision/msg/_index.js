@@ -1,10 +1,10 @@
 
 "use strict";
 
-let VisualData = require('./VisualData.js');
 let SawyerCog = require('./SawyerCog.js');
+let VisualData = require('./VisualData.js');
 
 module.exports = {
-  VisualData: VisualData,
   SawyerCog: SawyerCog,
+  VisualData: VisualData,
 };

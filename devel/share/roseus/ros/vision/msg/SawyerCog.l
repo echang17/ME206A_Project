@@ -16,49 +16,65 @@
 
 (defclass vision::SawyerCog
   :super ros::object
-  :slots (_sawyer_end ))
+  :slots (_sawyer_cog _sawyer_init ))
 
 (defmethod vision::SawyerCog
   (:init
    (&key
-    ((:sawyer_end __sawyer_end) (instance geometry_msgs::Pose :init))
+    ((:sawyer_cog __sawyer_cog) (instance geometry_msgs::Pose :init))
+    ((:sawyer_init __sawyer_init) (instance geometry_msgs::Pose :init))
     )
    (send-super :init)
-   (setq _sawyer_end __sawyer_end)
+   (setq _sawyer_cog __sawyer_cog)
+   (setq _sawyer_init __sawyer_init)
    self)
-  (:sawyer_end
-   (&rest __sawyer_end)
-   (if (keywordp (car __sawyer_end))
-       (send* _sawyer_end __sawyer_end)
+  (:sawyer_cog
+   (&rest __sawyer_cog)
+   (if (keywordp (car __sawyer_cog))
+       (send* _sawyer_cog __sawyer_cog)
      (progn
-       (if __sawyer_end (setq _sawyer_end (car __sawyer_end)))
-       _sawyer_end)))
+       (if __sawyer_cog (setq _sawyer_cog (car __sawyer_cog)))
+       _sawyer_cog)))
+  (:sawyer_init
+   (&rest __sawyer_init)
+   (if (keywordp (car __sawyer_init))
+       (send* _sawyer_init __sawyer_init)
+     (progn
+       (if __sawyer_init (setq _sawyer_init (car __sawyer_init)))
+       _sawyer_init)))
   (:serialization-length
    ()
    (+
-    ;; geometry_msgs/Pose _sawyer_end
-    (send _sawyer_end :serialization-length)
+    ;; geometry_msgs/Pose _sawyer_cog
+    (send _sawyer_cog :serialization-length)
+    ;; geometry_msgs/Pose _sawyer_init
+    (send _sawyer_init :serialization-length)
     ))
   (:serialize
    (&optional strm)
    (let ((s (if strm strm
               (make-string-output-stream (send self :serialization-length)))))
-     ;; geometry_msgs/Pose _sawyer_end
-       (send _sawyer_end :serialize s)
+     ;; geometry_msgs/Pose _sawyer_cog
+       (send _sawyer_cog :serialize s)
+     ;; geometry_msgs/Pose _sawyer_init
+       (send _sawyer_init :serialize s)
      ;;
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
    (buf &optional (ptr- 0))
-   ;; geometry_msgs/Pose _sawyer_end
-     (send _sawyer_end :deserialize buf ptr-) (incf ptr- (send _sawyer_end :serialization-length))
+   ;; geometry_msgs/Pose _sawyer_cog
+     (send _sawyer_cog :deserialize buf ptr-) (incf ptr- (send _sawyer_cog :serialization-length))
+   ;; geometry_msgs/Pose _sawyer_init
+     (send _sawyer_init :deserialize buf ptr-) (incf ptr- (send _sawyer_init :serialization-length))
    ;;
    self)
   )
 
-(setf (get vision::SawyerCog :md5sum-) "c11a2e283bb2bfb477384cd2ce2a8c12")
+(setf (get vision::SawyerCog :md5sum-) "a24c9cfeb22ccc885dd31286abb4d19d")
 (setf (get vision::SawyerCog :datatype-) "vision/SawyerCog")
 (setf (get vision::SawyerCog :definition-)
-      "geometry_msgs/Pose sawyer_end
+      "geometry_msgs/Pose sawyer_cog
+geometry_msgs/Pose sawyer_init
 ================================================================================
 MSG: geometry_msgs/Pose
 # A representation of pose in free space, composed of position and orientation. 
@@ -85,6 +101,6 @@ float64 w
 
 
 
-(provide :vision/SawyerCog "c11a2e283bb2bfb477384cd2ce2a8c12")
+(provide :vision/SawyerCog "a24c9cfeb22ccc885dd31286abb4d19d")
 
 

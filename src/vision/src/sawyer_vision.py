@@ -10,6 +10,7 @@ import rospy
 import tf2_ros
 import sys
 import numpy as np
+import copy
 
 # import intera_interface
 # from intera_interface import Limb
@@ -51,6 +52,12 @@ def callback(message):
     avail_ids = []
     dict = {}
     ref_marker = -1
+    
+    #object shape: distances between pairs of markers
+    # length: need both 1&4 opr 2&3 KNOWN CONSTANT: 0.23282 for 8x11 rectangle object
+    # width: need both 1&2 or 3&4 KNOWN CONSTANT: 0.15835 for 8x11 rectangle object
+    obj_length = 0.23282
+    obj_width = 0.15835
 
     for i in range(len(message.markers)): # loop through all markers detected
       if message.markers[i].id == 1: # ar_marker_1
@@ -118,34 +125,30 @@ def callback(message):
         human_ar.header = message.markers[i].header
         human_ar.pose = message.markers[i].pose.pose
         # avail_ids.append(5)
-    
-    #object shape: distances between pairs of markers
-    # length: need both 1&4 opr 2&3 KNOWN CONSTANT: 0.23282 for 8x11 rectangle object
-    # width: need both 1&2 or 3&4 KNOWN CONSTANT: 0.15835 for 8x11 rectangle object
-    obj_length = 0.23282
-    obj_width = 0.15835
 
     # find missing markers and interpolate them
     missing_ids = list(set(allobj_ids) - set(avail_ids))
-    print(avail_ids) # object ids only- exclude human ar tag
-    print(missing_ids)
+    # print(avail_ids) # object ids only- exclude human ar tag
+    # print(missing_ids)
+    if ref_marker == -1:
+      print('no object markers detected')
 
     if 1 in missing_ids:
-      m1 = dict[ref_marker] # copy PoseStamped from reference marker
-      m1.pose.orientation.x = cpx - obj_width/2 # overwrite x coordinate
-      m1.pose.orientation.y = cpy + obj_length/2 # overwrite y coordinate
+      m1 = copy.deepcopy(dict[ref_marker]) # deepcopy PoseStamped from reference marker
+      m1.pose.position.x = cpx - obj_width/2 # overwrite x coordinate
+      m1.pose.position.y = cpy + obj_length/2 # overwrite y coordinate
     if 2 in missing_ids:
-      m2 = dict[ref_marker]
-      m2.pose.orientation.x = cpx + obj_width/2
-      m2.pose.orientation.y = cpy + obj_length/2
+      m2 = copy.deepcopy(dict[ref_marker])
+      m2.pose.position.x = cpx + obj_width/2
+      m2.pose.position.y = cpy + obj_length/2
     if 3 in missing_ids:
-      m3 = dict[ref_marker]
-      m3.pose.orientation.x = cpx + obj_width/2
-      m3.pose.orientation.y = cpy - obj_length/2
+      m3 = copy.deepcopy(dict[ref_marker])
+      m3.pose.position.x = cpx + obj_width/2
+      m3.pose.position.y = cpy - obj_length/2
     if 4 in missing_ids:
-      m4 = dict[ref_marker]
-      m4.pose.orientation.x = cpx - obj_width/2
-      m4.pose.orientation.y = cpy - obj_length/2
+      m4 = copy.deepcopy(dict[ref_marker])
+      m4.pose.position.x = cpx - obj_width/2
+      m4.pose.position.y = cpy - obj_length/2
    
     pub.publish(VisualData (obj_length,obj_width,m1,m2,m3,m4,human_ar))
     print('publishing to /tag_info')

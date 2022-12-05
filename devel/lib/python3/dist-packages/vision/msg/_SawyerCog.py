@@ -9,10 +9,11 @@ import struct
 import geometry_msgs.msg
 
 class SawyerCog(genpy.Message):
-  _md5sum = "c11a2e283bb2bfb477384cd2ce2a8c12"
+  _md5sum = "a24c9cfeb22ccc885dd31286abb4d19d"
   _type = "vision/SawyerCog"
   _has_header = False  # flag to mark the presence of a Header object
-  _full_text = """geometry_msgs/Pose sawyer_end
+  _full_text = """geometry_msgs/Pose sawyer_cog
+geometry_msgs/Pose sawyer_init
 ================================================================================
 MSG: geometry_msgs/Pose
 # A representation of pose in free space, composed of position and orientation. 
@@ -35,8 +36,8 @@ float64 y
 float64 z
 float64 w
 """
-  __slots__ = ['sawyer_end']
-  _slot_types = ['geometry_msgs/Pose']
+  __slots__ = ['sawyer_cog','sawyer_init']
+  _slot_types = ['geometry_msgs/Pose','geometry_msgs/Pose']
 
   def __init__(self, *args, **kwds):
     """
@@ -46,7 +47,7 @@ float64 w
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       sawyer_end
+       sawyer_cog,sawyer_init
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -55,10 +56,13 @@ float64 w
     if args or kwds:
       super(SawyerCog, self).__init__(*args, **kwds)
       # message fields cannot be None, assign default values for those that are
-      if self.sawyer_end is None:
-        self.sawyer_end = geometry_msgs.msg.Pose()
+      if self.sawyer_cog is None:
+        self.sawyer_cog = geometry_msgs.msg.Pose()
+      if self.sawyer_init is None:
+        self.sawyer_init = geometry_msgs.msg.Pose()
     else:
-      self.sawyer_end = geometry_msgs.msg.Pose()
+      self.sawyer_cog = geometry_msgs.msg.Pose()
+      self.sawyer_init = geometry_msgs.msg.Pose()
 
   def _get_types(self):
     """
@@ -73,7 +77,7 @@ float64 w
     """
     try:
       _x = self
-      buff.write(_get_struct_7d().pack(_x.sawyer_end.position.x, _x.sawyer_end.position.y, _x.sawyer_end.position.z, _x.sawyer_end.orientation.x, _x.sawyer_end.orientation.y, _x.sawyer_end.orientation.z, _x.sawyer_end.orientation.w))
+      buff.write(_get_struct_14d().pack(_x.sawyer_cog.position.x, _x.sawyer_cog.position.y, _x.sawyer_cog.position.z, _x.sawyer_cog.orientation.x, _x.sawyer_cog.orientation.y, _x.sawyer_cog.orientation.z, _x.sawyer_cog.orientation.w, _x.sawyer_init.position.x, _x.sawyer_init.position.y, _x.sawyer_init.position.z, _x.sawyer_init.orientation.x, _x.sawyer_init.orientation.y, _x.sawyer_init.orientation.z, _x.sawyer_init.orientation.w))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -85,13 +89,15 @@ float64 w
     if python3:
       codecs.lookup_error("rosmsg").msg_type = self._type
     try:
-      if self.sawyer_end is None:
-        self.sawyer_end = geometry_msgs.msg.Pose()
+      if self.sawyer_cog is None:
+        self.sawyer_cog = geometry_msgs.msg.Pose()
+      if self.sawyer_init is None:
+        self.sawyer_init = geometry_msgs.msg.Pose()
       end = 0
       _x = self
       start = end
-      end += 56
-      (_x.sawyer_end.position.x, _x.sawyer_end.position.y, _x.sawyer_end.position.z, _x.sawyer_end.orientation.x, _x.sawyer_end.orientation.y, _x.sawyer_end.orientation.z, _x.sawyer_end.orientation.w,) = _get_struct_7d().unpack(str[start:end])
+      end += 112
+      (_x.sawyer_cog.position.x, _x.sawyer_cog.position.y, _x.sawyer_cog.position.z, _x.sawyer_cog.orientation.x, _x.sawyer_cog.orientation.y, _x.sawyer_cog.orientation.z, _x.sawyer_cog.orientation.w, _x.sawyer_init.position.x, _x.sawyer_init.position.y, _x.sawyer_init.position.z, _x.sawyer_init.orientation.x, _x.sawyer_init.orientation.y, _x.sawyer_init.orientation.z, _x.sawyer_init.orientation.w,) = _get_struct_14d().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -105,7 +111,7 @@ float64 w
     """
     try:
       _x = self
-      buff.write(_get_struct_7d().pack(_x.sawyer_end.position.x, _x.sawyer_end.position.y, _x.sawyer_end.position.z, _x.sawyer_end.orientation.x, _x.sawyer_end.orientation.y, _x.sawyer_end.orientation.z, _x.sawyer_end.orientation.w))
+      buff.write(_get_struct_14d().pack(_x.sawyer_cog.position.x, _x.sawyer_cog.position.y, _x.sawyer_cog.position.z, _x.sawyer_cog.orientation.x, _x.sawyer_cog.orientation.y, _x.sawyer_cog.orientation.z, _x.sawyer_cog.orientation.w, _x.sawyer_init.position.x, _x.sawyer_init.position.y, _x.sawyer_init.position.z, _x.sawyer_init.orientation.x, _x.sawyer_init.orientation.y, _x.sawyer_init.orientation.z, _x.sawyer_init.orientation.w))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -118,13 +124,15 @@ float64 w
     if python3:
       codecs.lookup_error("rosmsg").msg_type = self._type
     try:
-      if self.sawyer_end is None:
-        self.sawyer_end = geometry_msgs.msg.Pose()
+      if self.sawyer_cog is None:
+        self.sawyer_cog = geometry_msgs.msg.Pose()
+      if self.sawyer_init is None:
+        self.sawyer_init = geometry_msgs.msg.Pose()
       end = 0
       _x = self
       start = end
-      end += 56
-      (_x.sawyer_end.position.x, _x.sawyer_end.position.y, _x.sawyer_end.position.z, _x.sawyer_end.orientation.x, _x.sawyer_end.orientation.y, _x.sawyer_end.orientation.z, _x.sawyer_end.orientation.w,) = _get_struct_7d().unpack(str[start:end])
+      end += 112
+      (_x.sawyer_cog.position.x, _x.sawyer_cog.position.y, _x.sawyer_cog.position.z, _x.sawyer_cog.orientation.x, _x.sawyer_cog.orientation.y, _x.sawyer_cog.orientation.z, _x.sawyer_cog.orientation.w, _x.sawyer_init.position.x, _x.sawyer_init.position.y, _x.sawyer_init.position.z, _x.sawyer_init.orientation.x, _x.sawyer_init.orientation.y, _x.sawyer_init.orientation.z, _x.sawyer_init.orientation.w,) = _get_struct_14d().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -133,9 +141,9 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_7d = None
-def _get_struct_7d():
-    global _struct_7d
-    if _struct_7d is None:
-        _struct_7d = struct.Struct("<7d")
-    return _struct_7d
+_struct_14d = None
+def _get_struct_14d():
+    global _struct_14d
+    if _struct_14d is None:
+        _struct_14d = struct.Struct("<14d")
+    return _struct_14d
