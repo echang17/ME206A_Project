@@ -12,12 +12,12 @@ import sys
 import numpy as np
 
 
-from geometry_msgs.msg import PoseStamped # pose data of joints/markers
-from geometry_msgs.msg import TransformStamped # transform data between joints/markers
+from geometry_msgs.msg import Pose # pose data of end effector
 from vision.msg import VisualData
 from vision.msg import SawyerCog
 
-pub = rospy.Publisher('cog', VisualData, queue_size=10)
+
+pub = rospy.Publisher('/waypoint', VisualData, queue_size=10)
 
 def callback(message):
     while not rospy.is_shutdown():
@@ -31,10 +31,10 @@ def callback(message):
 
             dist = m2_pos[0] - hand_pos[0]
             sawyer_x = m4_pos[0] + dist
-            sawyer_y = m2_pos[y] + message.obj_length
+            sawyer_y = m2_pos[1] + message.obj_length
             sawyer_z = hand_pos[2]
 
-            sawyer_end = PoseStamped()
+            sawyer_end = Pose()
             sawyer_end.pos.position.x = sawyer_x
             sawyer_end.pos.position.y = sawyer_y
             sawyer_end.pos.position.z = sawyer_z

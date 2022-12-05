@@ -1,1 +1,1 @@
-geometry_msgs/PoseStamped sawyer_end
+geometry_msgs/Pose sawyer_end
