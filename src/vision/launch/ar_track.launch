@@ -1,7 +1,7 @@
 <launch>
 
-    <arg name="marker_size"          default="6" />
-    <arg name="max_new_marker_error" default="0.05" />
+    <arg name="marker_size"          default="16.5" />
+    <arg name="max_new_marker_error" default="0.1" />
     <arg name="max_track_error"      default="0.2" />
 
     <arg name="cam_image_topic"      default="/io/internal_camera/head_camera/image_raw" />
