@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg"
+messages_str = "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg;/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/SawyerCog.msg"
 services_str = ""
 pkg_name = "vision"
 dependencies_str = "sensor_msgs;geometry_msgs"

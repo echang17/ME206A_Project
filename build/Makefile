@@ -2014,6 +2014,19 @@ _vision_generate_messages_check_deps_VisualData/fast:
 .PHONY : _vision_generate_messages_check_deps_VisualData/fast
 
 #=============================================================================
+# Target rules for targets named vision_gennodejs
+
+# Build rule for target.
+vision_gennodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 vision_gennodejs
+.PHONY : vision_gennodejs
+
+# fast build rule for target.
+vision_gennodejs/fast:
+	$(MAKE) -f vision/CMakeFiles/vision_gennodejs.dir/build.make vision/CMakeFiles/vision_gennodejs.dir/build
+.PHONY : vision_gennodejs/fast
+
+#=============================================================================
 # Target rules for targets named vision_generate_messages_eus
 
 # Build rule for target.
@@ -2040,6 +2053,19 @@ vision_genpy/fast:
 .PHONY : vision_genpy/fast
 
 #=============================================================================
+# Target rules for targets named _vision_generate_messages_check_deps_SawyerCog
+
+# Build rule for target.
+_vision_generate_messages_check_deps_SawyerCog: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _vision_generate_messages_check_deps_SawyerCog
+.PHONY : _vision_generate_messages_check_deps_SawyerCog
+
+# fast build rule for target.
+_vision_generate_messages_check_deps_SawyerCog/fast:
+	$(MAKE) -f vision/CMakeFiles/_vision_generate_messages_check_deps_SawyerCog.dir/build.make vision/CMakeFiles/_vision_generate_messages_check_deps_SawyerCog.dir/build
+.PHONY : _vision_generate_messages_check_deps_SawyerCog/fast
+
+#=============================================================================
 # Target rules for targets named vision_gencpp
 
 # Build rule for target.
@@ -2051,19 +2077,6 @@ vision_gencpp: cmake_check_build_system
 vision_gencpp/fast:
 	$(MAKE) -f vision/CMakeFiles/vision_gencpp.dir/build.make vision/CMakeFiles/vision_gencpp.dir/build
 .PHONY : vision_gencpp/fast
-
-#=============================================================================
-# Target rules for targets named vision_gennodejs
-
-# Build rule for target.
-vision_gennodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 vision_gennodejs
-.PHONY : vision_gennodejs
-
-# fast build rule for target.
-vision_gennodejs/fast:
-	$(MAKE) -f vision/CMakeFiles/vision_gennodejs.dir/build.make vision/CMakeFiles/vision_gennodejs.dir/build
-.PHONY : vision_gennodejs/fast
 
 #=============================================================================
 # Target rules for targets named vision_geneus
@@ -2272,10 +2285,11 @@ help:
 	@echo "... vision_generate_messages_cpp"
 	@echo "... vision_generate_messages_nodejs"
 	@echo "... _vision_generate_messages_check_deps_VisualData"
+	@echo "... vision_gennodejs"
 	@echo "... vision_generate_messages_eus"
 	@echo "... vision_genpy"
+	@echo "... _vision_generate_messages_check_deps_SawyerCog"
 	@echo "... vision_gencpp"
-	@echo "... vision_gennodejs"
 	@echo "... vision_geneus"
 	@echo "... vision_generate_messages_lisp"
 	@echo "... vision_genlisp"

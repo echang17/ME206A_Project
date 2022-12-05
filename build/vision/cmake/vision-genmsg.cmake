@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "vision: 1 messages, 0 services")
+message(STATUS "vision: 2 messages, 0 services")
 
 set(MSG_I_FLAGS "-Ivision:/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg;-Isensor_msgs:/opt/ros/noetic/share/sensor_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg")
 
@@ -19,7 +19,12 @@ add_custom_target(vision_generate_messages ALL)
 
 get_filename_component(_filename "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg" NAME_WE)
 add_custom_target(_vision_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "vision" "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg" "geometry_msgs/Point:std_msgs/Header:geometry_msgs/PoseStamped:geometry_msgs/Pose:geometry_msgs/Quaternion"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "vision" "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg" "geometry_msgs/Pose:std_msgs/Header:geometry_msgs/Point:geometry_msgs/PoseStamped:geometry_msgs/Quaternion"
+)
+
+get_filename_component(_filename "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/SawyerCog.msg" NAME_WE)
+add_custom_target(_vision_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "vision" "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/SawyerCog.msg" "geometry_msgs/Quaternion:geometry_msgs/Pose:geometry_msgs/Point"
 )
 
 #
@@ -31,7 +36,13 @@ add_custom_target(_vision_generate_messages_check_deps_${_filename}
 _generate_msg_cpp(vision
   "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/vision
+)
+_generate_msg_cpp(vision
+  "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/SawyerCog.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/vision
 )
 
@@ -51,6 +62,8 @@ add_dependencies(vision_generate_messages vision_generate_messages_cpp)
 # add dependencies to all check dependencies targets
 get_filename_component(_filename "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg" NAME_WE)
 add_dependencies(vision_generate_messages_cpp _vision_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/SawyerCog.msg" NAME_WE)
+add_dependencies(vision_generate_messages_cpp _vision_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(vision_gencpp)
@@ -64,7 +77,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS vision_generate_messages_cpp)
 _generate_msg_eus(vision
   "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/vision
+)
+_generate_msg_eus(vision
+  "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/SawyerCog.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/vision
 )
 
@@ -84,6 +103,8 @@ add_dependencies(vision_generate_messages vision_generate_messages_eus)
 # add dependencies to all check dependencies targets
 get_filename_component(_filename "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg" NAME_WE)
 add_dependencies(vision_generate_messages_eus _vision_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/SawyerCog.msg" NAME_WE)
+add_dependencies(vision_generate_messages_eus _vision_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(vision_geneus)
@@ -97,7 +118,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS vision_generate_messages_eus)
 _generate_msg_lisp(vision
   "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/vision
+)
+_generate_msg_lisp(vision
+  "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/SawyerCog.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/vision
 )
 
@@ -117,6 +144,8 @@ add_dependencies(vision_generate_messages vision_generate_messages_lisp)
 # add dependencies to all check dependencies targets
 get_filename_component(_filename "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg" NAME_WE)
 add_dependencies(vision_generate_messages_lisp _vision_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/SawyerCog.msg" NAME_WE)
+add_dependencies(vision_generate_messages_lisp _vision_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(vision_genlisp)
@@ -130,7 +159,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS vision_generate_messages_lisp)
 _generate_msg_nodejs(vision
   "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/vision
+)
+_generate_msg_nodejs(vision
+  "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/SawyerCog.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/vision
 )
 
@@ -150,6 +185,8 @@ add_dependencies(vision_generate_messages vision_generate_messages_nodejs)
 # add dependencies to all check dependencies targets
 get_filename_component(_filename "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg" NAME_WE)
 add_dependencies(vision_generate_messages_nodejs _vision_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/SawyerCog.msg" NAME_WE)
+add_dependencies(vision_generate_messages_nodejs _vision_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(vision_gennodejs)
@@ -163,7 +200,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS vision_generate_messages_nodejs)
 _generate_msg_py(vision
   "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/vision
+)
+_generate_msg_py(vision
+  "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/SawyerCog.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/vision
 )
 
@@ -182,6 +225,8 @@ add_dependencies(vision_generate_messages vision_generate_messages_py)
 
 # add dependencies to all check dependencies targets
 get_filename_component(_filename "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg" NAME_WE)
+add_dependencies(vision_generate_messages_py _vision_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/SawyerCog.msg" NAME_WE)
 add_dependencies(vision_generate_messages_py _vision_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility

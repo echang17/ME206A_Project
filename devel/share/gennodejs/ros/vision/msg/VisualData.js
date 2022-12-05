@@ -19,8 +19,6 @@ class VisualData {
   constructor(initObj={}) {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
-      this.obj_length = null;
-      this.obj_width = null;
       this.m1 = null;
       this.m2 = null;
       this.m3 = null;
@@ -28,18 +26,6 @@ class VisualData {
       this.human_ar = null;
     }
     else {
-      if (initObj.hasOwnProperty('obj_length')) {
-        this.obj_length = initObj.obj_length
-      }
-      else {
-        this.obj_length = 0.0;
-      }
-      if (initObj.hasOwnProperty('obj_width')) {
-        this.obj_width = initObj.obj_width
-      }
-      else {
-        this.obj_width = 0.0;
-      }
       if (initObj.hasOwnProperty('m1')) {
         this.m1 = initObj.m1
       }
@@ -75,10 +61,6 @@ class VisualData {
 
   static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type VisualData
-    // Serialize message field [obj_length]
-    bufferOffset = _serializer.float64(obj.obj_length, buffer, bufferOffset);
-    // Serialize message field [obj_width]
-    bufferOffset = _serializer.float64(obj.obj_width, buffer, bufferOffset);
     // Serialize message field [m1]
     bufferOffset = geometry_msgs.msg.PoseStamped.serialize(obj.m1, buffer, bufferOffset);
     // Serialize message field [m2]
@@ -96,10 +78,6 @@ class VisualData {
     //deserializes a message object of type VisualData
     let len;
     let data = new VisualData(null);
-    // Deserialize message field [obj_length]
-    data.obj_length = _deserializer.float64(buffer, bufferOffset);
-    // Deserialize message field [obj_width]
-    data.obj_width = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [m1]
     data.m1 = geometry_msgs.msg.PoseStamped.deserialize(buffer, bufferOffset);
     // Deserialize message field [m2]
@@ -120,7 +98,7 @@ class VisualData {
     length += geometry_msgs.msg.PoseStamped.getMessageSize(object.m3);
     length += geometry_msgs.msg.PoseStamped.getMessageSize(object.m4);
     length += geometry_msgs.msg.PoseStamped.getMessageSize(object.human_ar);
-    return length + 16;
+    return length;
   }
 
   static datatype() {
@@ -130,14 +108,12 @@ class VisualData {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '71123c30f11632bdec81d52a08519094';
+    return 'd66a0c6279d93fd1e1e5ac20418fdde7';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
-    float64 obj_length
-    float64 obj_width
     geometry_msgs/PoseStamped m1
     geometry_msgs/PoseStamped m2
     geometry_msgs/PoseStamped m3
@@ -197,20 +173,6 @@ class VisualData {
       msg = {};
     }
     const resolved = new VisualData(null);
-    if (msg.obj_length !== undefined) {
-      resolved.obj_length = msg.obj_length;
-    }
-    else {
-      resolved.obj_length = 0.0
-    }
-
-    if (msg.obj_width !== undefined) {
-      resolved.obj_width = msg.obj_width;
-    }
-    else {
-      resolved.obj_width = 0.0
-    }
-
     if (msg.m1 !== undefined) {
       resolved.m1 = geometry_msgs.msg.PoseStamped.Resolve(msg.m1)
     }

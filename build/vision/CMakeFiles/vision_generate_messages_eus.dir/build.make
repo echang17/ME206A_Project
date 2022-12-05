@@ -54,25 +54,35 @@ CMAKE_BINARY_DIR = /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build
 include vision/CMakeFiles/vision_generate_messages_eus.dir/progress.make
 
 vision/CMakeFiles/vision_generate_messages_eus: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg/VisualData.l
+vision/CMakeFiles/vision_generate_messages_eus: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg/SawyerCog.l
 vision/CMakeFiles/vision_generate_messages_eus: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/manifest.l
 
 
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg/VisualData.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg/VisualData.l: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg
-/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg/VisualData.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
-/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg/VisualData.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg/VisualData.l: /opt/ros/noetic/share/geometry_msgs/msg/PoseStamped.msg
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg/VisualData.l: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg/VisualData.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg/VisualData.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg/VisualData.l: /opt/ros/noetic/share/geometry_msgs/msg/PoseStamped.msg
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg/VisualData.l: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp code from vision/VisualData.msg"
 	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg -Ivision:/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg -Isensor_msgs:/opt/ros/noetic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vision -o /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg
 
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg/SawyerCog.l: /opt/ros/noetic/lib/geneus/gen_eus.py
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg/SawyerCog.l: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/SawyerCog.msg
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg/SawyerCog.l: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg/SawyerCog.l: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg/SawyerCog.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from vision/SawyerCog.msg"
+	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/SawyerCog.msg -Ivision:/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg -Isensor_msgs:/opt/ros/noetic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vision -o /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg
+
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/manifest.l: /opt/ros/noetic/lib/geneus/gen_eus.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp manifest code for vision"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp manifest code for vision"
 	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision vision sensor_msgs geometry_msgs
 
 vision_generate_messages_eus: vision/CMakeFiles/vision_generate_messages_eus
 vision_generate_messages_eus: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg/VisualData.l
+vision_generate_messages_eus: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg/SawyerCog.l
 vision_generate_messages_eus: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/manifest.l
 vision_generate_messages_eus: vision/CMakeFiles/vision_generate_messages_eus.dir/build.make
 

@@ -47,25 +47,25 @@ def callback(message):
     # read and save AR tag information from /ar_pose_marker topic
     # print('number of markers detected:')
     # print(len(message.markers))
-    all_ids = [1,2,3,4,5]
+    all_ids = [0,1,3,4,5]
     avail_ids = []
 
     for i in range(len(message.markers)): # loop through all markers detected
-      if message.markers[i].id == 1: # ar_marker_1
+      if message.markers[i].id == 0: # ar_marker_0
         m1 = PoseStamped()
         m1.header = message.markers[i].header
         m1.pose = message.markers[i].pose.pose
 
-        avail_ids.append(1)
+        avail_ids.append(0)
         m1x = m1.pose.position.x # x axis to human operator's right
         m1y = m1.pose.position.y # y axis to human operator's forward
         m1z = m1.pose.position.z # z axis points up
-      elif message.markers[i].id == 2: # ar_marker_2
+      elif message.markers[i].id == 1: # ar_marker_1
         m2 = PoseStamped()
         m2.header = message.markers[i].header
         m2.pose = message.markers[i].pose.pose
 
-        avail_ids.append(2)
+        avail_ids.append(1)
         m2x = m2.pose.position.x # x axis to human operator's right
         m2y = m2.pose.position.y # y axis to human operator's forward
         m2z = m2.pose.position.z # z axis points up
@@ -87,17 +87,21 @@ def callback(message):
         m4x = m4.pose.position.x # x axis to human operator's right
         m4y = m4.pose.position.y # y axis to human operator's forward
         m4z = m4.pose.position.z # z axis points up
-      else: #messages.markers[i].id == 5: # marker id 4 = ar_marker_5
+      elif message.markers[i].id == 5: # marker id 4 = ar_marker_5
         human_ar = PoseStamped()
         human_ar.header = message.markers[i].header
         human_ar.pose = message.markers[i].pose.pose
+        avail_ids.append(5)
     
     #object shape: distances between pairs of markers
     # length: need both 1&4 opr 2&3 KNOWN CONSTANT: 0.23282 for 8x11 rectangle object
     # width: need both 1&2 or 3&4 KNOWN CONSTANT: 0.15835 for 8x11 rectangle object
+    obj_length = 0.23282
+    obj_width = 0.15835
 
     # find missing markers and interpolate them
     missing_ids = list(set(all_ids) - set(avail_ids))
+    print(avail_ids)
     print(missing_ids)
 
 
@@ -118,7 +122,7 @@ def callback(message):
     #   print('not enough markers detected to determine width')
     #   obj_width = 0
     
-    pub.publish(VisualData (m1,m2,m3,m4,human_ar))
+    pub.publish(VisualData (obj_length,obj_width,m1,m2,m3,m4,human_ar))
     print('publishing to /tag_info')
   except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
     pass

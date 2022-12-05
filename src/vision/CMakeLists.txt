@@ -51,6 +51,7 @@ find_package(catkin REQUIRED COMPONENTS
 add_message_files(
   FILES
   VisualData.msg
+  SawyerCog.msg
 ) # uncommented later
 
 ## Generate services in the 'srv' folder

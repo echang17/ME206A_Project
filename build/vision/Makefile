@@ -102,6 +102,17 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+
+.PHONY : test/fast
+
 # Special rule for the target list_install_components
 list_install_components:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
@@ -123,17 +134,6 @@ install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
-
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -228,6 +228,21 @@ _vision_generate_messages_check_deps_VisualData/fast:
 .PHONY : _vision_generate_messages_check_deps_VisualData/fast
 
 # Convenience name for target.
+vision/CMakeFiles/vision_gennodejs.dir/rule:
+	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build && $(MAKE) -f CMakeFiles/Makefile2 vision/CMakeFiles/vision_gennodejs.dir/rule
+.PHONY : vision/CMakeFiles/vision_gennodejs.dir/rule
+
+# Convenience name for target.
+vision_gennodejs: vision/CMakeFiles/vision_gennodejs.dir/rule
+
+.PHONY : vision_gennodejs
+
+# fast build rule for target.
+vision_gennodejs/fast:
+	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build && $(MAKE) -f vision/CMakeFiles/vision_gennodejs.dir/build.make vision/CMakeFiles/vision_gennodejs.dir/build
+.PHONY : vision_gennodejs/fast
+
+# Convenience name for target.
 vision/CMakeFiles/vision_generate_messages_eus.dir/rule:
 	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build && $(MAKE) -f CMakeFiles/Makefile2 vision/CMakeFiles/vision_generate_messages_eus.dir/rule
 .PHONY : vision/CMakeFiles/vision_generate_messages_eus.dir/rule
@@ -258,6 +273,21 @@ vision_genpy/fast:
 .PHONY : vision_genpy/fast
 
 # Convenience name for target.
+vision/CMakeFiles/_vision_generate_messages_check_deps_SawyerCog.dir/rule:
+	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build && $(MAKE) -f CMakeFiles/Makefile2 vision/CMakeFiles/_vision_generate_messages_check_deps_SawyerCog.dir/rule
+.PHONY : vision/CMakeFiles/_vision_generate_messages_check_deps_SawyerCog.dir/rule
+
+# Convenience name for target.
+_vision_generate_messages_check_deps_SawyerCog: vision/CMakeFiles/_vision_generate_messages_check_deps_SawyerCog.dir/rule
+
+.PHONY : _vision_generate_messages_check_deps_SawyerCog
+
+# fast build rule for target.
+_vision_generate_messages_check_deps_SawyerCog/fast:
+	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build && $(MAKE) -f vision/CMakeFiles/_vision_generate_messages_check_deps_SawyerCog.dir/build.make vision/CMakeFiles/_vision_generate_messages_check_deps_SawyerCog.dir/build
+.PHONY : _vision_generate_messages_check_deps_SawyerCog/fast
+
+# Convenience name for target.
 vision/CMakeFiles/vision_gencpp.dir/rule:
 	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build && $(MAKE) -f CMakeFiles/Makefile2 vision/CMakeFiles/vision_gencpp.dir/rule
 .PHONY : vision/CMakeFiles/vision_gencpp.dir/rule
@@ -271,21 +301,6 @@ vision_gencpp: vision/CMakeFiles/vision_gencpp.dir/rule
 vision_gencpp/fast:
 	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build && $(MAKE) -f vision/CMakeFiles/vision_gencpp.dir/build.make vision/CMakeFiles/vision_gencpp.dir/build
 .PHONY : vision_gencpp/fast
-
-# Convenience name for target.
-vision/CMakeFiles/vision_gennodejs.dir/rule:
-	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build && $(MAKE) -f CMakeFiles/Makefile2 vision/CMakeFiles/vision_gennodejs.dir/rule
-.PHONY : vision/CMakeFiles/vision_gennodejs.dir/rule
-
-# Convenience name for target.
-vision_gennodejs: vision/CMakeFiles/vision_gennodejs.dir/rule
-
-.PHONY : vision_gennodejs
-
-# fast build rule for target.
-vision_gennodejs/fast:
-	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build && $(MAKE) -f vision/CMakeFiles/vision_gennodejs.dir/build.make vision/CMakeFiles/vision_gennodejs.dir/build
-.PHONY : vision_gennodejs/fast
 
 # Convenience name for target.
 vision/CMakeFiles/vision_geneus.dir/rule:
@@ -361,13 +376,14 @@ help:
 	@echo "... vision_generate_messages_cpp"
 	@echo "... vision_generate_messages_nodejs"
 	@echo "... _vision_generate_messages_check_deps_VisualData"
+	@echo "... test"
+	@echo "... vision_gennodejs"
 	@echo "... list_install_components"
 	@echo "... vision_generate_messages_eus"
 	@echo "... vision_genpy"
+	@echo "... _vision_generate_messages_check_deps_SawyerCog"
 	@echo "... install"
 	@echo "... vision_gencpp"
-	@echo "... vision_gennodejs"
-	@echo "... test"
 	@echo "... vision_geneus"
 	@echo "... vision_generate_messages_lisp"
 	@echo "... vision_genlisp"

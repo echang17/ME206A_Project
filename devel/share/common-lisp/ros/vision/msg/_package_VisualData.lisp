@@ -1,9 +1,5 @@
 (cl:in-package vision-msg)
-(cl:export '(OBJ_LENGTH-VAL
-          OBJ_LENGTH
-          OBJ_WIDTH-VAL
-          OBJ_WIDTH
-          M1-VAL
+(cl:export '(M1-VAL
           M1
           M2-VAL
           M2

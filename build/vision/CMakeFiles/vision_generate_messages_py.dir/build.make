@@ -54,26 +54,37 @@ CMAKE_BINARY_DIR = /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build
 include vision/CMakeFiles/vision_generate_messages_py.dir/progress.make
 
 vision/CMakeFiles/vision_generate_messages_py: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/_VisualData.py
+vision/CMakeFiles/vision_generate_messages_py: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/_SawyerCog.py
 vision/CMakeFiles/vision_generate_messages_py: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/__init__.py
 
 
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/_VisualData.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/_VisualData.py: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg
-/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/_VisualData.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
-/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/_VisualData.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/_VisualData.py: /opt/ros/noetic/share/geometry_msgs/msg/PoseStamped.msg
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/_VisualData.py: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/_VisualData.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/_VisualData.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/_VisualData.py: /opt/ros/noetic/share/geometry_msgs/msg/PoseStamped.msg
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/_VisualData.py: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG vision/VisualData"
 	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg -Ivision:/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg -Isensor_msgs:/opt/ros/noetic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vision -o /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg
 
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/_SawyerCog.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/_SawyerCog.py: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/SawyerCog.msg
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/_SawyerCog.py: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/_SawyerCog.py: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/_SawyerCog.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python from MSG vision/SawyerCog"
+	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/SawyerCog.msg -Ivision:/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg -Isensor_msgs:/opt/ros/noetic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vision -o /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg
+
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/__init__.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/__init__.py: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/_VisualData.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python msg __init__.py for vision"
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/__init__.py: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/_SawyerCog.py
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Python msg __init__.py for vision"
 	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg --initpy
 
 vision_generate_messages_py: vision/CMakeFiles/vision_generate_messages_py
 vision_generate_messages_py: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/_VisualData.py
+vision_generate_messages_py: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/_SawyerCog.py
 vision_generate_messages_py: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/lib/python3/dist-packages/vision/msg/__init__.py
 vision_generate_messages_py: vision/CMakeFiles/vision_generate_messages_py.dir/build.make
 

@@ -29,18 +29,14 @@ struct VisualData_
   typedef VisualData_<ContainerAllocator> Type;
 
   VisualData_()
-    : obj_length(0.0)
-    , obj_width(0.0)
-    , m1()
+    : m1()
     , m2()
     , m3()
     , m4()
     , human_ar()  {
     }
   VisualData_(const ContainerAllocator& _alloc)
-    : obj_length(0.0)
-    , obj_width(0.0)
-    , m1(_alloc)
+    : m1(_alloc)
     , m2(_alloc)
     , m3(_alloc)
     , m4(_alloc)
@@ -49,12 +45,6 @@ struct VisualData_
     }
 
 
-
-   typedef double _obj_length_type;
-  _obj_length_type obj_length;
-
-   typedef double _obj_width_type;
-  _obj_width_type obj_width;
 
    typedef  ::geometry_msgs::PoseStamped_<ContainerAllocator>  _m1_type;
   _m1_type m1;
@@ -100,9 +90,7 @@ return s;
 template<typename ContainerAllocator1, typename ContainerAllocator2>
 bool operator==(const ::vision::VisualData_<ContainerAllocator1> & lhs, const ::vision::VisualData_<ContainerAllocator2> & rhs)
 {
-  return lhs.obj_length == rhs.obj_length &&
-    lhs.obj_width == rhs.obj_width &&
-    lhs.m1 == rhs.m1 &&
+  return lhs.m1 == rhs.m1 &&
     lhs.m2 == rhs.m2 &&
     lhs.m3 == rhs.m3 &&
     lhs.m4 == rhs.m4 &&
@@ -163,12 +151,12 @@ struct MD5Sum< ::vision::VisualData_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "71123c30f11632bdec81d52a08519094";
+    return "d66a0c6279d93fd1e1e5ac20418fdde7";
   }
 
   static const char* value(const ::vision::VisualData_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x71123c30f11632bdULL;
-  static const uint64_t static_value2 = 0xec81d52a08519094ULL;
+  static const uint64_t static_value1 = 0xd66a0c6279d93fd1ULL;
+  static const uint64_t static_value2 = 0xe1e5ac20418fdde7ULL;
 };
 
 template<class ContainerAllocator>
@@ -187,9 +175,7 @@ struct Definition< ::vision::VisualData_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "float64 obj_length\n"
-"float64 obj_width\n"
-"geometry_msgs/PoseStamped m1\n"
+    return "geometry_msgs/PoseStamped m1\n"
 "geometry_msgs/PoseStamped m2\n"
 "geometry_msgs/PoseStamped m3\n"
 "geometry_msgs/PoseStamped m4\n"
@@ -256,8 +242,6 @@ namespace serialization
   {
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
-      stream.next(m.obj_length);
-      stream.next(m.obj_width);
       stream.next(m.m1);
       stream.next(m.m2);
       stream.next(m.m3);
@@ -281,10 +265,6 @@ struct Printer< ::vision::VisualData_<ContainerAllocator> >
 {
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::vision::VisualData_<ContainerAllocator>& v)
   {
-    s << indent << "obj_length: ";
-    Printer<double>::stream(s, indent + "  ", v.obj_length);
-    s << indent << "obj_width: ";
-    Printer<double>::stream(s, indent + "  ", v.obj_width);
     s << indent << "m1: ";
     s << std::endl;
     Printer< ::geometry_msgs::PoseStamped_<ContainerAllocator> >::stream(s, indent + "  ", v.m1);

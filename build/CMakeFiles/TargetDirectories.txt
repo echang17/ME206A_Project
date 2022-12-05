@@ -186,13 +186,14 @@
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/vision_generate_messages_cpp.dir
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/vision_generate_messages_nodejs.dir
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/_vision_generate_messages_check_deps_VisualData.dir
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/test.dir
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/vision_gennodejs.dir
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/list_install_components.dir
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/vision_generate_messages_eus.dir
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/vision_genpy.dir
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/_vision_generate_messages_check_deps_SawyerCog.dir
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/install.dir
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/vision_gencpp.dir
-/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/vision_gennodejs.dir
-/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/test.dir
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/vision_geneus.dir
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/vision_generate_messages_lisp.dir
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/vision_genlisp.dir

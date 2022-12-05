@@ -54,21 +54,32 @@ CMAKE_BINARY_DIR = /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build
 include vision/CMakeFiles/vision_generate_messages_cpp.dir/progress.make
 
 vision/CMakeFiles/vision_generate_messages_cpp: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision/VisualData.h
+vision/CMakeFiles/vision_generate_messages_cpp: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision/SawyerCog.h
 
 
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision/VisualData.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision/VisualData.h: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg
-/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision/VisualData.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
-/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision/VisualData.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision/VisualData.h: /opt/ros/noetic/share/geometry_msgs/msg/PoseStamped.msg
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision/VisualData.h: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision/VisualData.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision/VisualData.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision/VisualData.h: /opt/ros/noetic/share/geometry_msgs/msg/PoseStamped.msg
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision/VisualData.h: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision/VisualData.h: /opt/ros/noetic/share/gencpp/msg.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from vision/VisualData.msg"
 	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision && /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg -Ivision:/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg -Isensor_msgs:/opt/ros/noetic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vision -o /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision -e /opt/ros/noetic/share/gencpp/cmake/..
 
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision/SawyerCog.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision/SawyerCog.h: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/SawyerCog.msg
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision/SawyerCog.h: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision/SawyerCog.h: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision/SawyerCog.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision/SawyerCog.h: /opt/ros/noetic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from vision/SawyerCog.msg"
+	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision && /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/SawyerCog.msg -Ivision:/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg -Isensor_msgs:/opt/ros/noetic/share/sensor_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vision -o /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision -e /opt/ros/noetic/share/gencpp/cmake/..
+
 vision_generate_messages_cpp: vision/CMakeFiles/vision_generate_messages_cpp
 vision_generate_messages_cpp: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision/VisualData.h
+vision_generate_messages_cpp: /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/vision/SawyerCog.h
 vision_generate_messages_cpp: vision/CMakeFiles/vision_generate_messages_cpp.dir/build.make
 
 .PHONY : vision_generate_messages_cpp

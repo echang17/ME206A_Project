@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build
 include vision/CMakeFiles/_vision_generate_messages_check_deps_VisualData.dir/progress.make
 
 vision/CMakeFiles/_vision_generate_messages_check_deps_VisualData:
-	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py vision /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg geometry_msgs/Point:std_msgs/Header:geometry_msgs/PoseStamped:geometry_msgs/Pose:geometry_msgs/Quaternion
+	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py vision /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision/msg/VisualData.msg geometry_msgs/Pose:std_msgs/Header:geometry_msgs/Point:geometry_msgs/PoseStamped:geometry_msgs/Quaternion
 
 _vision_generate_messages_check_deps_VisualData: vision/CMakeFiles/_vision_generate_messages_check_deps_VisualData
 _vision_generate_messages_check_deps_VisualData: vision/CMakeFiles/_vision_generate_messages_check_deps_VisualData.dir/build.make
