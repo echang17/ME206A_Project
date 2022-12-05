@@ -30,17 +30,23 @@ def callback(message):
             m4_pos = (message.m4.pose.position.x, message.m4.pose.position.y, message.m4.pose.position.z)
 
             dist = m2_pos[0] - hand_pos[0]
-            sawyer_x = m4_pos[0] + dist
+            sawyer_x_cog = m4_pos[0] + dist
+            sawyer_x_init = (m4_pos[0] + m3_pos[0]) / 2
             sawyer_y = m2_pos[1] + message.obj_length
-            sawyer_z = hand_pos[2]
+            sawyer_z = m2_pos[2]
 
-            sawyer_end = Pose()
-            sawyer_end.pos.position.x = sawyer_x
-            sawyer_end.pos.position.y = sawyer_y
-            sawyer_end.pos.position.z = sawyer_z
+            sawyer_cog = Pose()
+            sawyer_cog.pos.position.x = sawyer_x_cog
+            sawyer_cog.pos.position.y = sawyer_y
+            sawyer_cog.pos.position.z = sawyer_z
+            
+            sawyer_init = Pose()
+            sawyer_init.pos.position.x = sawyer_x_init
+            sawyer_init.pos.position.y = sawyer_y
+            sawyer_init.pos.position.z = sawyer_z
 
 
-            pub.publish(SawyerCog(sawyer_end))
+            pub.publish(SawyerCog(sawyer_cog, sawyer_init))
         except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
           pass
 
