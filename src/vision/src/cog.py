@@ -37,24 +37,24 @@ def callback(message):
             sawyer_z = m2_pos[2]
 
             sawyer_cog = Pose()
-            sawyer_cog.pose.position.x = sawyer_x_cog
-            sawyer_cog.pose.position.y = sawyer_y - gripper_offset
-            sawyer_cog.pose.position.z = sawyer_z
+            sawyer_cog.position.x = sawyer_x_cog
+            sawyer_cog.position.y = sawyer_y - gripper_offset
+            sawyer_cog.position.z = sawyer_z
             
-            sawyer_cog.pose.orientation.x = message.m1.pose.orientation.x
-            sawyer_cog.pose.orientation.y = -1.0 * message.human_ar.pose.orientation.y
-            sawyer_cog.pose.orientation.z = message.m1.pose.orientation.z
-            sawyer_cog.pose.orientation.w = message.m1.pose.orientation.w
+            sawyer_cog.orientation.x = message.m1.pose.orientation.x
+            sawyer_cog.orientation.y = -1.0 * message.human_ar.pose.orientation.y
+            sawyer_cog.orientation.z = message.m1.pose.orientation.z
+            sawyer_cog.orientation.w = message.m1.pose.orientation.w
             
             sawyer_init = Pose()
-            sawyer_init.pos.position.x = sawyer_x_init
-            sawyer_init.pos.position.y = sawyer_y - gripper_offset
-            sawyer_init.pos.position.z = sawyer_z
+            sawyer_init.position.x = sawyer_x_init
+            sawyer_init.position.y = sawyer_y - gripper_offset
+            sawyer_init.position.z = sawyer_z
             
-            sawyer_init.pose.orientation.x = message.m1.pose.orientation.x
-            sawyer_init.pose.orientation.y = -1.0 * message.human_ar.pose.orientation.y
-            sawyer_init.pose.orientation.z = message.m1.pose.orientation.z
-            sawyer_init.pose.orientation.w = message.m1.pose.orientation.w
+            sawyer_init.orientation.x = message.m1.pose.orientation.x
+            sawyer_init.orientation.y = -1.0 * message.human_ar.pose.orientation.y
+            sawyer_init.orientation.z = message.m1.pose.orientation.z
+            sawyer_init.orientation.w = message.m1.pose.orientation.w
             
             print(sawyer_cog)
             
