@@ -40,7 +40,6 @@ import tf.transformations as tr
 pub = rospy.Publisher('/tag_info', VisualData, queue_size=10) # left queue_size=10 from lab2
 
 
-
 def getWFPoseStamped(marker_string):
   # function to transform AR tag pose to reference frame
   # input: marker string (ex 'ar_marker_1')
@@ -62,6 +61,38 @@ def getWFPoseStamped(marker_string):
   return m
 
 
+def getWFAlteredPose(marker_string, axis_and_offset):
+  '''
+  function to transform AR tag pose to reference frame
+  inputs: 
+  marker_string: string of ar_marker frame name (ex 'ar_marker_1')
+  axis_and_offset: (3), 1-hot vector indicating which axis the ar tag adjustment is
+  making, multiplied my total adjustment.
+  output: PoseStamped object for that marker in reference/base frame
+  '''
+
+  #get TransformStamped message from tfBuffer to get transform between reference/base frame and ar_marker
+  t = tfBuffer.lookup_transform('reference/base', marker_string, rospy.Time())
+  ts = t.header.stamp # timestamp
+  id = t.header.frame_id # transform frame associated with this data (reference/base)
+  trans = t.transform.translation # translation/position coordinates
+  rot = t.transform.rotation # rotation coordinates
+  R_base_artag = tr.quaternion_matrix(rot)
+  full_trans = np.array([trans.pose.position.x, trans.pose.position.y, trans.pose.position.z])
+  full_trans_homog = np.array([trans.pose.position.x, trans.pose.position.y, trans.pose.position.z, 1.0])
+  axis_and_offset_homog = np.array([axis_and_offset[0], axis_and_offset[1], axis_and_offset[2], 1])
+  inv_rot = np.linalg.inv(R_base_artag)
+  trans_from_artag = full_trans + np.dot(inv_rot[0:2,0:2], axis_and_offset)
+  
+  # create PoseStamped object and give it reference/base transformed pose + other info
+  m = PoseStamped() # note that sequence id will be left empty
+  m.header.stamp = ts # store corresponding timestamp
+  m.header.frame_id = id # store corresponding reference frame name
+  m.pose.orientation = rot # store rotation in reference/base frame
+  m.pose.position = trans_from_artag # store translation in reference/base frame
+
+  return m
+
 
 # define a callback method which is called whenever this node receives a 
 # message on its subscribed topic. received message is passed as argument to callback(),
@@ -79,8 +110,8 @@ def callback(message,args):
     obj_ref_marker = -1 # initialized reference marker number as -1 to check if no object markers visible (for marker interpolation)
     hum_ref_marker = -1 # initialized reference marker number as -1 to check if human_ar marker is visible
 
-    # loop through all markers visible to camera
     # If marker is visible, transform it to reference/base and store as PoseStamped object
+    # loop through all markers visible
     for i in range(len(message.markers)): 
       if message.markers[i].id == 1: # MARKER 1: ar_marker_1 is visible
         m1 = getWFPoseStamped('ar_marker_1')
@@ -158,39 +189,109 @@ def callback(message,args):
 
 
 
-    # BELOW IS STILL INCOMPLETE: DEALING WITH MISSING MARKER PART
+    # CHECK BELOW: DEALING WITH MISSING MARKER PART- LOOP PART IS WRONG(?) & OFFSETS ARE WRONG
     # idea: take visible marker and check if adjacents are there- if not, reconstruct them
-
+  
     updated_avail_ids = copy.deepcopy(avail_ids) # make a copy of available ids to update as reconstruction occurs
-    
-    if length(missing_ids) != 0: # check if any are missing to begin with, if they are, continue:
-      for j in range(len(avail_ids)): # loop through number of available markers
-        curr_avail_marker = avail_ids[j]
-        # check if adjacent markers available too
-        if (curr_avail_marker % 2) == 0: # even numbered markers- reconstruct odds
-          if 1 in missing_ids:
-            # reconstruct 1 here
-            updated_avail_ids.append(1)
-          if 3 in missing_ids:
-            # reconstruct 3 here
-            updated_avail_ids.append(3)
-        else: # odd numbered markers- reconstruct evens
-          if 2 in missing_ids:
-            # reconstruct 2 here
-            updated_avail_ids.append(2)
-          if 4 in missing_ids:
-            # reconstruct 4 here
-            updated_avail_ids.append(4)
-          
+    j = 0 # initialize counter for indexing through the constantly updating list of available ids
+    while length(missing_ids) != 0: # only run if any are missing markers
+    # for j in range(len(allobj_ids)): # loop through number of all object markers
+      curr_avail_marker = updated_avail_ids[j] 
+      # check if adjacent markers available:
+      if curr_avail_marker == 1:
+        if 2 in missing_ids:
+          axis_and_offset2 = np.array([obj_width, 0, 0]) # FIX
+          m2 = getWFAlteredPose('ar_marker_1', axis_and_offset2)
+          updated_avail_ids.append(2)
+          missing_ids.remove(2)
+        if 3 in missing_ids:
+          axis_and_offset3 = np.array([0, obj_length, 0]) # FIX
+          m3 = getWFAlteredPose('ar_marker_1', axis_and_offset3)
+          updated_avail_ids.append(3)
+          missing_ids.remove(3)
+        if 4 in missing_ids:
+          axis_and_offset4 = np.array([obj_width, obj_length, 0]) #FIX
+          m4 = getWFAlteredPose('ar_marker_1', axis_and_offset4)
+          updated_avail_ids.append(4)
+          missing_ids.remove(4)
+      elif curr_avail_marker == 2:
+        if 1 in missing_ids:
+          axis_and_offset1 = np.array([obj_width, 0, 0]) # FIX
+          m1 = getWFAlteredPose('ar_marker_2', axis_and_offset1)
+          updated_avail_ids.append(1)
+          missing_ids.remove(1)
+        if 3 in missing_ids:
+          axis_and_offset3 = np.array([0, obj_length, 0]) # FIX
+          m3 = getWFAlteredPose('ar_marker_2', axis_and_offset3)
+          updated_avail_ids.append(3)
+          missing_ids.remove(3)
+        if 4 in missing_ids:
+          axis_and_offset4 = np.array([obj_width, obj_length, 0]) #FIX
+          m4 = getWFAlteredPose('ar_marker_2', axis_and_offset4)
+          updated_avail_ids.append(4)
+          missing_ids.remove(4)
+      elif curr_avail_marker == 3:
+        if 1 in missing_ids:
+          axis_and_offset1 = np.array([obj_width, 0, 0]) # FIX
+          m1 = getWFAlteredPose('ar_marker_3', axis_and_offset1)
+          updated_avail_ids.append(1)
+          missing_ids.remove(1)
+        if 2 in missing_ids:
+          axis_and_offset2 = np.array([0, obj_length, 0]) # FIX
+          m2 = getWFAlteredPose('ar_marker_3', axis_and_offset2)
+          updated_avail_ids.append(2)
+          missing_ids.remove(2)
+        if 4 in missing_ids:
+          axis_and_offset4 = np.array([obj_width, obj_length, 0]) #FIX
+          m4 = getWFAlteredPose('ar_marker_3', axis_and_offset4)
+          updated_avail_ids.append(4)
+          missing_ids.remove(4)
+      elif curr_avail_marker == 4:
+        if 1 in missing_ids:
+          axis_and_offset1 = np.array([obj_width, 0, 0]) # FIX
+          m1 = getWFAlteredPose('ar_marker_4', axis_and_offset1)
+          updated_avail_ids.append(1)
+          missing_ids.remove(1)
+        if 2 in missing_ids:
+          axis_and_offset2 = np.array([0, obj_length, 0]) # FIX
+          m2 = getWFAlteredPose('ar_marker_4', axis_and_offset2)
+          updated_avail_ids.append(2)
+          missing_ids.remove(2)
+        if 3 in missing_ids:
+          axis_and_offset3 = np.array([obj_width, obj_length, 0]) #FIX
+          m3 = getWFAlteredPose('ar_marker_4', axis_and_offset3)
+          updated_avail_ids.append(3)
+          missing_ids.remove(3)
+      j += 1 # increment counter every loop
    
-
-
+  
    
     pub.publish(VisualData(obj_length,obj_width,m1,m2,m3,m4,human_ar))
     print('publishing to /tag_info')
   except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
     pass
 
+
+# UNUSED
+    # def reconstruction(current_marker_id,missing_marker_id):
+    #   # input: visible marker number as a double, obscured marker as a double
+    #   # output: reconstructed obscured marker as PoseStamped object
+
+    #   m = pose_dict[current_marker_id] # visible marker PoseStamped object
+    #   new_m = PoseStamped() # initialize new (obscured) marker PoseStamped object
+    #   new_m.header = copy.deepcopy(m.header) # deep copy header information
+
+    #   if (current_marker_id % 2) != 0: # current marker is odd
+    #     if missing_marker_id - current_marker_id == 1: # missing marker is along width side
+    #       # calculate using width
+    #     elif missing_marker_id - current_marker_id == 3 or missing_marker_id - current_marker_id == -1: # missing marker is along length side
+    #       # calculate using length
+    #   else: # current marker is even
+    #     if missing_marker_id - current_marker_id == -1: # missing marker is along width side
+    #       # calcualte using width
+    #     elif missing_marker_id - current_marker_id == 1 or missing_marker_id - current_marker_id == -3: # missing marker is on length side 
+    #       #calculate using length
+    #   return new_m
 
 
 # define the marker_locator method which contains the main functionality of the node
