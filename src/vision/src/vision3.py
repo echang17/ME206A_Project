@@ -138,15 +138,23 @@ def callback(message,args):
         cpx = m1x - obj_width/2 # x axis to human operator's right (human facing markers 1(R) and 2(L))
         cpy = m1y + obj_length/2 # y axis to human operator's forward
 
+        num_ar_tags = len(message.markers)
+        available_ar_tags = set()
+        for k in range(num_ar_tags):
+          available_artags.add() message.markers[k].id
 
-        if len(message.markers <4):
-          # Redundancy as follows:
+        if 2 not in available_ar_tags:
           axis_and_offset2 = np.array([obj_width, 0, 0])
           m2 = getWFAlteredPose('ar_marker_1', axis_and_offset2)
+        if 3 not in available_ar_tags:
           axis_and_offset3 = np.array([0, obj_length, 0])
-          m4 = getWFAlteredPose('ar_marker_1', axis_and_offset3)
+          m3 = getWFAlteredPose('ar_marker_1', axis_and_offset3)
+        if 4 not in available_ar_tags:
           axis_and_offset4 = np.array([obj_width, obj_length, 0])
           m4 = getWFAlteredPose('ar_marker_1', axis_and_offset4)
+          
+          
+          
 
       elif message.markers[i].id == 2: # MARKER 2: ar_marker_2 is visible
         m2 = getWFPoseStamped('ar_marker_2')
