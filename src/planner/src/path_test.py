@@ -24,10 +24,10 @@ import pickle
 import os
 
 
-# try:
-#     from controller_execution import Controller
-# except ImportError:
-#     pass
+try:
+    from controller import Controller
+except ImportError:
+    pass
     
 # def main():
 #     """
@@ -273,87 +273,71 @@ class PathExecutor(object):
         os.chdir(self.cwd)
         print(os.getcwd())
 
-        # Subscribe to the waypoint topic from ar_to_waypoint
-        rospy.Subscriber("/waypoint", Pose, self.callback)
-
         # Planner
         self.planner = PathPlanner("right_arm")
-        # Controller
-        # Kp = 0.2 * np.array([0.4, 2, 1.7, 1.5, 2, 2, 3])
-        # Kd = 0.01 * np.array([2, 1, 2, 0.5, 0.8, 0.8, 0.8])
-        # Ki = 0.01 * np.array([1.4, 1.4, 1.4, 1, 0.6, 0.6, 0.6])
-        # Kw = np.array([0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9])
-
-        pub = rospy.Publisher('/target_updates', String, queue_size=10)
-        # mssg = "I'm Online"
-        # while(True):
-        #     pub.publish(mssg)
         self.counter = 0
 
-        # Start Execution
-        print("Execution Started!")
-        # self.controller = Controller(Kp, Ki, Kd, Kw, Limb("right"))
-
-        # # testing
-        # x_start = -0.3662
-        # x_end = 0.6842
-        # num_points = 50
-
-        # # Initialize position
-        def f(x):
-            return -1.45*(x-0.159)**2+0.4
-        # p1 = Pose()
-        # p1.position = Point(x = 0.6, y= x_start, z = f(x_start))
-        # p1.orientation.y = 1.0
-
-        # plan = self.planner.plan_to_pose([p1])
-        # trajectory = plan.joint_trajectory.points
-        # print(trajectory[-2].velocities)
-        # print(trajectory[-1].positions)
-
-        # target_pos = trajectory[-1].positions 
-        # target_vel = trajectory[-2].velocities 
-
-        # # Write the targets to a pickle value that will be read by the executioner
-        # a = (target_pos, target_vel)
-        # with open('comm.pickle', 'wb') as handle:
-        #     pickle.dump(a, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-        # print("Targets Updated!")
-        # # self.controller.update_targets(target_pos, target_vel)
-
-        r = rospy.Rate(10) # 3hz
-
-        x_start = -0.3662
-        x_end = 0.6842
-        num_points = 100
-
-        # Initial Pose
+        # FINAL CODE STARTS HERE
+        Kp = 0.2 * np.array([0.4, 2, 1.7, 1.5, 2, 2, 3])
+        Kd = 0.01 * np.array([2, 1, 2, 0.5, 0.8, 0.8, 0.8])
+        Ki = 0.01 * np.array([1.4, 1.4, 1.4, 1, 0.6, 0.6, 0.6])
+        Kw = np.array([0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9])
+        controller = Controller(Kp, Kd, Ki, Kw, Limb("right"))
+        
+        # Initialize signal
         p1 = Pose()
-        p1.position = Point(x = 0.6, y = x_start, z = f(x_start))
+        p1.position = Point(x = 0.691, y= 0.159, z = 0.386)
         p1.orientation.y = 1.0
-        plan = self.planner.plan_to_pose([p1])
-        if not self.planner.execute_plan(plan): 
+
+        p2 = Pose()
+        p2.position = Point(x = 0.691, y= 0.4, z = 0.386)
+        p2.orientation.y = 1.0
+
+        p3 = Pose()
+        p3.position = Point(x = 0.691, y= 0.4, z = -0.14)
+        p3.orientation.y = 1.0
+
+        p4 = Pose()
+        p4.position = Point(x = 0.691, y= 0.2, z = -0.14)
+        p4.orientation.y = 1.0
+
+        plan = self.planner.plan_to_pose([p1, p2, p3, p4])
+        if not controller.execute_plan(plan): 
             raise Exception("Execution failed")
-        print(type(plan))
 
-        # Initialize position
-        print("Printing A: ")
-        points = []
+        # Send start signal to controller_executor
+        with open('start.pickle', 'wb') as handle:
+            a = 1
+            pickle.dump(a, handle, protocol=pickle.HIGHEST_PROTOCOL)
+            # print("Dumped!")
 
-        step_size = float(abs(x_start - x_end))/(num_points-1)
+
+        r = rospy.Rate(35) # 3hz
+        z_start = -0.15
+        z_end = 0.1
+        num_points = 50
+
+        step_size = float(abs(z_start - z_end))/(num_points-1)
+        ranges = np.arange(z_start, z_end, step_size)
         print(step_size)
-        ranges = np.arange(x_start, x_end, step_size)
+        # ranges = np.arange(x_start, x_end, step_size)
+        points = []
         print(ranges)
         for i in ranges:
-            a = [0.6, i, f(i)]
-            # print("Pringing A: ", a)
+            a = [0.691, 0.2, i]
+            print("Printing A: ", a)
             points.append(a)
-        
+
+
         for i in points:
             p1 = Pose()
             p1.position = Point(x = i[0], y = i[1], z = i[2])
-            p1.orientation.y = 1.0
+            f = [0.015, 0.719, -0.693, -0.049]
+            p1.orientation.y = 1
+            # p1.orientation.x = f[0]
+            # p1.orientation.y = f[1]
+            # p1.orientation.z = f[2]
+            # p1.orientation.w = f[3]
 
             plan = self.planner.plan_to_pose([p1])
             trajectory = plan.joint_trajectory.points
@@ -366,15 +350,60 @@ class PathExecutor(object):
             # Write the targets to a pickle value that will be read by the executioner
             a = (target_pos, target_vel)
             with open('comm.pickle', 'wb') as handle:
-                
                 pickle.dump(a, handle, protocol=pickle.HIGHEST_PROTOCOL)
                 # print("Dumped!")
 
             r.sleep()
+
+        # FEEDBACK CONTROL
+        # Subscribe to the waypoint topic from ar_to_waypoint
+        rospy.Subscriber("/waypoint", Pose, self.callback)
+
+        # # # testing
+        # x_start = -0.3662
+        # x_end = 0.6842
+        # num_points = 50
+
+        # # # Initialize position
+        # def f(x):
+        #     return -1.45*(x-0.159)**2+0.4
+
+        # Kp = 0.2 * np.array([0.4, 2, 1.7, 1.5, 2, 2, 3])
+        # Kd = 0.01 * np.array([2, 1, 2, 0.5, 0.8, 0.8, 0.8])
+        # Ki = 0.01 * np.array([1.4, 1.4, 1.4, 1, 0.6, 0.6, 0.6])
+        # Kw = np.array([0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9])
+        # controller = Controller(Kp, Kd, Ki, Kw, Limb("right"))
+
+        # step_size = float(abs(x_start - x_end))/(num_points-1)
+        # ranges = np.arange(x_start, x_end, step_size)
+        # print(step_size)
+        # ranges = np.arange(x_start, x_end, step_size)
+        # points = []
+        # print(ranges)
+        # for i in ranges:
+        #     a = [0.639, i, f(i)]
+        #     # print("Printing A: ", a)
+        #     points.append(a)
+
+        # for p in points:
+        #     try:
+        #         p1 = Pose()
+        #         p1.position = Point(x = p[0], y= p[1], z = p[2])
+        #         p1.orientation.y = 1.0
+        #         plan = self.planner.plan_to_pose([p1])
+        #         # plan = self.planner.plan_to_pose(p1, [])
+        #         print(plan)
+        #         if not controller.execute_plan(plan): 
+        #             raise Exception("Execution failed")
+        #     except Exception as e:
+        #         print(e)
+        #         traceback.print_exc()
+        #     # break
         
 
     # Callback function whenever a waypoint is received (how long are you going to update this value?)
     def callback(self, waypoint):
+        print("Received Waypoint!")
         plan = self.planner.plan_to_pose([waypoint])
         trajectory = plan.joint_trajectory.points
 
@@ -385,31 +414,9 @@ class PathExecutor(object):
         target_vel = trajectory[-2].velocities 
         
         # update the target position of the controller
-        self.controller.update_targets(target_pos, target_vel)
-
-
-        # print("Waypoint #", self.counter, " received!")
-        # self.counter += 1
-
-        # # convert the transformation to a waypoint path for execution and then publish the waypoint
-        # go_flag = False
-        
-        # # Planning the path now
-        # plan = self.planner.plan_to_pose([waypoint])
-        
-        # # running the path
-        # while not go_flag and not rospy.is_shutdown():
-        #     try:
-        #         # user_input = input("Enter 'y' if the trajectory looks safe on RVIZ")
-        #         # if user_input == 'y':
-        #         #     print("User Pressed Y")
-        #         #     input("Press <Enter> to move the right arm to goal pose 1: ")
-        #         if not self.planner.execute_plan(plan): 
-        #             raise Exception("Execution failed")
-        #         go_flag = True
-        #     except Exception as e:
-        #         print(e)
-        #         traceback.print_exc()
+        a = (target_pos, target_vel)
+        with open('comm.pickle', 'wb') as handle:
+            pickle.dump(a, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     def run(self):
         rospy.spin()

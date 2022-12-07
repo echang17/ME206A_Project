@@ -97,21 +97,31 @@ class Controller(object):
         self._limb = limb
         self.counter = 0;
 
-        # For Plotting:
-        self._times = list()
-        self._actual_positions = list()
-        self._actual_velocities = list()
-        self._target_positions = list()
-        self._target_velocities = list()
+        # Wait for signal
+        with open('start.pickle', 'wb') as handle:
+            a = 0
+            pickle.dump(a, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        r_s = rospy.Rate(1)
+        print("Initialized")
+        tar = 0
+        while (tar != 1 and not rospy.is_shutdown()):
+            print("Checking")
+            with open('start.pickle', 'rb') as handle:
+                tar = pickle.load(handle)
+                print(tar)
+                if(tar == 1):
+                    break
+            r_s.sleep()
 
         # initialize target position and velocities
         self.joint_names = ['right_j0', 'right_j1', 'right_j2', 'right_j3', 'right_j4', 'right_j5', 'right_j6']
         current_position = np.array([self._limb.joint_angles()[joint_name] for joint_name in self.joint_names])
         self.target_position = current_position
+        
         # Set velocities to zero
         self.target_velocity = np.zeros(len(self._limb.joint_names()))
-        dic_vel = {name:self.target_velocity for name in self._limb.joint_names()}
-        self._limb.set_joint_velocities(dic_vel)
+        # dic_vel = {name:self.target_velocity for name in self._limb.joint_names()}
+        # self._limb.set_joint_velocities(dic_vel)
 
         # sleep to let all the initialization be done
         rospy.sleep(0.5)
@@ -162,37 +172,6 @@ class Controller(object):
         u: 7x' ndarray of velocity commands
         
         """
-        # # Make sure you're using the latest time
-        # while (not rospy.is_shutdown() and self._curIndex < self._maxIndex and self._path.joint_trajectory.points[self._curIndex+1].time_from_start.to_sec() < t+0.001):
-        #     self._curIndex = self._curIndex+1
-
-
-        # current_position = np.array([self._limb.joint_angles()[joint_name] for joint_name in self._path.joint_trajectory.joint_names])
-        # current_velocity = np.array([self._limb.joint_velocities()[joint_name] for joint_name in self._path.joint_trajectory.joint_names])
-
-        # if self._curIndex < self._maxIndex:
-        #     time_low = self._path.joint_trajectory.points[self._curIndex].time_from_start.to_sec()
-        #     time_high = self._path.joint_trajectory.points[self._curIndex+1].time_from_start.to_sec()
-
-        #     target_position_low = np.array(self._path.joint_trajectory.points[self._curIndex].positions)
-        #     target_velocity_low = np.array(self._path.joint_trajectory.points[self._curIndex].velocities)
-
-        #     target_position_high = np.array(self._path.joint_trajectory.points[self._curIndex+1].positions)
-        #     target_velocity_high = np.array(self._path.joint_trajectory.points[self._curIndex+1].velocities)
-
-        #     target_position = target_position_low + (t - time_low)/(time_high - time_low)*(target_position_high - target_position_low)
-        #     target_velocity = target_velocity_low + (t - time_low)/(time_high - time_low)*(target_velocity_high - target_velocity_low)
-
-        # else:
-        #     target_position = np.array(self._path.joint_trajectory.points[self._curIndex].positions)
-        #     target_velocity = np.array(self._path.joint_trajectory.points[self._curIndex].velocities)
-
-        # # For Plotting
-        # self._times.append(t)
-        # self._actual_positions.append(current_position)
-        # self._actual_velocities.append(current_velocity)
-        # self._target_positions.append(target_position)
-        # self._target_velocities.append(target_velocity)
 
         # Fetch Variables
         current_position = np.array([self._limb.joint_angles()[joint_name] for joint_name in self.joint_names])
@@ -207,11 +186,12 @@ class Controller(object):
             print("target_vel_scaling error: ", error_mag)
             print("Error after normalization: ", norm_error)
             print("positional error: ", error)
+            print("Curresnt Position: ", current_position)
                 
 
         # Feed Forward Term
-        u_ff = norm_error * np.array(self.target_velocity)
-
+        u_ff = (norm_error) * np.array(self.target_velocity)
+        # u_ff = np.array(self.target_velocity)
         # Integral Term
         self._IntError = self._Kw * self._IntError + error
         
@@ -260,187 +240,6 @@ class Controller(object):
 
         self._limb.set_joint_velocities(dic_vel)
         rospy.sleep(0.1)
-
-
-    # def execute_plan(self, path, timeout=100.0, log=True):
-    #     """
-    #     Execute a given path
-
-    #     Inputs:
-    #     path: a moveit_msgs/RobotTrajectory message
-    #     timeout: max time the controller will run
-    #     log: should the controller display a plot
-        
-    #     """
-
-    #     self._path = path
-
-    #     self._curIndex = 0
-    #     self._maxIndex = len(self._path.joint_trajectory.points)-1
-
-    #     startTime = rospy.Time.now()
-
-    #     # Set the last error as zero for t = 0
-    #     self._LastError = np.zeros(len(self._Kd))
-    #     self._LastTime = 0.0
-
-    #     # Set the integral of positions to zero
-    #     self._IntError = np.zeros(len(self._Ki))
-
-    #     # Set your ring buffer to zero
-    #     self._ring_buff = deque([], self._ring_buff_capacity)
-
-    #     # Reset plot values
-    #     self._times = list()
-    #     self._actual_positions = list()
-    #     self._actual_velocities = list()
-    #     self._target_positions = list()
-    #     self._target_velocities = list()
-        
-    #     r = rospy.Rate(200)
-
-    #     while not rospy.is_shutdown():
-    #         # Find the time from start
-    #         t = (rospy.Time.now() - startTime).to_sec()
-
-    #         # If the controller has timed out, stop moving and return false
-    #         if timeout is not None and t >= timeout:
-    #             # Set velocities to zero
-    #             dic_vel = {name:np.zeros(len(self._limb.joint_names())) for name in self._limb.joint_names()}
-    #             self._limb.set_joint_velocities(dic_vel)
-    #             return False
-
-    #         # Get the input for this time
-    #         u = self.step_control(t)
-
-    #         # Set the joint velocities
-    #         dic_vel = {self._limb.joint_names()[i]:float(u[i]) for i in range(len(self._limb.joint_names()))}
-    #         self._limb.set_joint_velocities(dic_vel)
-    #         # Sleep for a defined time (to let the robot move)
-    #         r.sleep()
-
-    #         # Once the end of the path has been reached, stop moving and break
-    #         if self._curIndex >= self._maxIndex:
-    #             break
-
-    #     if log:
-    #         import matplotlib.pyplot as plt
-
-    #         times = np.array(self._times)
-    #         actual_positions = np.array(self._actual_positions)
-    #         actual_velocities = np.array(self._actual_velocities)
-    #         target_positions = np.array(self._target_positions)
-    #         target_velocities = np.array(self._target_velocities)
-    #         plt.figure()
-    #         joint_num = len(self._path.joint_trajectory.joint_names)
-    #         for joint in range(joint_num):
-    #             plt.subplot(joint_num,2,2*joint+1)
-    #             plt.plot(times, actual_positions[:,joint], label='Actual')
-    #             plt.plot(times, target_positions[:,joint], label='Desired')
-    #             plt.xlabel("Time (t)")
-    #             if(joint == 0):
-    #                 plt.ylabel(self._path.joint_trajectory.joint_names[joint] + " Position Error")
-    #             else:
-    #                 plt.ylabel(self._path.joint_trajectory.joint_names[joint])
-    #             plt.legend()
-
-    #             plt.subplot(joint_num,2,2*joint+2)
-    #             plt.plot(times, actual_velocities[:,joint], label='Actual')
-    #             plt.plot(times, target_velocities[:,joint], label='Desired')
-    #             plt.xlabel("Time (t)")
-    #             if(joint == 0):
-    #                 plt.ylabel(self._path.joint_trajectory.joint_names[joint] + " Velocity Error")
-    #             else:
-    #                 plt.ylabel(self._path.joint_trajectory.joint_names[joint])
-    #             plt.legend()
-
-    #         print("Close the plot window to continue")
-    #         plt.show()
-
-    #     return True
-
-    # def step_control(self, t):
-    #     """
-    #     Return the control input given the current controller state at time t
-
-    #     Inputs:
-    #     t: time from start in seconds
-
-    #     Output:
-    #     u: 7x' ndarray of velocity commands
-        
-    #     """
-    #     # Make sure you're using the latest time
-    #     while (not rospy.is_shutdown() and self._curIndex < self._maxIndex and self._path.joint_trajectory.points[self._curIndex+1].time_from_start.to_sec() < t+0.001):
-    #         self._curIndex = self._curIndex+1
-
-
-    #     current_position = np.array([self._limb.joint_angles()[joint_name] for joint_name in self._path.joint_trajectory.joint_names])
-    #     current_velocity = np.array([self._limb.joint_velocities()[joint_name] for joint_name in self._path.joint_trajectory.joint_names])
-
-    #     if self._curIndex < self._maxIndex:
-    #         time_low = self._path.joint_trajectory.points[self._curIndex].time_from_start.to_sec()
-    #         time_high = self._path.joint_trajectory.points[self._curIndex+1].time_from_start.to_sec()
-
-    #         target_position_low = np.array(self._path.joint_trajectory.points[self._curIndex].positions)
-    #         target_velocity_low = np.array(self._path.joint_trajectory.points[self._curIndex].velocities)
-
-    #         target_position_high = np.array(self._path.joint_trajectory.points[self._curIndex+1].positions)
-    #         target_velocity_high = np.array(self._path.joint_trajectory.points[self._curIndex+1].velocities)
-
-    #         target_position = target_position_low + (t - time_low)/(time_high - time_low)*(target_position_high - target_position_low)
-    #         target_velocity = target_velocity_low + (t - time_low)/(time_high - time_low)*(target_velocity_high - target_velocity_low)
-
-    #     else:
-    #         target_position = np.array(self._path.joint_trajectory.points[self._curIndex].positions)
-    #         target_velocity = np.array(self._path.joint_trajectory.points[self._curIndex].velocities)
-
-    #     # For Plotting
-    #     self._times.append(t)
-    #     self._actual_positions.append(current_position)
-    #     self._actual_velocities.append(current_velocity)
-    #     self._target_positions.append(target_position)
-    #     self._target_velocities.append(target_velocity)
-
-
-    #     # Feed Forward Term
-    #     u_ff = target_velocity
-
-    #     # Error Term
-    #     error = target_position - current_position
-
-    #     # Integral Term
-    #     self._IntError = self._Kw * self._IntError + error
-        
-    #     # Derivative Term
-    #     dt = t - self._LastTime
-    #     # We implement a moving average filter to smooth the derivative
-    #     curr_derivative = (error - self._LastError) / dt
-    #     self._ring_buff.append(curr_derivative)
-    #     ed = np.mean(self._ring_buff)
-
-    #     # Save terms for the next run
-    #     self._LastError = error
-    #     self._LastTime = t
-
-    #     ###################### YOUR CODE HERE #########################
-
-    #     # Note, you should load the Kp, Ki, Kd, and Kw constants with
-    #     # self._Kp
-    #     # and so on. This is better practice than hard-coding
-
-    #     # Feedforward 3.1
-    #     # u = u_ff 
-    #     # print(u_ff)
-    #     # print(error)
-    #     # print(self._Kp)
-    #     # u = u_ff + np.multiply(self._Kp,error) + np.multiply(self._Kd,ed) + np.multiply(self._Ki,self._IntError)
-
-    #     u = u_ff
-
-    #     ###################### YOUR CODE END ##########################
-
-    #     return u
 
 
 if __name__ == '__main__': 

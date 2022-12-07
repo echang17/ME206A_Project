@@ -115,12 +115,33 @@ class PathPlanner(object):
         # compute_cartesian_path(self, waypoints, eef_step(in meters), jump_threshold, avoid_collisions = True)
         # Source: http://docs.ros.org/en/jade/api/moveit_commander/html/classmoveit__commander_1_1move__group_1_1MoveGroupCommander.html#ad7f6d93d73bf43268ba983afb0dc4f23
         plan, _ = self._group.compute_cartesian_path(waypoints, 0.1 ,0)
-        velocity_scaling_factor = 0.5
+        velocity_scaling_factor = 1.0
         plan = self._group.retime_trajectory(self._robot.get_current_state(), 
                                 plan, 
                                 velocity_scaling_factor)
         
         return plan
+
+    # def plan_to_pose(self, target, orientation_constraints):
+    #     """
+    #     Generates a plan given an end effector pose subject to orientation constraints
+    #     Inputs:
+    #     target: A geometry_msgs/PoseStamped message containing the end effector pose goal
+    #     orientation_constraints: A list of moveit_msgs/OrientationConstraint messages
+    #     Outputs:
+    #     path: A moveit_msgs/RobotTrajectory path
+    #     """
+
+    #     self._group.set_pose_target(target)
+    #     self._group.set_start_state_to_current_state()
+
+    #     constraints = Constraints()
+    #     constraints.orientation_constraints = orientation_constraints
+    #     self._group.set_path_constraints(constraints)
+
+    #     plan = self._group.plan()
+
+    #     return plan
 
     def execute_plan(self, plan):
         """

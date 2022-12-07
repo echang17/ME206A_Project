@@ -20,6 +20,7 @@ from moveit_msgs.msg import RobotTrajectory
 class Controller(object):
     """
     A controller object
+
     Fields:
     _Kp: 7x' ndarray of proportional constants
     _Ki: 7x' ndarray of integral constants
@@ -32,18 +33,22 @@ class Controller(object):
     _curIndex: the current index in the path
     _maxIndex: maximum index in the path
     _limb: baxter_interface.Limb or intera_interface.Limb
+
     _times: For Plotting
     _actual_positions: For Plotting
     _actual_velocities: For Plotting
     _target_positions: For Plotting
     _target_velocities: For Plotting
+
     Methods:
     __init__(self, Kp, Ki, Kd, Kw): constructor
+
     """
 
     def __init__(self, Kp, Ki, Kd, Kw, limb):
         """
         Constructor:
+
         Inputs:
         Kp: 7x' ndarray of proportional constants
         Ki: 7x' ndarray of integral constants
@@ -95,6 +100,7 @@ class Controller(object):
     def execute_plan(self, path, timeout=100.0, log=True):
         """
         Execute a given path
+
         Inputs:
         path: a moveit_msgs/RobotTrajectory message
         timeout: max time the controller will run
@@ -152,47 +158,49 @@ class Controller(object):
             if self._curIndex >= self._maxIndex:
                 break
 
-        # if log:
-        #     import matplotlib.pyplot as plt
+        if log:
+            import matplotlib.pyplot as plt
 
-        #     times = np.array(self._times)
-        #     actual_positions = np.array(self._actual_positions)
-        #     actual_velocities = np.array(self._actual_velocities)
-        #     target_positions = np.array(self._target_positions)
-        #     target_velocities = np.array(self._target_velocities)
-        #     plt.figure()
-        #     joint_num = len(self._path.joint_trajectory.joint_names)
-        #     for joint in range(joint_num):
-        #         plt.subplot(joint_num,2,2*joint+1)
-        #         plt.plot(times, actual_positions[:,joint], label='Actual')
-        #         plt.plot(times, target_positions[:,joint], label='Desired')
-        #         plt.xlabel("Time (t)")
-        #         if(joint == 0):
-        #             plt.ylabel(self._path.joint_trajectory.joint_names[joint] + " Position Error")
-        #         else:
-        #             plt.ylabel(self._path.joint_trajectory.joint_names[joint])
-        #         plt.legend()
+            times = np.array(self._times)
+            actual_positions = np.array(self._actual_positions)
+            actual_velocities = np.array(self._actual_velocities)
+            target_positions = np.array(self._target_positions)
+            target_velocities = np.array(self._target_velocities)
+            plt.figure()
+            joint_num = len(self._path.joint_trajectory.joint_names)
+            for joint in range(joint_num):
+                plt.subplot(joint_num,2,2*joint+1)
+                plt.plot(times, actual_positions[:,joint], label='Actual')
+                plt.plot(times, target_positions[:,joint], label='Desired')
+                plt.xlabel("Time (t)")
+                if(joint == 0):
+                    plt.ylabel(self._path.joint_trajectory.joint_names[joint] + " Position Error")
+                else:
+                    plt.ylabel(self._path.joint_trajectory.joint_names[joint])
+                plt.legend()
 
-        #         plt.subplot(joint_num,2,2*joint+2)
-        #         plt.plot(times, actual_velocities[:,joint], label='Actual')
-        #         plt.plot(times, target_velocities[:,joint], label='Desired')
-        #         plt.xlabel("Time (t)")
-        #         if(joint == 0):
-        #             plt.ylabel(self._path.joint_trajectory.joint_names[joint] + " Velocity Error")
-        #         else:
-        #             plt.ylabel(self._path.joint_trajectory.joint_names[joint])
-        #         plt.legend()
+                plt.subplot(joint_num,2,2*joint+2)
+                plt.plot(times, actual_velocities[:,joint], label='Actual')
+                plt.plot(times, target_velocities[:,joint], label='Desired')
+                plt.xlabel("Time (t)")
+                if(joint == 0):
+                    plt.ylabel(self._path.joint_trajectory.joint_names[joint] + " Velocity Error")
+                else:
+                    plt.ylabel(self._path.joint_trajectory.joint_names[joint])
+                plt.legend()
 
-        #     print("Close the plot window to continue")
-        #     plt.show()
+            print("Close the plot window to continue")
+            plt.show()
 
         return True
 
     def step_control(self, t):
         """
         Return the control input given the current controller state at time t
+
         Inputs:
         t: time from start in seconds
+
         Output:
         u: 7x' ndarray of velocity commands
         
@@ -256,7 +264,14 @@ class Controller(object):
         # self._Kp
         # and so on. This is better practice than hard-coding
 
-        u = u_ff + self._Kp*error + self._Kd*ed + self._Ki*self._IntError
+        # Feedforward 3.1
+        # u = u_ff 
+        # print(u_ff)
+        # print(error)
+        # print(self._Kp)
+        # u = u_ff + np.multiply(self._Kp,error) + np.multiply(self._Kd,ed) + np.multiply(self._Ki,self._IntError)
+
+        u = u_ff
 
         ###################### YOUR CODE END ##########################
 
@@ -265,5 +280,12 @@ class Controller(object):
 
 if __name__ == '__main__': 
     pass
+
+
+
+    
+
+
+
 
 

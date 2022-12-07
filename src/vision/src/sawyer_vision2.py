@@ -83,7 +83,7 @@ def callback(message):
   # while not rospy.is_shutdown():
   try:
 
-
+    print('try')
     
     # transform = tfListener.lookupTransform(base_frame, cam_frame, rospy.Time(1.0)).transform
     # time.sleep(2)
@@ -271,28 +271,29 @@ def callback(message):
     print(obj_width)
 
     # # find missing markers and interpolate them
-    # missing_ids = list(set(allobj_ids) - set(avail_ids))
+    missing_ids = list(set(allobj_ids) - set(avail_ids))
     # # print(avail_ids) # object ids only- exclude human ar tag
     # print(missing_ids)
     # if ref_marker == -1:
     #   print('no object markers detected')
 
-    if 1 in missing_ids:
-      m1 = copy.deepcopy(dict[ref_marker]) # deepcopy PoseStamped from reference marker
-      m1.pose.position.x = cpx - obj_width/2 # overwrite x coordinate
-      m1.pose.position.y = cpy + obj_length/2 # overwrite y coordinate
-    if 2 in missing_ids:
-      m2 = copy.deepcopy(dict[ref_marker])
-      m2.pose.position.x = cpx + obj_width/2
-      m2.pose.position.y = cpy + obj_length/2
-    if 3 in missing_ids:
-      m3 = copy.deepcopy(dict[ref_marker])
-      m3.pose.position.x = cpx + obj_width/2
-      m3.pose.position.y = cpy - obj_length/2
-    if 4 in missing_ids:
-      m4 = copy.deepcopy(dict[ref_marker])
-      m4.pose.position.x = cpx - obj_width/2
-      m4.pose.position.y = cpy - obj_length/2
+    # if 1 in missing_ids:
+    #   m1 = copy.deepcopy(dict[ref_marker]) # deepcopy PoseStamped from reference marker
+    #   m1.pose.position.x = cpx - obj_width/2 # overwrite x coordinate
+    #   m1.pose.position.y = cpy + obj_length/2 # overwrite y coordinate
+    # if 2 in missing_ids:
+    #   m2 = copy.deepcopy(dict[ref_marker])
+    #   m2.pose.position.x = cpx + obj_width/2
+    #   m2.p print(obj_length)
+    #print(obj_width)ose.position.y = cpy + obj_length/2
+    # if 3 in missing_ids:
+    #   m3 = copy.deepcopy(dict[ref_marker])
+    #   m3.pose.position.x = cpx + obj_width/2
+    #   m3.pose.position.y = cpy - obj_length/2
+    # if 4 in missing_ids:
+    #   m4 = copy.deepcopy(dict[ref_marker])
+    #   m4.pose.position.x = cpx - obj_width/2
+    #   m4.pose.position.y = cpy - obj_length/2
 
     # transform tags to world frame 
     # pm1 = transform_wf(m1, rotation_w, translation_w) # m1_wf

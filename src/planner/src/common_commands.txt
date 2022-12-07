@@ -105,3 +105,23 @@ set fixed frame: head_camera
 add Image display, set topic: /io/internal_camera/head_camera/image_raw (image only)
 add Camera display, set topic: /io/internal_camera/head_camera/image_raw (image with AR tag frame overlay)
 add TF display to see AR tag frames (x: red, y: green, z: blue)
+
+- Translation: [0.639, 0.216, -0.095]
+- Rotation: in Quaternion [0.010, 0.709, -0.705, 0.012]
+            in RPY (radian) [-1.577, 0.030, -3.139]
+            in RPY (degree) [-90.330, 1.715, -179.831]
+[intera - http://alice.local:11311] c105-7 [504] ~/ME206A_Project # rosrun tf tf_echo reference/base reference/right_gripper_tip
+At time 1670405118.015
+- Translation: [0.638, 0.237, 0.256]
+- Rotation: in Quaternion [0.002, -0.682, 0.731, 0.007]
+
+
+C Path that goes under the cardboard
+
+At time 1670407952.515
+- Translation: [0.642, 0.375, -0.138]
+- Rotation: in Quaternion [0.064, 0.994, -0.080, 0.032]
+            in RPY (radian) [-2.986, 0.075, 3.019]
+            in RPY (degree) [-171.109, 4.282, 172.978]
+
+

@@ -45,20 +45,20 @@ def callback(message):
             sawyer_cog.position.y = sawyer_y + gripper_offset
             sawyer_cog.position.z = sawyer_z
             
-            sawyer_cog.orientation.x = message.m1.pose.orientation.x
-            sawyer_cog.orientation.y = -1.0 * message.human_ar.pose.orientation.y
-            sawyer_cog.orientation.z = message.m1.pose.orientation.z
-            sawyer_cog.orientation.w = message.m1.pose.orientation.w
+            sawyer_cog.orientation.x = 0
+            sawyer_cog.orientation.y = 1
+            sawyer_cog.orientation.z = 0.0
+            sawyer_cog.orientation.w = 0.0
             
             sawyer_init = Pose()
             sawyer_init.position.x = sawyer_x_init
             sawyer_init.position.y = sawyer_y + gripper_offset
             sawyer_init.position.z = sawyer_z
             
-            sawyer_init.orientation.x = message.m1.pose.orientation.x
-            sawyer_init.orientation.y = -1.0 * message.human_ar.pose.orientation.y
-            sawyer_init.orientation.z = message.m1.pose.orientation.z
-            sawyer_init.orientation.w = message.m1.pose.orientation.w
+            sawyer_init.orientation.x = 0
+            sawyer_init.orientation.y = 1
+            sawyer_init.orientation.z = 0.0
+            sawyer_init.orientation.w = 0.0
             
             print(sawyer_cog)
             
