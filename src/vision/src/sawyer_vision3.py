@@ -159,31 +159,29 @@ def callback(message,args):
 
 
     # BELOW IS STILL INCOMPLETE: DEALING WITH MISSING MARKER PART
-    # loop through the list of missing_ids and update it as missing markers are interpolated
-    for j in range(length(missing_ids)): 
-      if 1 in missing_ids: # MARKER 1 NOT VISIBLE- use 2 or 4 to reconstruct
-        
-        m1 = copy.deepcopy(pose_dict[obj_ref_marker]) # deepcopy PoseStamped from reference marker
-        m1.pose.position.x = cpx - obj_width/2 # overwrite x coordinate
-        m1.pose.position.y = cpy + obj_length/2 # overwrite y coordinate
-        
-      if 2 in missing_ids: # MARKER 2 NOT VISIBLE- use 1 or 3 to reconstruct
+    # idea: take visible marker and check if adjacents are there- if not, reconstruct them
 
-        m2 = copy.deepcopy(pose_dict[obj_ref_marker])
-        m2.pose.position.x = cpx + obj_width/2
-        m2.pose.position.y = cpy + obj_length/2
-
-      if 3 in missing_ids: # MARKER 3 NOT VISIBLE - use 2 or 4 to reconstruct
-
-        m3 = copy.deepcopy(pose_dict[obj_ref_marker])
-        m3.pose.position.x = cpx + obj_width/2
-        m3.pose.position.y = cpy - obj_length/2
-
-      if 4 in missing_ids: # MARKER 4 NOT VISIBLE - use 1 or 3 to reconstruct
-
-        m4 = copy.deepcopy(pose_dict[ojb_ref_marker])
-        m4.pose.position.x = cpx - obj_width/2
-        m4.pose.position.y = cpy - obj_length/2
+    updated_avail_ids = copy.deepcopy(avail_ids) # make a copy of available ids to update as reconstruction occurs
+    
+    if length(missing_ids) != 0: # check if any are missing to begin with, if they are, continue:
+      for j in range(len(avail_ids)): # loop through number of available markers
+        curr_avail_marker = avail_ids[j]
+        # check if adjacent markers available too
+        if (curr_avail_marker % 2) == 0: # even numbered markers- reconstruct odds
+          if 1 in missing_ids:
+            # reconstruct 1 here
+            updated_avail_ids.append(1)
+          if 3 in missing_ids:
+            # reconstruct 3 here
+            updated_avail_ids.append(3)
+        else: # odd numbered markers- reconstruct evens
+          if 2 in missing_ids:
+            # reconstruct 2 here
+            updated_avail_ids.append(2)
+          if 4 in missing_ids:
+            # reconstruct 4 here
+            updated_avail_ids.append(4)
+          
    
 
 
