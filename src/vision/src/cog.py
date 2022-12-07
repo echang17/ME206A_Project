@@ -30,31 +30,33 @@ def callback(message):
             m3_pos = (message.m3.pose.position.x, message.m3.pose.position.y, message.m3.pose.position.z)
             m4_pos = (message.m4.pose.position.x, message.m4.pose.position.y, message.m4.pose.position.z)
 
-            dist = m1_pos[0] - hand_pos[0]
-            sawyer_x_cog = m3_pos[0] + dist # center of gravity x for end effector
-            sawyer_x_init = (m4_pos[0] + m3_pos[0]) / 2 # finds center to play end effector
-            sawyer_y = m4_pos[1]
+            dist = m2_pos[1] - hand_pos[1]
+            sawyer_y_cog = m3_pos[1] + dist # center of gravity y for end effector
+            sawyer_y_init = (m4_pos[1] + m3_pos[1]) / 2 # finds center to play end effector
             sawyer_z = m2_pos[2]
 
             sawyer_cog = Pose()
-            if hand_pos[0] < m2_pos[0] or hand_pos[0] > m1_pos[0]:
+            sawyer_cog.position.x = m3_pos[0] - gripper_offset
+            
+            if hand_pos[1] > m2_pos[1] or hand_pos[1] < m1_pos[1]:
               print("human hand not on board")
-              sawyer_cog.position.x = sawyer_x_init #default to middle if human not on the board
+              sawyer_cog.position.y = sawyer_y_init #default to middle if human not on the board
             else:  
-              sawyer_cog.position.x = sawyer_x_cog
-            sawyer_cog.position.y = sawyer_y + gripper_offset
+              sawyer_cog.position.y = sawyer_y_cog
             sawyer_cog.position.z = sawyer_z
             
+            #TODO: set orientation
             sawyer_cog.orientation.x = message.m1.pose.orientation.x
             sawyer_cog.orientation.y = -1.0 * message.human_ar.pose.orientation.y
             sawyer_cog.orientation.z = message.m1.pose.orientation.z
             sawyer_cog.orientation.w = message.m1.pose.orientation.w
             
             sawyer_init = Pose()
-            sawyer_init.position.x = sawyer_x_init
-            sawyer_init.position.y = sawyer_y + gripper_offset
+            sawyer_init.position.x = m3_pos[0] - gripper_offset
+            sawyer_init.position.y = sawyer_y_init
             sawyer_init.position.z = sawyer_z
             
+            #TODO: set orientation
             sawyer_init.orientation.x = message.m1.pose.orientation.x
             sawyer_init.orientation.y = -1.0 * message.human_ar.pose.orientation.y
             sawyer_init.orientation.z = message.m1.pose.orientation.z
