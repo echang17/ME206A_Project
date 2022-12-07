@@ -17,7 +17,7 @@ from vision.msg import VisualData
 from vision.msg import SawyerCog
 
 
-pub = rospy.Publisher('/waypoint', VisualData, queue_size=10)
+pub = rospy.Publisher('/waypoint', SawyerCog, queue_size=10)
 
 def callback(message):
     while not rospy.is_shutdown():

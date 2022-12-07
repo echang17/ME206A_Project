@@ -89,22 +89,14 @@ def callback(message):
     # time.sleep(2)
 
     transform = tfBuffer.lookup_transform('reference/base', 'ar_marker_1', rospy.Time()).transform  
-    # transform = tfBuffer.lookup_transform(sys.argv[1], sys.argv[2], rospy.Time(1.0)).transform  
     translation = transform.translation
     translation_w = [translation.x, translation.y, translation.z]
     rot = transform.rotation
     m1 = PoseStamped()
-    # print(rot)
     m1.pose.orientation = rot#.x = tr.quaternion_from_matrix(rot).x
-    # m1.pose.orientation.y = tr.quaternion_from_matrix(rot)[1]
-    # m1.pose.orientation.z = tr.quaternion_from_matrix(rot)[2]
-    # m1.pose.orientation.w = tr.quaternion_from_matrix(rot)[3]
     m1.pose.position = translation#.x = translation.x
-    # m1.pose.position.y = translation.y
-    # m1.pose.position.z = translation.z
-    # print(m1)
-    rotation_w = tr.quaternion_matrix([rot.x, rot.y, rot.z, rot.w])
-    # print(rotation_w)
+    # rotation_w = tr.quaternion_matrix([rot.x, rot.y, rot.z, rot.w])
+
 
 
 
@@ -193,13 +185,13 @@ def callback(message):
 
 
     # print(m1.header.frame_id) # m1.header.frame_id
-    transform1 = tfBuffer.lookup_transform('head_camera', 'ar_marker_1', rospy.Time()).transform  
-    translation1 = transform1.translation
-    translation_w1 = [translation1.x, translation1.y, translation1.z]
-    rot1 = transform1.rotation
-    print(rot1.x)
-    rotation_w1 = tr.quaternion_matrix([rot1.x, rot1.y, rot1.z, rot1.w])
-    print(np.asarray(rotation_w).shape, np.asarray(rotation_w1).shape)
+    # transform1 = tfBuffer.lookup_transform('head_camera', 'ar_marker_1', rospy.Time()).transform  
+    # translation1 = transform1.translation
+    # translation_w1 = [translation1.x, translation1.y, translation1.z]
+    # rot1 = transform1.rotation
+    # print(rot1.x)
+    # rotation_w1 = tr.quaternion_matrix([rot1.x, rot1.y, rot1.z, rot1.w])
+    # print(np.asarray(rotation_w).shape, np.asarray(rotation_w1).shape)
 
     # rotation_total_1 = np.dot(np.asarray(rotation_w), np.asarray(rotation_w1))
     # translation_total_1 = translation_w1 + translation_w
@@ -214,72 +206,65 @@ def callback(message):
     # m1.pose.position.y = translation_total_1[1]
     # m1.pose.position.z = translation_total_1[2]
 
-    transform2 = tfBuffer.lookup_transform('head_camera', 'ar_marker_2', rospy.Time()).transform  
-    translation2 = transform2.translation
-    translation_w2 = [translation2.x, translation2.y, translation2.z]
-    rot2 = transform2.rotation
-    rotation_w2 = tr.quaternion_matrix([rot2.x, rot2.y, rot2.z, rot2.w])
-    rotation_total_2 = np.dot(np.asarray(rotation_w), np.asarray(rotation_w2))
-    translation_total_2 = translation_w2 + translation_w
-    m2 = PoseStamped()
-    m2.pose.orientation.x = tr.quaternion_from_matrix(rotation_total_2)[0]
-    m2.pose.orientation.y = tr.quaternion_from_matrix(rotation_total_2)[1]
-    m2.pose.orientation.z = tr.quaternion_from_matrix(rotation_total_2)[2]
-    m2.pose.orientation.w = tr.quaternion_from_matrix(rotation_total_2)[3]
-    m2.pose.position.x = translation_total_2[0]
-    m2.pose.position.y = translation_total_2[1]
-    m2.pose.position.z = translation_total_2[2]
+    # transform2 = tfBuffer.lookup_transform('head_camera', 'ar_marker_2', rospy.Time()).transform  
+    # translation2 = transform2.translation
+    # translation_w2 = [translation2.x, translation2.y, translation2.z]
+    # rot2 = transform2.rotation
+    # rotation_w2 = tr.quaternion_matrix([rot2.x, rot2.y, rot2.z, rot2.w])
+    # rotation_total_2 = np.dot(np.asarray(rotation_w), np.asarray(rotation_w2))
+    # translation_total_2 = translation_w2 + translation_w
+    # m2 = PoseStamped()
+    # m2.pose.orientation.x = tr.quaternion_from_matrix(rotation_total_2)[0]
+    # m2.pose.orientation.y = tr.quaternion_from_matrix(rotation_total_2)[1]
+    # m2.pose.orientation.z = tr.quaternion_from_matrix(rotation_total_2)[2]
+    # m2.pose.orientation.w = tr.quaternion_from_matrix(rotation_total_2)[3]
+    # m2.pose.position.x = translation_total_2[0]
+    # m2.pose.position.y = translation_total_2[1]
+    # m2.pose.position.z = translation_total_2[2]
     # print(m2)
-    transform3 = tfBuffer.lookup_transform('head_camera', 'ar_marker_3', rospy.Time()).transform  
-    translation3 = transform3.translation
-    translation_w3 = [translation3.x, translation3.y, translation3.z]
-    rot3 = transform3.rotation
-    rotation_w3 = tr.quaternion_matrix([rot3.x, rot3.y, rot3.z, rot3.w])
-    rotation_total_3 = np.dot(np.asarray(rotation_w), np.asarray(rotation_w3))
-    translation_total_3 = translation_w3 + translation_w
-    print('test')
+    transform2 = tfBuffer.lookup_transform('reference/base', 'ar_marker_2', rospy.Time()).transform  
+    translation = transform2.translation
+    translation_w = [translation.x, translation.y, translation.z]
+    rot = transform2.rotation
+    m2 = PoseStamped()
+    m2.pose.orientation = rot#.x = tr.quaternion_from_matrix(rot).x
+    m2.pose.position = translation#.x = translation.x
+
+    print('test2')
+
+    transform3 = tfBuffer.lookup_transform('reference/base', 'ar_marker_3', rospy.Time()).transform  
+    translation = transform3.translation
+    translation_w = [translation.x, translation.y, translation.z]
+    rot = transform3.rotation
     m3 = PoseStamped()
-    m3.pose.orientation.x = tr.quaternion_from_matrix(rotation_total_3)[0]
-    m3.pose.orientation.y = tr.quaternion_from_matrix(rotation_total_3)[1]
-    m3.pose.orientation.z = tr.quaternion_from_matrix(rotation_total_3)[2]
-    m3.pose.orientation.w = tr.quaternion_from_matrix(rotation_total_3)[3]
-    m3.pose.position.x = translation_total_3[0]
-    m3.pose.position.y = translation_total_3[1]
-    m3.pose.position.z = translation_total_3[2]
-    print('m3')
-    transform4 = tfBuffer.lookup_transform('head_camera', 'ar_marker_4', rospy.Time()).transform  
-    translation4 = transform4.translation
-    translation_w4 = [translation4.x, translation4.y, translation4.z]
-    rot4 = transform4.rotation
-    rotation_w4 = tr.quaternion_matrix([rot4.x, rot4.y, rot4.z, rot4.w])
-    rotation_total_4 = np.dot(np.asarray(rotation_w), np.asarray(rotation_w4))
-    translation_total_4 = translation_w4 + translation_w
+    m3.pose.orientation = rot#.x = tr.quaternion_from_matrix(rot).x
+    m3.pose.position = translation#.x = translation.x
+
+    print('test3')
+
+    transform4 = tfBuffer.lookup_transform('reference/base', 'ar_marker_4', rospy.Time()).transform  
+    translation = transform4.translation
+    translation_w = [translation.x, translation.y, translation.z]
+    rot = transform4.rotation
     m4 = PoseStamped()
-    m4.pose.orientation.x = tr.quaternion_from_matrix(rotation_total_4)[0]
-    m4.pose.orientation.y = tr.quaternion_from_matrix(rotation_total_4)[1]
-    m4.pose.orientation.z = tr.quaternion_from_matrix(rotation_total_4)[2]
-    m4.pose.orientation.w = tr.quaternion_from_matrix(rotation_total_4)[3]
-    m4.pose.position.x = translation_total_4[0]
-    m4.pose.position.y = translation_total_4[1]
-    m4.pose.position.z = translation_total_4[2]
-    print('m4')
-    transform5 = tfBuffer.lookup_transform('head_camera', 'ar_marker_5', rospy.Time()).transform  
-    translation5 = transform5.translation
-    translation_w5 = [translation5.x, translation5.y, translation5.z]
-    rot5 = transform5.rotation
-    rotation_w5 = tr.quaternion_matrix([rot5.x, rot5.y, rot5.z, rot5.w])
-    rotation_total_5 = np.dot(np.asarray(rotation_w), np.asarray(rotation_w5))
-    translation_total_5 = translation_w5 + translation_w
+    m4.pose.orientation = rot#.x = tr.quaternion_from_matrix(rot).x
+    m4.pose.position = translation#.x = translation.x
+
+
+    print('test4')
+
+
+    transform5 = tfBuffer.lookup_transform('reference/base', 'ar_marker_5', rospy.Time()).transform  
+    translation = transform5.translation
+    translation_w = [translation.x, translation.y, translation.z]
+    rot = transform5.rotation
     m5 = PoseStamped()
-    m5.pose.orientation.x = tr.quaternion_from_matrix(rotation_total_5)[0]
-    m5.pose.orientation.y = tr.quaternion_from_matrix(rotation_total_5)[1]
-    m5.pose.orientation.z = tr.quaternion_from_matrix(rotation_total_5)[2]
-    m5.pose.orientation.w = tr.quaternion_from_matrix(rotation_total_5)[3]
-    m5.pose.position.x = translation_total_5[0]
-    m5.pose.position.y = translation_total_5[1]
-    m5.pose.position.z = translation_total_5[2]
+    m5.pose.orientation = rot#.x = tr.quaternion_from_matrix(rot).x
+    m5.pose.position = translation#.x = translation.x
     human_ar = m5
 
+
+    # DO NOT UPDATE THESE PARAMETERS, CALCULATE THEM BEFORE EVERYTHING
     obj_length = m2.pose.position.y - m3.pose.position.y 
     obj_width = m2.pose.position.x - m1.pose.position.x
     print(obj_length)
@@ -292,22 +277,22 @@ def callback(message):
     # if ref_marker == -1:
     #   print('no object markers detected')
 
-    # if 1 in missing_ids:
-    #   m1 = copy.deepcopy(dict[ref_marker]) # deepcopy PoseStamped from reference marker
-    #   m1.pose.position.x = cpx - obj_width/2 # overwrite x coordinate
-    #   m1.pose.position.y = cpy + obj_length/2 # overwrite y coordinate
-    # if 2 in missing_ids:
-    #   m2 = copy.deepcopy(dict[ref_marker])
-    #   m2.pose.position.x = cpx + obj_width/2
-    #   m2.pose.position.y = cpy + obj_length/2
-    # if 3 in missing_ids:
-    #   m3 = copy.deepcopy(dict[ref_marker])
-    #   m3.pose.position.x = cpx + obj_width/2
-    #   m3.pose.position.y = cpy - obj_length/2
-    # if 4 in missing_ids:
-    #   m4 = copy.deepcopy(dict[ref_marker])
-    #   m4.pose.position.x = cpx - obj_width/2
-    #   m4.pose.position.y = cpy - obj_length/2
+    if 1 in missing_ids:
+      m1 = copy.deepcopy(dict[ref_marker]) # deepcopy PoseStamped from reference marker
+      m1.pose.position.x = cpx - obj_width/2 # overwrite x coordinate
+      m1.pose.position.y = cpy + obj_length/2 # overwrite y coordinate
+    if 2 in missing_ids:
+      m2 = copy.deepcopy(dict[ref_marker])
+      m2.pose.position.x = cpx + obj_width/2
+      m2.pose.position.y = cpy + obj_length/2
+    if 3 in missing_ids:
+      m3 = copy.deepcopy(dict[ref_marker])
+      m3.pose.position.x = cpx + obj_width/2
+      m3.pose.position.y = cpy - obj_length/2
+    if 4 in missing_ids:
+      m4 = copy.deepcopy(dict[ref_marker])
+      m4.pose.position.x = cpx - obj_width/2
+      m4.pose.position.y = cpy - obj_length/2
 
     # transform tags to world frame 
     # pm1 = transform_wf(m1, rotation_w, translation_w) # m1_wf
