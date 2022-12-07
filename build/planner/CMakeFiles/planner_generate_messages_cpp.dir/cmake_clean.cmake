@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/devel/include/planner/AlvarMarker.h"
-  "/home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/devel/include/planner/AlvarMarkers.h"
+  "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/planner/AlvarMarker.h"
+  "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/include/planner/AlvarMarkers.h"
   "CMakeFiles/planner_generate_messages_cpp"
 )
 

@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/src
+CMAKE_SOURCE_DIR = /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/build
+CMAKE_BINARY_DIR = /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build
 
 # Utility rule file for doxygen.
 
@@ -67,6 +67,6 @@ CMakeFiles/doxygen.dir/clean:
 .PHONY : CMakeFiles/doxygen.dir/clean
 
 CMakeFiles/doxygen.dir/depend:
-	cd /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/src /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/src /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/build /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/build /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/build/CMakeFiles/doxygen.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/CMakeFiles/doxygen.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/doxygen.dir/depend
 

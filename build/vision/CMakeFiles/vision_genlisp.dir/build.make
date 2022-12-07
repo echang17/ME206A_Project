@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/src
+CMAKE_SOURCE_DIR = /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/build
+CMAKE_BINARY_DIR = /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build
 
 # Utility rule file for vision_genlisp.
 
@@ -63,10 +63,10 @@ vision/CMakeFiles/vision_genlisp.dir/build: vision_genlisp
 .PHONY : vision/CMakeFiles/vision_genlisp.dir/build
 
 vision/CMakeFiles/vision_genlisp.dir/clean:
-	cd /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/build/vision && $(CMAKE_COMMAND) -P CMakeFiles/vision_genlisp.dir/cmake_clean.cmake
+	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision && $(CMAKE_COMMAND) -P CMakeFiles/vision_genlisp.dir/cmake_clean.cmake
 .PHONY : vision/CMakeFiles/vision_genlisp.dir/clean
 
 vision/CMakeFiles/vision_genlisp.dir/depend:
-	cd /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/src /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/src/vision /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/build /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/build/vision /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/build/vision/CMakeFiles/vision_genlisp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/vision /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/vision/CMakeFiles/vision_genlisp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : vision/CMakeFiles/vision_genlisp.dir/depend
 

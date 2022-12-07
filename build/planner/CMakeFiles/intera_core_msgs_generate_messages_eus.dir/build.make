@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/src
+CMAKE_SOURCE_DIR = /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/build
+CMAKE_BINARY_DIR = /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build
 
 # Utility rule file for intera_core_msgs_generate_messages_eus.
 
@@ -63,10 +63,10 @@ planner/CMakeFiles/intera_core_msgs_generate_messages_eus.dir/build: intera_core
 .PHONY : planner/CMakeFiles/intera_core_msgs_generate_messages_eus.dir/build
 
 planner/CMakeFiles/intera_core_msgs_generate_messages_eus.dir/clean:
-	cd /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/build/planner && $(CMAKE_COMMAND) -P CMakeFiles/intera_core_msgs_generate_messages_eus.dir/cmake_clean.cmake
+	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/planner && $(CMAKE_COMMAND) -P CMakeFiles/intera_core_msgs_generate_messages_eus.dir/cmake_clean.cmake
 .PHONY : planner/CMakeFiles/intera_core_msgs_generate_messages_eus.dir/clean
 
 planner/CMakeFiles/intera_core_msgs_generate_messages_eus.dir/depend:
-	cd /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/src /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/src/planner /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/build /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/build/planner /home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/build/planner/CMakeFiles/intera_core_msgs_generate_messages_eus.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/src/planner /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/planner /home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/build/planner/CMakeFiles/intera_core_msgs_generate_messages_eus.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : planner/CMakeFiles/intera_core_msgs_generate_messages_eus.dir/depend
 

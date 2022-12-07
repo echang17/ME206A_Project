@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
-  "/home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/devel/share/roseus/ros/vision/manifest.l"
-  "/home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/devel/share/roseus/ros/vision/msg/SawyerCog.l"
-  "/home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/devel/share/roseus/ros/vision/msg/VisualData.l"
+  "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/manifest.l"
+  "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg/SawyerCog.l"
+  "/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/devel/share/roseus/ros/vision/msg/VisualData.l"
   "CMakeFiles/vision_generate_messages_eus"
 )
 

@@ -1,4 +1,4 @@
-prefix=/home/cc/ee106a/fa22/class/ee106a-ahh/ME206A_Project/install
+prefix=/home/cc/ee106a/fa22/class/ee106a-adg/ME206A_Project/install
 
 Name: planner
 Description: Description of planner
