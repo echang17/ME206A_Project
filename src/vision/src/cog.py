@@ -31,13 +31,17 @@ def callback(message):
             m4_pos = (message.m4.pose.position.x, message.m4.pose.position.y, message.m4.pose.position.z)
 
             dist = m2_pos[0] - hand_pos[0]
-            sawyer_x_cog = m4_pos[0] + dist
-            sawyer_x_init = (m4_pos[0] + m3_pos[0]) / 2
+            sawyer_x_cog = m4_pos[0] + dist # center of gravity x for end effector
+            sawyer_x_init = (m4_pos[0] + m3_pos[0]) / 2 # finds center to play end effector
             sawyer_y = m2_pos[1] + message.obj_length
             sawyer_z = m2_pos[2]
 
             sawyer_cog = Pose()
-            sawyer_cog.position.x = sawyer_x_cog
+            if hand_pos[0] > m2_pos[0] or hand_pos[0] < m1_pos[0]:
+              print("human hand not on board")
+              sawyer_cog.position.x = sawyer_x_init #default to middle if human not on the board
+            else:  
+              sawyer_cog.position.x = sawyer_x_cog
             sawyer_cog.position.y = sawyer_y - gripper_offset
             sawyer_cog.position.z = sawyer_z
             
