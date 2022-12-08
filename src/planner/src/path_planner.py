@@ -58,6 +58,7 @@ class PathPlanner(object):
 
         # Instantiate a move group
         self._group = moveit_commander.MoveGroupCommander(group_name)
+        print(self._group)
 
         # Set the maximum time MoveIt will try to plan before giving up
         self._group.set_planning_time(5)
@@ -122,26 +123,35 @@ class PathPlanner(object):
         
         return plan
 
-    # def plan_to_pose(self, target, orientation_constraints):
-    #     """
-    #     Generates a plan given an end effector pose subject to orientation constraints
-    #     Inputs:
-    #     target: A geometry_msgs/PoseStamped message containing the end effector pose goal
-    #     orientation_constraints: A list of moveit_msgs/OrientationConstraint messages
-    #     Outputs:
-    #     path: A moveit_msgs/RobotTrajectory path
-    #     """
+    def plan_to_pose_old(self, target, orientation_constraints):
+        """
+        Generates a plan given an end effector pose subject to orientation constraints
+        Inputs:
+        target: A geometry_msgs/PoseStamped message containing the end effector pose goal
+        orientation_constraints: A list of moveit_msgs/OrientationConstraint messages
+        Outputs:
+        path: A moveit_msgs/RobotTrajectory path
+        """
+        # self._group.set_pose_target(target)
+        # self._group.set_start_state_to_current_state()
 
-    #     self._group.set_pose_target(target)
-    #     self._group.set_start_state_to_current_state()
+        # constraints = Constraints()
+        # constraints.orientation_constraints = orientation_constraints
+        # self._group.set_path_constraints(constraints)
 
-    #     constraints = Constraints()
-    #     constraints.orientation_constraints = orientation_constraints
-    #     self._group.set_path_constraints(constraints)
+        # plan = self._group.plan()
+        print("mark1")
+        self._group.set_pose_target(target)
+        print("mark2")
+        self._group.set_start_state_to_current_state()
 
-    #     plan = self._group.plan()
+        constraints = Constraints()
+        constraints.orientation_constraints = orientation_constraints
+        self._group.set_path_constraints(constraints)
 
-    #     return plan
+        plan = self._group.plan()
+
+        return plan
 
     def execute_plan(self, plan):
         """
@@ -154,44 +164,45 @@ class PathPlanner(object):
         return self._group.execute(plan, True)
 
 
-    # def add_box_obstacle(self, size, name, pose):
-    #     """
-    #     Adds a rectangular prism obstacle to the planning scene
+    def add_box_obstacle(self, size, name, pose):
+        """
+        Adds a rectangular prism obstacle to the planning scene
 
-    #     Inputs:
-    #     size: 3x' ndarray; (x, y, z) size of the box (in the box's body frame)
-    #     name: unique name of the obstacle (used for adding and removing)
-    #     pose: geometry_msgs/PoseStamped object for the CoM of the box in relation to some frame
-    #     """    
+        Inputs:
+        size: 3x' ndarray; (x, y, z) size of the box (in the box's body frame)
+        name: unique name of the obstacle (used for adding and removing)
+        pose: geometry_msgs/PoseStamped object for the CoM of the box in relation to some frame
+        """    
+        x = PoseStamped()
+        x.pose = pose
+        # Create a CollisionObject, which will be added to the planning scene
+        co = CollisionObject()
+        co.operation = CollisionObject.ADD
+        co.id = name
+        co.header = x.header
 
-    #     # Create a CollisionObject, which will be added to the planning scene
-    #     co = CollisionObject()
-    #     co.operation = CollisionObject.ADD
-    #     co.id = name
-    #     co.header = pose.header
+        # Create a box primitive, which will be inside the CollisionObject
+        box = SolidPrimitive()
+        box.type = SolidPrimitive.BOX
+        box.dimensions = size
 
-    #     # Create a box primitive, which will be inside the CollisionObject
-    #     box = SolidPrimitive()
-    #     box.type = SolidPrimitive.BOX
-    #     box.dimensions = size
+        # Fill the collision object with primitive(s)
+        co.primitives = [box]
+        co.primitive_poses = [x.pose]
 
-    #     # Fill the collision object with primitive(s)
-    #     co.primitives = [box]
-    #     co.primitive_poses = [pose.pose]
+        # Publish the object
+        self._planning_scene_publisher.publish(co)
 
-    #     # Publish the object
-    #     self._planning_scene_publisher.publish(co)
+    def remove_obstacle(self, name):
+        """
+        Removes an obstacle from the planning scene
 
-    # def remove_obstacle(self, name):
-    #     """
-    #     Removes an obstacle from the planning scene
+        Inputs:
+        name: unique name of the obstacle
+        """
 
-    #     Inputs:
-    #     name: unique name of the obstacle
-    #     """
+        co = CollisionObject()
+        co.operation = CollisionObject.REMOVE
+        co.id = name
 
-    #     co = CollisionObject()
-    #     co.operation = CollisionObject.REMOVE
-    #     co.id = name
-
-    #     self._planning_scene_publisher.publish(co)
+        self._planning_scene_publisher.publish(co)

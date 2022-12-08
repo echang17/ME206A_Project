@@ -1,0 +1,2 @@
+ar_track_alvar/ar_track_alvar:ar_track_alvar/ar_track_alvar_msgs:planner:vision
+-DCATKIN_DEVEL_PREFIX=/home/cc/ee106a/fa22/class/ee106a-ahh/final/ME206A_Project/devel -DCMAKE_INSTALL_PREFIX=/home/cc/ee106a/fa22/class/ee106a-ahh/final/ME206A_Project/install -G Unix Makefiles

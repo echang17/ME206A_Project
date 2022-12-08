@@ -56,7 +56,9 @@ def getWFPoseStamped(marker_string):
   m.header.stamp = ts # store corresponding timestamp
   m.header.frame_id = id # store corresponding reference frame name
   m.pose.orientation = rot # store rotation in reference/base frame
-  m.pose.position = trans # store translation in reference/base frame
+  m.pose.position.x = trans.x # store translation in reference/base frame
+  m.pose.position.y = trans.y # store translation in reference/base frame
+  m.pose.position.z = trans.z # store translation in reference/base frame
 
   return m
 
@@ -77,19 +79,24 @@ def getWFAlteredPose(marker_string, axis_and_offset):
   id = t.header.frame_id # transform frame associated with this data (reference/base)
   trans = t.transform.translation # translation/position coordinates
   rot = t.transform.rotation # rotation coordinates
-  R_base_artag = tr.quaternion_matrix(rot)
-  full_trans = np.array([trans.pose.position.x, trans.pose.position.y, trans.pose.position.z])
-  full_trans_homog = np.array([trans.pose.position.x, trans.pose.position.y, trans.pose.position.z, 1.0])
+  # print(trans)
+  R_base_artag = tr.quaternion_matrix([rot.x, rot.y, rot.z, rot.w])
+
+  full_trans = np.array([trans.x, trans.y, trans.z])
+  full_trans_homog = np.array([trans.x, trans.y, trans.z, 1.0])
   axis_and_offset_homog = np.array([axis_and_offset[0], axis_and_offset[1], axis_and_offset[2], 1])
   inv_rot = np.linalg.inv(R_base_artag)
-  trans_from_artag = full_trans + np.dot(inv_rot[0:2,0:2], axis_and_offset)
+  trans_from_artag = full_trans + np.dot(inv_rot[0:3,0:3], axis_and_offset)
   
   # create PoseStamped object and give it reference/base transformed pose + other info
   m = PoseStamped() # note that sequence id will be left empty
   m.header.stamp = ts # store corresponding timestamp
   m.header.frame_id = id # store corresponding reference frame name
   m.pose.orientation = rot # store rotation in reference/base frame
-  m.pose.position = trans_from_artag # store translation in reference/base frame
+  # m.pose.position = trans_from_artag # store translation in reference/base frame
+  m.pose.position.x = trans_from_artag[0] # store translation in reference/base frame
+  m.pose.position.y = trans_from_artag[1] # store translation in reference/base frame
+  m.pose.position.z = trans_from_artag[2] # store translation in reference/base frame
 
   return m
 
@@ -121,11 +128,11 @@ def callback(message,args):
         obj_ref_marker = 1 # list m1 as reference marker
 
         # store center point coordinates in xy frame - CHECK THIS!!!
-        m1x = m1.pose.position.x 
-        m1y = m1.pose.position.y
-        z_dict[1] = m1.pose.position.z
-        cpx = m1x - obj_width/2 # x axis to human operator's right (human facing markers 1(R) and 2(L))
-        cpy = m1y + obj_length/2 # y axis to human operator's forward
+        # m1x = m1.pose.position.x 
+        # m1y = m1.pose.position.y
+        # z_dict[1] = m1.pose.position.z
+        # cpx = m1x - obj_width/2 # x axis to human operator's right (human facing markers 1(R) and 2(L))
+        # cpy = m1y + obj_length/2 # y axis to human operator's forward
       elif message.markers[i].id == 2: # MARKER 2: ar_marker_2 is visible
         m2 = getWFPoseStamped('ar_marker_2')
         # note marker availability
@@ -134,11 +141,11 @@ def callback(message,args):
         obj_ref_marker = 2
 
         # store center point coordinates in xy frame - CHECK THIS!!!
-        m2x = m2.pose.position.x 
-        m2y = m2.pose.position.y 
-        z_dict[2] = m2.pose.position.z
-        cpx = m2x + obj_width/2 # x axis to human operator's right
-        cpy = m2y + obj_length/2 # y axis to human operator's forward
+        # m2x = m2.pose.position.x 
+        # m2y = m2.pose.position.y 
+        # z_dict[2] = m2.pose.position.z
+        # cpx = m2x + obj_width/2 # x axis to human operator's right
+        # cpy = m2y + obj_length/2 # y axis to human operator's forward
       elif message.markers[i].id == 3: # MARKER 3: ar_marker_3 is visible
         m3 = getWFPoseStamped('ar_marker_3')
         # note marker availability
@@ -147,11 +154,11 @@ def callback(message,args):
         obj_ref_marker = 3
 
         # store center point coordinates in xy frame - CHECK THIS!!!
-        m3x = m3.pose.position.x 
-        m3y = m3.pose.position.y 
-        z_dict[3] = m3.pose.position.z
-        cpx = m3x + obj_width/2 # x axis to human operator's right
-        cpy = m3y - obj_length/2 # y axis to human operator's forward
+        # m3x = m3.pose.position.x 
+        # m3y = m3.pose.position.y 
+        # z_dict[3] = m3.pose.position.z
+        # cpx = m3x + obj_width/2 # x axis to human operator's right
+        # cpy = m3y - obj_length/2 # y axis to human operator's forward
       elif message.markers[i].id == 4: # MARKER 4: ar_marker_4 is visible
         m4 = getWFPoseStamped('ar_marker_4')
         # note marker availability
@@ -160,11 +167,11 @@ def callback(message,args):
         ojb_ref_marker = 4
 
         # store center point coordinates in xy frame - CHECK THIS!!!
-        m4x = m4.pose.position.x 
-        m4y = m4.pose.position.y 
-        z_dict[4] = m4.pose.position.z
-        cpx = m4x - obj_width/2 # x axis to human operator's right
-        cpy = m4y - obj_length/2 # y axis to human operator's forward
+        # m4x = m4.pose.position.x 
+        # m4y = m4.pose.position.y 
+        # z_dict[4] = m4.pose.position.z
+        # cpx = m4x - obj_width/2 # x axis to human operator's right
+        # cpy = m4y - obj_length/2 # y axis to human operator's forward
       elif message.markers[i].id == 5: # HUMAN MARKER: ar_marker_5 is visible
         human_ar = getWFPoseStamped('ar_marker_5')
         # note marker availability
@@ -180,12 +187,12 @@ def callback(message,args):
     # calculated previously by sawyer_vision_calib.py
     obj_length = args[0]
     obj_width = args[1]
-    print(obj_length)
-    print(obj_width)
+    # print(obj_length)
+    # print(obj_width)
 
     # find missing markers and interpolate them
     missing_ids = list(set(allobj_ids) - set(avail_ids))
-    print(missing_ids)
+    # print(missing_ids)
 
 
     # CHECK BELOW: DEALING WITH MISSING MARKER PART- LOOP PART IS WRONG(?) & OFFSETS ARE WRONG
@@ -198,6 +205,8 @@ def callback(message,args):
     #   curr_avail_marker = updated_avail_ids[j]
 
     # if there is at least 1 available marker, interpolate any missing ones & publish:
+    
+    
     if len(avail_ids) != 0: 
       if len(missing_ids) != 0: # if there are any missing markers
         curr_avail_marker = avail_ids[0] # arbitrarily start with first available
@@ -271,8 +280,9 @@ def callback(message,args):
     
     
       # only publish if at least one object marker is available
+      print(m4)
       pub.publish(VisualData(obj_length,obj_width,m1,m2,m3,m4,human_ar))
-      print('publishing to /tag_info')
+      # print('publishing to /tag_info')
   except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
     pass
 
@@ -320,8 +330,8 @@ if __name__ == '__main__':
 
   # object dimensions calculated from sawyer_vision_calib.py
   # pass these in as command line arguments
-  length = sys.argv[1]
-  width = sys.argv[2]
+  length = float(sys.argv[1])
+  width = float(sys.argv[2])
 
   # create instances of tfBuffer and tfListener
   tfBuffer = tf2_ros.Buffer()

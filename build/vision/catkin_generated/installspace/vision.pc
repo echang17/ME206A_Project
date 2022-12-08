@@ -1,0 +1,8 @@
+prefix=/home/cc/ee106a/fa22/class/ee106a-ahh/final/ME206A_Project/install
+
+Name: vision
+Description: Description of vision
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: rospy sensor_msgs geometry_msgs message_runtime

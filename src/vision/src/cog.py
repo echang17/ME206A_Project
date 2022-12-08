@@ -17,7 +17,7 @@ from vision.msg import VisualData
 from vision.msg import SawyerCog
 
 
-pub = rospy.Publisher('/waypoint', SawyerCog, queue_size=10)
+pub = rospy.Publisher('/waypoint', Pose, queue_size=10)
 
 def callback(message):
     while not rospy.is_shutdown():
@@ -64,7 +64,8 @@ def callback(message):
             
             print(sawyer_init)
 
-            pub.publish(SawyerCog(sawyer_cog, sawyer_init))
+            # pub.publish(SawyerCog(sawyer_cog, sawyer_init))
+            pub.publish(sawyer_init)
         except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
           pass
 

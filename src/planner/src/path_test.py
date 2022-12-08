@@ -18,6 +18,7 @@ from std_msgs.msg import String
 
 from path_planner import PathPlanner
 import matplotlib.pyplot as plt
+from vision.msg import VisualData
 
 import pickle
 
@@ -294,11 +295,11 @@ class PathExecutor(object):
         p2.orientation.y = 1.0
 
         p3 = Pose()
-        p3.position = Point(x = 0.691, y= 0.4, z = -0.14)
+        p3.position = Point(x = 0.691, y= 0.4, z = -0.13)
         p3.orientation.y = 1.0
 
         p4 = Pose()
-        p4.position = Point(x = 0.691, y= 0.2, z = -0.14)
+        p4.position = Point(x = 0.691, y= 0.2, z = -0.13)
         p4.orientation.y = 1.0
 
         plan = self.planner.plan_to_pose([p1, p2, p3, p4])
