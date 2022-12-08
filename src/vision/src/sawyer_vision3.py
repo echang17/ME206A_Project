@@ -119,6 +119,12 @@ def callback(message,args):
 
     # If marker is visible, transform it to reference/base and store as PoseStamped object
     # loop through all markers visible
+    m1 = None
+    m2 = None
+    m3 = None
+    m4 = None
+    human_ar = None
+
     for i in range(len(message.markers)): 
       if message.markers[i].id == 1: # MARKER 1: ar_marker_1 is visible
         m1 = getWFPoseStamped('ar_marker_1')
@@ -164,7 +170,7 @@ def callback(message,args):
         # note marker availability
         avail_ids.append(4)
         pose_dict[4] = m4
-        ojb_ref_marker = 4
+        obj_ref_marker = 4
 
         # store center point coordinates in xy frame - CHECK THIS!!!
         # m4x = m4.pose.position.x 
@@ -172,16 +178,16 @@ def callback(message,args):
         # z_dict[4] = m4.pose.position.z
         # cpx = m4x - obj_width/2 # x axis to human operator's right
         # cpy = m4y - obj_length/2 # y axis to human operator's forward
-      elif message.markers[i].id == 5: # HUMAN MARKER: ar_marker_5 is visible
-        human_ar = getWFPoseStamped('ar_marker_5')
+      elif message.markers[i].id == 8: # HUMAN MARKER: ar_marker_8 is visible
+        human_ar = getWFPoseStamped('ar_marker_8')
         # note marker availability
-        hum_ref_marker = 5
+        hum_ref_marker = 8
 
-    # print error messages
-    if obj_ref_marker == -1: # looped through and could not find any object markers
-      print('no object markers detected')
-    if hum_ref_marker == -1: # looped through and could not find human marker
-      print('human marker not detected')
+    # # print error messages
+    # if obj_ref_marker == -1: # looped through and could not find any object markers
+    #   print('no object markers detected')
+    # if hum_ref_marker == -1: # looped through and could not find human marker
+    #   print('human marker not detected')
 
     # object shape: distances between pairs of markers
     # calculated previously by sawyer_vision_calib.py
@@ -195,7 +201,7 @@ def callback(message,args):
     # print(missing_ids)
 
 
-    # CHECK BELOW: DEALING WITH MISSING MARKER PART- LOOP PART IS WRONG(?) & OFFSETS ARE WRONG
+    # Interpolation 
     # idea: take visible marker and check if adjacents are there- if not, reconstruct them
   
     # updated_avail_ids = copy.deepcopy(avail_ids) # make a copy of available ids to update as reconstruction occurs    
@@ -207,7 +213,7 @@ def callback(message,args):
     # if there is at least 1 available marker, interpolate any missing ones & publish:
     
     
-    if len(avail_ids) != 0: 
+    if len(avail_ids) != 0 and hum_ref_marker != -1: 
       if len(missing_ids) != 0: # if there are any missing markers
         curr_avail_marker = avail_ids[0] # arbitrarily start with first available
 
@@ -280,9 +286,14 @@ def callback(message,args):
     
     
       # only publish if at least one object marker is available
-      print(m4)
+      # print(m4)
+      # if (counter %50 == 0):
+
       pub.publish(VisualData(obj_length,obj_width,m1,m2,m3,m4,human_ar))
-      # print('publishing to /tag_info')
+      print('publishing to /tag_info')
+    else:
+      print('Not Published')
+      # counter += 1
   except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
     pass
 
@@ -339,6 +350,7 @@ if __name__ == '__main__':
 
   # Check if the node has received a signal to shut down
   # If not, run the marker_locator method
+  
   try:
     print ('Sawyer Vision is Running')
     marker_locator(length,width)

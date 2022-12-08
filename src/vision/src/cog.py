@@ -19,55 +19,45 @@ from vision.msg import SawyerCog
 
 pub = rospy.Publisher('/waypoint', Pose, queue_size=10)
 
-def callback(message):
-    while not rospy.is_shutdown():
-        try:
-            print("reading vision node")
-            gripper_offset = 0.2
-            hand_pos = (message.human_ar.pose.position.x, message.human_ar.pose.position.y, message.human_ar.pose.position.z)
-            m1_pos = (message.m1.pose.position.x, message.m1.pose.position.y, message.m1.pose.position.z)
-            m2_pos = (message.m2.pose.position.x, message.m2.pose.position.y, message.m2.pose.position.z)
-            m3_pos = (message.m3.pose.position.x, message.m3.pose.position.y, message.m3.pose.position.z)
-            m4_pos = (message.m4.pose.position.x, message.m4.pose.position.y, message.m4.pose.position.z)
+def callback(message): 
+  # while not rospy.is_shutdown():
+  try:
+    # print("reading vision node")
+    gripper_offset = 0.2
+    hand_pos = (message.human_ar.pose.position.x, message.human_ar.pose.position.y, message.human_ar.pose.position.z)
+    m1_pos = (message.m1.pose.position.x, message.m1.pose.position.y, message.m1.pose.position.z)
+    m2_pos = (message.m2.pose.position.x, message.m2.pose.position.y, message.m2.pose.position.z)
+    m3_pos = (message.m3.pose.position.x, message.m3.pose.position.y, message.m3.pose.position.z)
+    m4_pos = (message.m4.pose.position.x, message.m4.pose.position.y, message.m4.pose.position.z)
 
-            dist = m1_pos[0] - hand_pos[0]
-            sawyer_x_cog = m3_pos[0] + dist # center of gravity x for end effector
-            sawyer_x_init = (m4_pos[0] + m3_pos[0]) / 2 # finds center to play end effector
-            sawyer_y = m4_pos[1]
-            sawyer_z = m2_pos[2]
+    dist = m1_pos[0] - hand_pos[0]
+    sawyer_x_cog = m3_pos[0] + dist # center of gravity x for end effector
+    sawyer_x_init = (m4_pos[0] + m3_pos[0]) / 2 # finds center to play end effector
+    sawyer_y = m4_pos[1]
+    sawyer_z = m2_pos[2]
 
-            sawyer_cog = Pose()
-            if hand_pos[0] < m2_pos[0] or hand_pos[0] > m1_pos[0]:
-              print("human hand not on board")
-              sawyer_cog.position.x = sawyer_x_init #default to middle if human not on the board
-            else:  
-              sawyer_cog.position.x = sawyer_x_cog
-            sawyer_cog.position.y = sawyer_y + gripper_offset
-            sawyer_cog.position.z = sawyer_z
-            
-            sawyer_cog.orientation.x = 0
-            sawyer_cog.orientation.y = 1
-            sawyer_cog.orientation.z = 0.0
-            sawyer_cog.orientation.w = 0.0
-            
-            sawyer_init = Pose()
-            sawyer_init.position.x = sawyer_x_init
-            sawyer_init.position.y = sawyer_y + gripper_offset
-            sawyer_init.position.z = sawyer_z
-            
-            sawyer_init.orientation.x = 0
-            sawyer_init.orientation.y = 1
-            sawyer_init.orientation.z = 0.0
-            sawyer_init.orientation.w = 0.0
-            
-            print(sawyer_cog)
-            
-            print(sawyer_init)
-
-            # pub.publish(SawyerCog(sawyer_cog, sawyer_init))
-            pub.publish(sawyer_init)
-        except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
-          pass
+    sawyer_cog = Pose()
+    # print("human:", hand_pos)
+    # print("m1:", m1_pos)
+    # print("m2:", m2_pos)
+    if hand_pos[0] < m2_pos[0] or hand_pos[0] > m1_pos[0]:
+      # print("human hand not on board")
+      # print("human hand x pos", hand_pos[0])
+      # print("m1 x pos", m1_pos[0])
+      # print("m2 x pos", m2_pos[0])
+      sawyer_cog.position.x = sawyer_x_init #default to middle if human not on the board
+    else:  
+      # print("human hand on board //")
+      sawyer_cog.position.x = sawyer_x_cog - 0.031
+    sawyer_cog.position.y = sawyer_y + 0.2
+    sawyer_cog.position.z = sawyer_z + 0.122
+    sawyer_cog.orientation.y = 1.0
+    print(sawyer_cog.position)
+    pub.publish(sawyer_cog)
+    print("Published!")
+  except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
+    pass
+  rospy.sleep(0.1)
 
 def get_cog():
      rospy.Subscriber("/tag_info", VisualData, callback)

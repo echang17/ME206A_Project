@@ -140,6 +140,8 @@ class Controller(object):
             try:
                 with open('comm.pickle', 'rb') as handle:
                     tar = pickle.load(handle)
+                print("Target Position", tar[0])
+                print("Target Velocity", tar[1])
                 self.target_position = tar[0]
                 self.target_velocity = tar[1]
                 if(self.counter %10 == 0):

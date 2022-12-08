@@ -315,7 +315,7 @@ class PathExecutor(object):
 
         r = rospy.Rate(35) # 3hz
         z_start = -0.15
-        z_end = 0.1
+        z_end = 0.05
         num_points = 50
 
         step_size = float(abs(z_start - z_end))/(num_points-1)
@@ -328,7 +328,6 @@ class PathExecutor(object):
             a = [0.691, 0.2, i]
             print("Printing A: ", a)
             points.append(a)
-
 
         for i in points:
             p1 = Pose()
@@ -358,8 +357,7 @@ class PathExecutor(object):
 
         # FEEDBACK CONTROL
         # Subscribe to the waypoint topic from ar_to_waypoint
-        rospy.Subscriber("/waypoint", Pose, self.callback)
-
+        self.repeat()
         # # # testing
         # x_start = -0.3662
         # x_end = 0.6842
@@ -400,31 +398,40 @@ class PathExecutor(object):
         #         print(e)
         #         traceback.print_exc()
         #     # break
-        
+    
+    def repeat(self):
+        rospy.Subscriber("/waypoint", Pose, self.callback, queue_size=30)
+        rospy.spin()
 
     # Callback function whenever a waypoint is received (how long are you going to update this value?)
     def callback(self, waypoint):
-        print("Received Waypoint!")
-        plan = self.planner.plan_to_pose([waypoint])
-        trajectory = plan.joint_trajectory.points
-
-        # get the second last point in the velocity vector
-        # get the target_position
-        # assumption is that, if the time difference is small enough, the 2nd last point is representative of the velicoties
-        target_pos = trajectory[-1].positions 
-        target_vel = trajectory[-2].velocities 
+        t = (rospy.Time.now()).to_sec()
+        print("Received Waypoint!, time: ", t)
+        print("Waypoint", waypoint)
+        try:
+            plan = self.planner.plan_to_pose([waypoint])
+            trajectory = plan.joint_trajectory.points
+            
+            # get the second last point in the velocity vector
+            # get the target_position
+            # assumption is that, if the time difference is small enough, the 2nd last point is representative of the velicoties
+            target_pos = trajectory[-1].positions 
+            target_vel = trajectory[-2].velocities 
+            
+            # update the target position of the controller
+            a = (target_pos, target_vel)
+            with open('comm.pickle', 'wb') as handle:
+                pickle.dump(a, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        except Exception as e:
+            print("couldn't Write File")
+    
+    # def run(self):
         
-        # update the target position of the controller
-        a = (target_pos, target_vel)
-        with open('comm.pickle', 'wb') as handle:
-            pickle.dump(a, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-    def run(self):
-        rospy.spin()
 
 
 if __name__ == '__main__':
     # rospy.init_node('moveit_node')
-    pe = PathExecutor()
-    pe.run()
+    PathExecutor()
+    # pe.run()
+    rospy.spin()
     # main()
