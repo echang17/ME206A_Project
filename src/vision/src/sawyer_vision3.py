@@ -188,86 +188,91 @@ def callback(message,args):
     print(missing_ids)
 
 
-
     # CHECK BELOW: DEALING WITH MISSING MARKER PART- LOOP PART IS WRONG(?) & OFFSETS ARE WRONG
     # idea: take visible marker and check if adjacents are there- if not, reconstruct them
   
-    updated_avail_ids = copy.deepcopy(avail_ids) # make a copy of available ids to update as reconstruction occurs
-    j = 0 # initialize counter for indexing through the constantly updating list of available ids
-    while length(missing_ids) != 0: # only run if any are missing markers
-    # for j in range(len(allobj_ids)): # loop through number of all object markers
-      curr_avail_marker = updated_avail_ids[j] 
-      # check if adjacent markers available:
-      if curr_avail_marker == 1:
-        if 2 in missing_ids:
-          axis_and_offset2 = np.array([obj_width, 0, 0]) # FIX
-          m2 = getWFAlteredPose('ar_marker_1', axis_and_offset2)
-          updated_avail_ids.append(2)
-          missing_ids.remove(2)
-        if 3 in missing_ids:
-          axis_and_offset3 = np.array([0, obj_length, 0]) # FIX
-          m3 = getWFAlteredPose('ar_marker_1', axis_and_offset3)
-          updated_avail_ids.append(3)
-          missing_ids.remove(3)
-        if 4 in missing_ids:
-          axis_and_offset4 = np.array([obj_width, obj_length, 0]) #FIX
-          m4 = getWFAlteredPose('ar_marker_1', axis_and_offset4)
-          updated_avail_ids.append(4)
-          missing_ids.remove(4)
-      elif curr_avail_marker == 2:
-        if 1 in missing_ids:
-          axis_and_offset1 = np.array([obj_width, 0, 0]) # FIX
-          m1 = getWFAlteredPose('ar_marker_2', axis_and_offset1)
-          updated_avail_ids.append(1)
-          missing_ids.remove(1)
-        if 3 in missing_ids:
-          axis_and_offset3 = np.array([0, obj_length, 0]) # FIX
-          m3 = getWFAlteredPose('ar_marker_2', axis_and_offset3)
-          updated_avail_ids.append(3)
-          missing_ids.remove(3)
-        if 4 in missing_ids:
-          axis_and_offset4 = np.array([obj_width, obj_length, 0]) #FIX
-          m4 = getWFAlteredPose('ar_marker_2', axis_and_offset4)
-          updated_avail_ids.append(4)
-          missing_ids.remove(4)
-      elif curr_avail_marker == 3:
-        if 1 in missing_ids:
-          axis_and_offset1 = np.array([obj_width, 0, 0]) # FIX
-          m1 = getWFAlteredPose('ar_marker_3', axis_and_offset1)
-          updated_avail_ids.append(1)
-          missing_ids.remove(1)
-        if 2 in missing_ids:
-          axis_and_offset2 = np.array([0, obj_length, 0]) # FIX
-          m2 = getWFAlteredPose('ar_marker_3', axis_and_offset2)
-          updated_avail_ids.append(2)
-          missing_ids.remove(2)
-        if 4 in missing_ids:
-          axis_and_offset4 = np.array([obj_width, obj_length, 0]) #FIX
-          m4 = getWFAlteredPose('ar_marker_3', axis_and_offset4)
-          updated_avail_ids.append(4)
-          missing_ids.remove(4)
-      elif curr_avail_marker == 4:
-        if 1 in missing_ids:
-          axis_and_offset1 = np.array([obj_width, 0, 0]) # FIX
-          m1 = getWFAlteredPose('ar_marker_4', axis_and_offset1)
-          updated_avail_ids.append(1)
-          missing_ids.remove(1)
-        if 2 in missing_ids:
-          axis_and_offset2 = np.array([0, obj_length, 0]) # FIX
-          m2 = getWFAlteredPose('ar_marker_4', axis_and_offset2)
-          updated_avail_ids.append(2)
-          missing_ids.remove(2)
-        if 3 in missing_ids:
-          axis_and_offset3 = np.array([obj_width, obj_length, 0]) #FIX
-          m3 = getWFAlteredPose('ar_marker_4', axis_and_offset3)
-          updated_avail_ids.append(3)
-          missing_ids.remove(3)
-      j += 1 # increment counter every loop
-   
-  
-   
-    pub.publish(VisualData(obj_length,obj_width,m1,m2,m3,m4,human_ar))
-    print('publishing to /tag_info')
+    # updated_avail_ids = copy.deepcopy(avail_ids) # make a copy of available ids to update as reconstruction occurs    
+    # j = 0 # initialize counter for indexing through the constantly updating list of available ids
+    # while len(missing_ids) != 0: # only run if any are missing markers
+    # # for j in range(len(allobj_ids)): # loop through number of all object markers
+    #   curr_avail_marker = updated_avail_ids[j]
+
+    # if there is at least 1 available marker, interpolate any missing ones & publish:
+    if len(avail_ids) != 0: 
+      if len(missing_ids) != 0: # if there are any missing markers
+        curr_avail_marker = avail_ids[0] # arbitrarily start with first available
+
+        # check if adjacent markers available:
+        if curr_avail_marker == 1:
+          if 2 in missing_ids:
+            axis_and_offset2 = np.array([obj_width, 0, 0]) # +x into robot base
+            m2 = getWFAlteredPose('ar_marker_1', axis_and_offset2)
+            # updated_avail_ids.append(2)
+            # missing_ids.remove(2)
+          if 3 in missing_ids:
+            axis_and_offset3 = np.array([obj_width, -obj_length, 0]) # +y toward human grasp side
+            m3 = getWFAlteredPose('ar_marker_1', axis_and_offset3)
+            # updated_avail_ids.append(3)
+            # missing_ids.remove(3)
+          if 4 in missing_ids:
+            axis_and_offset4 = np.array([0, -obj_length, 0])
+            m4 = getWFAlteredPose('ar_marker_1', axis_and_offset4)
+            # updated_avail_ids.append(4)
+            # missing_ids.remove(4)
+        elif curr_avail_marker == 2:
+          if 1 in missing_ids:
+            axis_and_offset1 = np.array([-obj_width, 0, 0]) # +x into robot base
+            m1 = getWFAlteredPose('ar_marker_2', axis_and_offset1)
+            # updated_avail_ids.append(1)
+            # missing_ids.remove(1)
+          if 3 in missing_ids:
+            axis_and_offset3 = np.array([0, -obj_length, 0])  
+            m3 = getWFAlteredPose('ar_marker_2', axis_and_offset3) # +y toward human grasp side
+            # updated_avail_ids.append(3)
+            # missing_ids.remove(3)
+          if 4 in missing_ids:
+            axis_and_offset4 = np.array([-obj_width, -obj_length, 0])
+            m4 = getWFAlteredPose('ar_marker_2', axis_and_offset4)
+            # updated_avail_ids.append(4)
+            # missing_ids.remove(4)
+        elif curr_avail_marker == 3:
+          if 1 in missing_ids:
+            axis_and_offset1 = np.array([-obj_width, obj_length, 0]) # +x into robot base
+            m1 = getWFAlteredPose('ar_marker_3', axis_and_offset1)
+            # updated_avail_ids.append(1)
+            # missing_ids.remove(1)
+          if 2 in missing_ids:
+            axis_and_offset2 = np.array([0, obj_length, 0]) # +y toward human grasp side
+            m2 = getWFAlteredPose('ar_marker_3', axis_and_offset2)
+            # updated_avail_ids.append(2)
+            # missing_ids.remove(2)
+          if 4 in missing_ids:
+            axis_and_offset4 = np.array([-obj_width, 0, 0])
+            m4 = getWFAlteredPose('ar_marker_3', axis_and_offset4)
+            # updated_avail_ids.append(4)
+            # missing_ids.remove(4)
+        elif curr_avail_marker == 4:
+          if 1 in missing_ids:
+            axis_and_offset1 = np.array([0, obj_length, 0]) # +x into robot base
+            m1 = getWFAlteredPose('ar_marker_4', axis_and_offset1)
+            # updated_avail_ids.append(1)
+            # missing_ids.remove(1)
+          if 2 in missing_ids:
+            axis_and_offset2 = np.array([obj_width, obj_length, 0]) # +y toward human grasp side
+            m2 = getWFAlteredPose('ar_marker_4', axis_and_offset2)
+            # updated_avail_ids.append(2)
+            # missing_ids.remove(2)
+          if 3 in missing_ids:
+            axis_and_offset3 = np.array([obj_width, 0, 0]) 
+            m3 = getWFAlteredPose('ar_marker_4', axis_and_offset3)
+            # updated_avail_ids.append(3)
+            # missing_ids.remove(3)
+          # j += 1 # increment counter every loop
+    
+    
+      # only publish if at least one object marker is available
+      pub.publish(VisualData(obj_length,obj_width,m1,m2,m3,m4,human_ar))
+      print('publishing to /tag_info')
   except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
     pass
 
