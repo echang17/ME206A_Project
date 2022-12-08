@@ -18,11 +18,9 @@ from vision.msg import SawyerCog
 
 
 pub = rospy.Publisher('/waypoint', Pose, queue_size=10)
-c = 0
 
 def callback(message): 
   # while not rospy.is_shutdown():
-  global c
   try:
     # print("reading vision node")
     gripper_offset = 0.2
@@ -52,18 +50,14 @@ def callback(message):
       # print("human hand on board //")
       sawyer_cog.position.x = sawyer_x_cog - 0.031
     sawyer_cog.position.y = sawyer_y + 0.2
-    sawyer_cog.position.z = sawyer_z + 0.162
+    sawyer_cog.position.z = sawyer_z + 0.122
     sawyer_cog.orientation.y = 1.0
-    
-    if (c%1000 == 0):
-      print(c)
-      print(sawyer_cog.position)
-      pub.publish(sawyer_cog)
-      print("Published!")
-    c = c + 1
-    
+    print(sawyer_cog.position)
+    pub.publish(sawyer_cog)
+    print("Published!")
   except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
     pass
+  rospy.sleep(0.1)
 
 def get_cog():
      rospy.Subscriber("/tag_info", VisualData, callback)

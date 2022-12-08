@@ -291,15 +291,15 @@ class PathExecutor(object):
         p1.orientation.y = 1.0
 
         p2 = Pose()
-        p2.position = Point(x = 0.691, y= 0.4, z = 0.386)
+        p2.position = Point(x = 0.691, y= 0.43, z = 0.386)
         p2.orientation.y = 1.0
 
         p3 = Pose()
-        p3.position = Point(x = 0.691, y= 0.4, z = -0.13)
+        p3.position = Point(x = 0.691, y= 0.43, z = -0.12)
         p3.orientation.y = 1.0
 
         p4 = Pose()
-        p4.position = Point(x = 0.691, y= 0.2, z = -0.13)
+        p4.position = Point(x = 0.691, y= 0.23, z = -0.12)
         p4.orientation.y = 1.0
 
         plan = self.planner.plan_to_pose([p1, p2, p3, p4])

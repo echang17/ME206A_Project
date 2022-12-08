@@ -89,6 +89,7 @@ roslaunch vision ar_track.launch
 rosrun intera_interface joint_trajectory_action_server.py
 roslaunch sawyer_moveit_config sawyer_moveit.launch electric_gripper:=true
 rosrun planner path_test.py
+
 rosrun vision ar_to_waypoint_node.py
 
 
