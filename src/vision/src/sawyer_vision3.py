@@ -77,12 +77,12 @@ def getWFAlteredPose(marker_string, axis_and_offset):
   id = t.header.frame_id # transform frame associated with this data (reference/base)
   trans = t.transform.translation # translation/position coordinates
   rot = t.transform.rotation # rotation coordinates
-  R_base_artag = tr.quaternion_matrix(rot)
-  full_trans = np.array([trans.pose.position.x, trans.pose.position.y, trans.pose.position.z])
-  full_trans_homog = np.array([trans.pose.position.x, trans.pose.position.y, trans.pose.position.z, 1.0])
-  axis_and_offset_homog = np.array([axis_and_offset[0], axis_and_offset[1], axis_and_offset[2], 1])
+  R_base_artag = tr.quaternion_matrix([rot.x, rot.y, rot.z, rot.w])
+  full_trans = np.array([trans.x, trans.y, trans.z])
+  # full_trans_homog = np.array([trans.x, trans.y, trans.z, 1.0])
+  # axis_and_offset_homog = np.array([axis_and_offset[0], axis_and_offset[1], axis_and_offset[2], 1])
   inv_rot = np.linalg.inv(R_base_artag)
-  trans_from_artag = full_trans + np.dot(inv_rot[0:2,0:2], axis_and_offset)
+  trans_from_artag = full_trans + np.dot(inv_rot[0:3,0:3], axis_and_offset)
   
   # create PoseStamped object and give it reference/base transformed pose + other info
   m = PoseStamped() # note that sequence id will be left empty
@@ -105,8 +105,8 @@ def callback(message,args):
     # print('number of markers detected:',len(message.markers))
     allobj_ids = [1,2,3,4] # object ids only
     avail_ids = [] # initialize variable to store visible marker ids
-    pose_dict = {} # initialize dictionary to store visible marker ids and their pose
-    z_dict = {} # initialize dictionary to store visible marker ids and their z coordinates
+    # pose_dict = {} # initialize dictionary to store visible marker ids and their pose
+    # z_dict = {} # initialize dictionary to store visible marker ids and their z coordinates
     obj_ref_marker = -1 # initialized reference marker number as -1 to check if no object markers visible (for marker interpolation)
     hum_ref_marker = -1 # initialized reference marker number as -1 to check if human_ar marker is visible
 
@@ -117,54 +117,54 @@ def callback(message,args):
         m1 = getWFPoseStamped('ar_marker_1')
         # note marker availability
         avail_ids.append(1) # add 1 to available marker ids
-        pose_dict[1] = m1 # add m1 to dictionary of markers
+        # pose_dict[1] = m1 # add m1 to dictionary of markers
         obj_ref_marker = 1 # list m1 as reference marker
 
         # store center point coordinates in xy frame - CHECK THIS!!!
-        m1x = m1.pose.position.x 
-        m1y = m1.pose.position.y
-        z_dict[1] = m1.pose.position.z
-        cpx = m1x - obj_width/2 # x axis to human operator's right (human facing markers 1(R) and 2(L))
-        cpy = m1y + obj_length/2 # y axis to human operator's forward
+        # m1x = m1.pose.position.x 
+        # m1y = m1.pose.position.y
+        # z_dict[1] = m1.pose.position.z
+        # cpx = m1x - obj_width/2 # x axis to human operator's right (human facing markers 1(R) and 2(L))
+        # cpy = m1y + obj_length/2 # y axis to human operator's forward
       elif message.markers[i].id == 2: # MARKER 2: ar_marker_2 is visible
         m2 = getWFPoseStamped('ar_marker_2')
         # note marker availability
         avail_ids.append(2)
-        pose_dict[2] = m2
+        # pose_dict[2] = m2
         obj_ref_marker = 2
 
         # store center point coordinates in xy frame - CHECK THIS!!!
-        m2x = m2.pose.position.x 
-        m2y = m2.pose.position.y 
-        z_dict[2] = m2.pose.position.z
-        cpx = m2x + obj_width/2 # x axis to human operator's right
-        cpy = m2y + obj_length/2 # y axis to human operator's forward
+        # m2x = m2.pose.position.x 
+        # m2y = m2.pose.position.y 
+        # z_dict[2] = m2.pose.position.z
+        # cpx = m2x + obj_width/2 # x axis to human operator's right
+        # cpy = m2y + obj_length/2 # y axis to human operator's forward
       elif message.markers[i].id == 3: # MARKER 3: ar_marker_3 is visible
         m3 = getWFPoseStamped('ar_marker_3')
         # note marker availability
         avail_ids.append(3)
-        pose_dict[3] = m3
+        # pose_dict[3] = m3
         obj_ref_marker = 3
 
         # store center point coordinates in xy frame - CHECK THIS!!!
-        m3x = m3.pose.position.x 
-        m3y = m3.pose.position.y 
-        z_dict[3] = m3.pose.position.z
-        cpx = m3x + obj_width/2 # x axis to human operator's right
-        cpy = m3y - obj_length/2 # y axis to human operator's forward
+        # m3x = m3.pose.position.x 
+        # m3y = m3.pose.position.y 
+        # z_dict[3] = m3.pose.position.z
+        # cpx = m3x + obj_width/2 # x axis to human operator's right
+        # cpy = m3y - obj_length/2 # y axis to human operator's forward
       elif message.markers[i].id == 4: # MARKER 4: ar_marker_4 is visible
         m4 = getWFPoseStamped('ar_marker_4')
         # note marker availability
         avail_ids.append(4)
-        pose_dict[4] = m4
+        # pose_dict[4] = m4
         ojb_ref_marker = 4
 
         # store center point coordinates in xy frame - CHECK THIS!!!
-        m4x = m4.pose.position.x 
-        m4y = m4.pose.position.y 
-        z_dict[4] = m4.pose.position.z
-        cpx = m4x - obj_width/2 # x axis to human operator's right
-        cpy = m4y - obj_length/2 # y axis to human operator's forward
+        # m4x = m4.pose.position.x 
+        # m4y = m4.pose.position.y 
+        # z_dict[4] = m4.pose.position.z
+        # cpx = m4x - obj_width/2 # x axis to human operator's right
+        # cpy = m4y - obj_length/2 # y axis to human operator's forward
       elif message.markers[i].id == 5: # HUMAN MARKER: ar_marker_5 is visible
         human_ar = getWFPoseStamped('ar_marker_5')
         # note marker availability
@@ -320,8 +320,8 @@ if __name__ == '__main__':
 
   # object dimensions calculated from sawyer_vision_calib.py
   # pass these in as command line arguments
-  length = sys.argv[1]
-  width = sys.argv[2]
+  length = float(sys.argv[1])
+  width = float(sys.argv[2])
 
   # create instances of tfBuffer and tfListener
   tfBuffer = tf2_ros.Buffer()
